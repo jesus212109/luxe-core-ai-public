@@ -1,0 +1,91 @@
+# /opt3/data/i22ferlj/luxe-core-ai/.gitignore
+
+### C++ / Build System ###
+build/
+bin/
+lib/
+*.o
+*.a
+*.so
+*.out
+CMakeCache.txt
+CMakeFiles/
+CMakeScripts/
+cmake_install.cmake
+install_manifest.txt
+compile_commands.json
+
+### Python / Environments ###
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+env/
+venv/
+.uv/
+.python-version
+
+### LaTeX (TFG Documentation) ###
+# Ignore all auxiliary files generated during compilation
+docs/*.aux
+docs/*.log
+docs/*.toc
+docs/*.out
+docs/*.fdb_latexmk
+docs/*.fls
+docs/*.synctex.gz
+docs/*.lof
+docs/*.lot
+docs/*.bbl
+docs/*.blg
+
+# Explicitly allow PDFs for TFG version tracking
+!docs/*.pdf
+
+### Data & Models ###
+data/
+*.pt
+*.onnx
+*.weights
+*.bin
+
+### Logs & Temp ###
+*.log
+logs/
+tmp/
+.ipynb_checkpoints
+
+### IDE & OS ###
+.vscode/*
+!.vscode/settings.json
+!.vscode/extensions.json
+.history/
+.DS_Store
+Thumbs.db
+
+### Project Specific ###
+.env
+config/*.local.yaml
+
+# OpenClaw workspace (contiene tokens y config privada)
+.openclaw/
+
+# Antiguo directorio de nodo cliente Edge (obsoleto, pero seguro mantenerlo ignorado)
+.client/
+
+# Modelos de IA descargados (Ollama, Whisper, etc. — se regeneran)
+server/models/
+
+# Workspace de edición LaTeX (contexto del agente, no parte del proyecto)
+latex_workspace/
+
+# Capturas BLE y logs de firmware
+firmware/*.log
+
+# Configuración agentica (solo AGENTS.md se versiona)
+.cursor/
+CLAUDE.md
+.github/copilot-instructions.md
+opencode.json
+.windsurf/
+.trae/firmware/*.log

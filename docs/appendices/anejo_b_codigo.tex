@@ -1,0 +1,249 @@
+\makeatletter
+\renewcommand{\verbatim@font}{\footnotesize\ttfamily}
+\makeatother
+
+\chapter{Manual de Código}
+\label{cap:manual_codigo}
+
+Este anexo recoge los fragmentos de código más significativos del proyecto. No se incluye el código completo de cada archivo (eso duplicaría sin sentido el repositorio) sino los extractos que mejor ilustran las decisiones de diseño y el funcionamiento interno del sistema. El código fuente completo está disponible en el repositorio público del proyecto~\cite{repo_publico}.
+
+\section{Enrutador de Tres Niveles (Model Router v2)}
+
+El núcleo del enrutador está en \texttt{server/model\_router/router.py}. El siguiente fragmento muestra el bucle principal de clasificación:
+
+\begin{verbatim}
+async def route_message(self, message: str) -> RouterResponse:
+    # Tier 0: Zero-inference --- patrón directo, sin LLM
+    tier0_result = self.tier0.match(message)
+    if tier0_result != Tier0Result.UNKNOWN:
+        return await self._execute_tier0(tier0_result)
+    
+    # Tier 1: Clasificador 1.5B --- si está disponible
+    if self.circuit_breaker.state != CircuitState.OPEN:
+        try:
+            tier1_result = await self._classify_tier1(message)
+            if tier1_result != Classification.DELEGAR:
+                return tier1_result
+        except ModelUnavailableError:
+            self.circuit_breaker.record_failure()
+    
+    # Tier 2: Razonador 7B --- carga bajo demanda
+    return await self._reason_tier2(message)
+\end{verbatim}
+
+\textbf{Notas:} La función \texttt{match()} de Tier 0 implementa 462 patrones exactos más expresiones regulares. El \texttt{circuit\_breaker} evita intentar clasificar si el modelo 1.5B está caído.
+
+\section{Sistema de Zero-Inference (Tier 0)}
+
+El motor de \textit{pattern matching} de Tier~0 es el nivel más utilizado del enrutador, capturando aproximadamente el 92\% de los comandos diarios. Su funcionamiento es simple pero efectivo: cada patrón se define como una tupla de (expresión regular, categoría, acción) y se evalúa secuencialmente hasta encontrar una coincidencia. El siguiente fragmento de \texttt{server/model\_router/config.py} ilustra la estructura:
+
+\begin{verbatim}
+# Fragmento representativo de los 462 patrones de Tier 0
+
+PATTERNS = [
+    # Iluminación (35 variantes)
+    (r"enciende la luz|luz on|luces", "light", "on"),
+    (r"apaga la luz|luz off|luces off", "light", "off"),
+    (r"modo noche|buenas noches", "light", "night_mode"),
+    
+    # Ventilador (50 variantes)
+    (r"ventilador (velocidad )?(?P<speed>[1-5])", "fan", "set_speed"),
+    (r"ventilador (off|apaga|para)", "fan", "off"),
+    (r"ventilador (máximo|max|a tope)", "fan", "max"),
+    
+    # Escenas (40 variantes)
+    (r"modo cine|modo peli", "scene", "cinema"),
+    (r"apagar todo|todo off", "scene", "all_off"),
+    (r"modo estudio|modo trabajar", "scene", "study"),
+    
+    # Consultas rápidas (15 variantes)
+    (r"cómo está la casa|estado", "query", "status"),
+    (r"qué temperatura (hace|hay)", "query", "temperature"),
+    (r"qué humedad hay", "query", "humidity"),
+]
+
+class Tier0Matcher:
+    def match(self, message: str) -> Tier0Result:
+        msg_lower = message.lower().strip()
+        for regex, category, action in PATTERNS:
+            m = re.search(regex, msg_lower)
+            if m:
+                params = m.groupdict()
+                return Tier0Result(category, action, params)
+        return Tier0Result.UNKNOWN
+\end{verbatim}
+
+Los patrones incluyen variantes con muletillas (``eh'', ``pues''), dialectalismos andaluces (``arroza'', ``apaga'') y formas abreviadas (``vel3'', ``luz off''). La función \texttt{match()} se ejecuta en menos de 1~ms en RAM, y aproximadamente 1.5--4~s cuando implica comandar hardware real a través del puente ESP32.
+
+\section{Daemon de Sensorización Continua}
+
+El \texttt{sensor\_daemon.py} ejecuta un bucle infinito con una cadencia de 60 segundos. El siguiente fragmento muestra la lógica de almacenamiento atómico:
+
+\begin{verbatim}
+def _atomic_write_json(data: dict, path: Path) -> None:
+    """Escribe datos JSON con atomicidad (write + rename)."""
+    tmp = path.with_suffix('.tmp')
+    tmp.write_text(json.dumps(data, indent=2) + '\n')
+    tmp.rename(path)
+\end{verbatim}
+
+\section{Asesor de Confort Térmico (Comfort Advisor)}
+
+El cálculo del índice de calor NOAA y la asignación de zonas térmicas se implementa en \texttt{server/model\_router/comfort.py}:
+
+\begin{verbatim}
+def evaluate_comfort(temp_c: float, humidity_pct: float) -> ComfortResult:
+    temp_f = temp_c * 9.0 / 5.0 + 32.0
+    
+    # Índice de calor (Rothfusz)
+    hi_f = (-42.379 + 2.04901523 * temp_f
+            + 10.14333127 * humidity_pct
+            - 0.22475541 * temp_f * humidity_pct
+            - 6.83783e-3 * temp_f**2
+            - 5.481717e-2 * humidity_pct**2
+            + 1.22874e-3 * temp_f**2 * humidity_pct
+            + 8.5282e-4 * temp_f * humidity_pct**2
+            - 1.99e-6 * temp_f**2 * humidity_pct**2)
+    
+    hi_c = (hi_f - 32.0) * 5.0 / 9.0
+    
+    if hi_c < 23:
+        zone = ThermalZone.FRESH
+    elif hi_c < 26:
+        zone = ThermalZone.COMFORTABLE
+    elif hi_c < 28:
+        zone = ThermalZone.WARM
+    elif hi_c < 31:
+        zone = ThermalZone.HOT
+    elif hi_c < 34:
+        zone = ThermalZone.VERY_HOT
+    else:
+        zone = ThermalZone.EXTREME
+    
+    return ComfortResult(heat_index=hi_c, zone=zone, ...)
+\end{verbatim}
+
+\section{Control del Ventilador FanLamp (Anuncios BLE)}
+
+El script \texttt{scripts/fanlamp\_bt.py} envía comandos al ventilador mediante anuncios BLE:
+
+\begin{verbatim}
+def send_command(cmd_name: str):
+    subprocess.run(['sudo', 'systemctl', 'stop', 'bluetoothd'],
+                   check=True)
+    group1, group2 = COMMANDS[cmd_name]
+    for _ in range(5):
+        subprocess.run(['sudo', 'btmgmt', 'add-adv', '-c', '-d',
+                       group1, '-u', group1], check=True)
+        time.sleep(0.05)
+        subprocess.run(['sudo', 'btmgmt', 'add-adv', '-c', '-d',
+                       group2, '-u', group2], check=True)
+        time.sleep(0.05)
+    subprocess.run(['sudo', 'systemctl', 'start', 'bluetoothd'],
+                   check=True)
+\end{verbatim}
+
+\section{Integración Tuya (Protocolo Local 3.5)}
+
+El módulo \texttt{server/integrations/tuya\_devices.py} encapsula la comunicación con el enchufe inteligente:
+
+\begin{verbatim}
+@dataclass
+class TuyaDeviceConfig:
+    device_id: str
+    local_key: str
+    address: str        # 192.168.1.100
+    version: float = 3.5
+    timeout: int = 5
+
+class TuyaSmartPlug:
+    def __init__(self, config: TuyaDeviceConfig):
+        self._device = tinytuya.OutletDevice(
+            config.device_id, config.address, config.local_key)
+        self._device.set_version(config.version)
+    
+    def is_on(self) -> bool:
+        status = self._device.status()
+        return status.get('dps', {}).get('1', False)
+    
+    def set_state(self, on: bool) -> None:
+        self._device.set_value('1', on)
+    
+    def toggle(self) -> None:
+        self.set_state(not self.is_on())
+\end{verbatim}
+
+\section{Lectura GATT de Sensores Xiaomi}
+
+El módulo \texttt{server/integrations/ble\_sensors.py} implementa la lectura de los sensores LYWSD03MMC mediante BLE GATT:
+
+\begin{verbatim}
+SERVICE_UUID = "ebe0ccb0-7a0a-4b0c-8a1a-6ff2997da3a6"
+CHAR_UUID    = "ebe0ccc1"
+
+async def read_sensor(address: str) -> SensorReading:
+    async with BleakClient(address) as client:
+        raw = await client.read_gatt_char(CHAR_UUID)
+    
+    temp_raw  = struct.unpack_from('<h', raw, 0)[0]
+    humidity  = raw[2]
+    battery   = struct.unpack_from('<H', raw, 3)[0]
+    
+    return SensorReading(
+        temperature_c=temp_raw / 100.0,
+        humidity_pct=float(humidity),
+        battery_mv=battery,
+        rssi=client.rssi
+    )
+\end{verbatim}
+
+\section{Auto-Recuperación (Circuit Breaker)}
+
+El \textit{circuit breaker} se implementa en el propio router:
+
+\begin{verbatim}
+class CircuitBreaker:
+    CLOSED = "CLOSED"
+    OPEN = "OPEN"
+    HALF_OPEN = "HALF_OPEN"
+    
+    def __init__(self, fail_threshold: int = 3, 
+                 recovery_timeout: int = 30):
+        self.fail_count = 0
+        self.state = self.CLOSED
+        self.last_fail: float = 0
+    
+    def record_failure(self):
+        self.fail_count += 1
+        if self.fail_count >= self.fail_threshold:
+            self.state = self.OPEN
+            self.last_fail = time.time()
+    
+    def try_acquire(self) -> bool:
+        if self.state == self.OPEN:
+            if time.time() - self.last_fail > self.recovery_timeout:
+                self.state = self.HALF_OPEN
+                return True
+            return False
+        return True
+\end{verbatim}
+
+% ==============================================================================
+% FRAGMENTOS PENDIENTES (módulos no implementados)
+% ==============================================================================
+%
+% 1. Firmware HVAC (ESP32, C++20):
+%    - Parser de tramas LIN del protocolo General/Fujitsu
+%    - Bucle principal de comunicación serie/TCP con el servidor
+%
+% 2. Base de datos SQLite (db_manager.py):
+%    - Esquema de tablas de telemetría
+%    - Consultas de cálculo PMV (ASHRAE 55)
+%
+% 3. Aprendizaje adaptativo:
+%    - Modelos de reinforcement learning para predicción de hábitos
+%
+% 4. Integración de nuevos protocolos (Zigbee, Z-Wave):
+%    - Drivers y bridges correspondientes
+%
+% ==============================================================================

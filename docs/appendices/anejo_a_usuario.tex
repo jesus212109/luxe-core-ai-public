@@ -1,0 +1,426 @@
+\chapter{Manual de Usuario}
+\label{cap:manual_usuario}
+
+\section{Introducción}
+
+Este manual está dirigido al usuario final del sistema de control térmico y confort ambiental implementado en el domicilio del autor durante el desarrollo de este proyecto. Las instrucciones y ejemplos se basan en el hardware concreto utilizado (sensores Xiaomi LYWSD03MMC, enchufe inteligente Tuya, ESP32 DevKit V1, ventilador FanLamp F8808) y en la configuración de red específica del proyecto (subred \texttt{192.168.1.0/24} aislada de Internet).
+
+Está pensado para un usuario doméstico: no hace falta saber programación ni entender de redes para usar el sistema en el día a día, aunque ciertas operaciones avanzadas (como añadir un dispositivo nuevo o restaurar el ESP32) requieren algo de familiaridad con la línea de comandos. Para una explicación de los términos técnicos empleados, consúltese el Glosario de Acrónimos (Anexo~\ref{cap:glosario}).
+
+Para una guía de reproducción rápida con los pasos ordenados y tiempos estimados, consúltese la Sección~\ref{sec:checklist}.
+
+\section{Requisitos del Sistema}
+
+\subsection{Hardware Necesario}
+
+\begin{itemize}
+    \item \textbf{Servidor:} un ordenador con Ubuntu Server 24.04 LTS, mínimo 8~GB de RAM (16~GB recomendado) y al menos 20~GB de disco libre para los modelos de lenguaje. El servidor debe tener un puerto Ethernet libre y, preferiblemente, Bluetooth integrado.
+    \item \textbf{Router:} cualquier router que pueda operar sin conexión WAN. No necesita acceso a Internet para el funcionamiento diario del sistema.
+    \item \textbf{Microcontrolador:} un ESP32 DevKit V1 (Figura~\ref{fig:hw_esp32}), conectado por USB-C al servidor. Actúa como puente de comunicaciones BLE para el ventilador y los sensores.
+    \item \textbf{Enchufe inteligente:} un dispositivo Tuya compatible con protocolo 3.5 (Figura~\ref{fig:tuya_plug}), emparejado mediante el procedimiento de \textit{Hotspot Spoofing} (Capítulo~\ref{cap:restricciones_metodologia}).
+    \item \textbf{Sensor ambiental:} uno o más sensores Xiaomi LYWSD03MMC (Figura~\ref{fig:xiaomi_sensor}) u otros sensores BLE con GATT legible sin autenticación.
+    \item \textbf{Ventilador:} FanLamp Pro F8808 (Figura~\ref{fig:fanlamp}) o cualquier dispositivo BLE anunciado compatible.
+\end{itemize}
+
+\subsection{Red Necesaria}
+
+Todos los dispositivos deben estar en la misma subred local, aislada de Internet (configuración \textit{air-gapped}), como muestra la Figura~\ref{fig:despliegue}. El servidor se conecta por Ethernet a un puerto LAN del router, y los dispositivos IoT (enchufe Tuya, portátil de administración) se conectan por Wi-Fi. Los sensores Xiaomi y el ventilador FanLamp se comunican directamente por Bluetooth Low Energy con el ESP32, sin necesidad de conexión Wi-Fi.
+
+Las direcciones IP que se muestran a continuación corresponden a la configuración por defecto del sistema. Pueden adaptarse a cualquier otra subred siguiendo la misma estructura:
+
+\begin{itemize}
+    \item Servidor: \texttt{192.168.1.50/24} (Ethernet)
+    \item Router: \texttt{192.168.1.1/24}
+    \item Enchufe Tuya: \texttt{192.168.1.100/24} (Wi-Fi)
+    \item Portátil de administración: \texttt{192.168.1.101/24} (Wi-Fi)
+\end{itemize}
+
+A lo largo de este manual se utilizarán estas direcciones como referencia. Si tu configuración usa direcciones distintas, sustitúyelas en los comandos y rutas que se indican.
+
+\section{Instalación Paso a Paso}
+
+\subsection{Conexión Física}
+
+\begin{enumerate}
+    \item Conecta el servidor al router mediante un cable Ethernet a un puerto LAN (no al puerto WAN).
+    \item Conecta el ESP32 al servidor mediante un cable USB-C.
+    \item Enchufa el router, el servidor y los dispositivos Tuya a la corriente.
+    \item Inserta las pilas en los sensores Xiaomi (dos pilas AAA, orientación según las marcas del compartimento).
+    \item Asegúrate de que el ventilador FanLamp recibe corriente a través del interruptor de pared.
+\end{enumerate}
+
+\subsection{Instalación de Software y Primer Arranque}
+\label{sec:instalacion_software}
+
+Tras la conexión física, el servidor necesita que se instale y configure el software necesario. Sigue estos pasos en orden:
+
+\subsubsection*{Preparación del Bot de Telegram (opcional pero recomendado)}
+
+Si deseas usar Telegram para controlar el sistema, necesitas crear un bot y obtener su token \textbf{antes} de ejecutar el asistente de configuración:
+
+\begin{enumerate}
+    \item Abre Telegram en tu teléfono y busca \texttt{@BotFather} (el usuario oficial de Telegram para crear bots).
+    \item Envía el comando \texttt{/newbot}.
+    \item Sigue las instrucciones: elige un nombre para tu bot (por ejemplo, ``Luxe Home'') y un nombre de usuario que termine en \texttt{bot} (por ejemplo, \texttt{luxe\_home\_bot}).
+    \item BotFather te responderá con un mensaje que contiene el token de la API. Copia ese token (es una cadena como \texttt{123456789:ABCdefGHIjklmNOPqrSTUvwxYZ}).
+    \item Este token se utilizará durante la configuración de OpenClaw en el paso de canales de comunicación.
+\end{enumerate}
+
+\subsubsection*{Instalación de Ollama y Modelos}
+
+\begin{enumerate}
+    \item Instala Ollama, el servidor de inferencia local para modelos de lenguaje:
+\begin{verbatim}
+curl -fsSL https://ollama.ai/install.sh | bash
+\end{verbatim}
+    \item Descarga los modelos de lenguaje necesarios para el sistema:
+\begin{verbatim}
+ollama pull qwen2.5-coder:1.5b
+ollama pull qwen2.5-coder:7b
+ollama pull bge-m3
+\end{verbatim}
+    \item Verifica que los modelos están disponibles:
+\begin{verbatim}
+ollama list
+\end{verbatim}
+\end{enumerate}
+
+\subsubsection*{Instalación de OpenClaw y Asistente de Configuración}
+
+\begin{enumerate}
+    \item Instala OpenClaw, el \textit{framework} agéntico que orquesta el sistema:
+\begin{verbatim}
+curl -fsSL https://openclaw.ai/install.sh | bash
+\end{verbatim}
+    Este comando descarga e instala OpenClaw y, a continuación, lanza automáticamente el asistente de configuración interactivo. No es necesario ejecutar ningún comando adicional.
+
+    El asistente guiará por varias pantallas consecutivas:
+
+    \begin{itemize}
+        \item \textbf{Proveedor de IA:} permite elegir entre numerosos proveedores (Ollama local, OpenAI, Anthropic, Google, etc.). Si se selecciona Ollama, se puede escoger el modelo deseado de entre los que se descargaron previamente (por ejemplo, \texttt{qwen2.5-coder:7b}). Una vez funcionando, se pueden añadir más modelos y cambiar entre ellos en cualquier momento.
+
+        \item \textbf{Workspace y Gateway:} se aceptan las rutas por defecto. El puerto del Gateway será el \texttt{18789}.
+
+        \item \textbf{Canales de comunicación:} el asistente pregunta si se desea configurar Telegram. Si se responde afirmativamente, solicitará el token del bot obtenido de @BotFather. El proceso se explica paso a paso en el propio asistente. También se puede omitir y configurarlo más adelante.
+
+        \item \textbf{Herramientas de búsqueda web:} el asistente ofrece múltiples opciones (DuckDuckGo ---que funciona sin API key---, Google Gemini, SearXNG, etc.). Se puede configurar más adelante si no se desea en ese momento.
+
+        \item \textbf{Verificación:} el asistente comprobará que el Gateway se ha iniciado correctamente y mostrará un mensaje de confirmación.
+    \end{itemize}
+
+    Si en el futuro necesitas modificar la configuración (cambiar de proveedor de IA, añadir un canal, activar la búsqueda web, etc.), puedes re-ejecutar el asistente en cualquier momento con \texttt{openclaw onboard}. No borra configuraciones previas a menos que se elija explícitamente la opción Reset.
+
+    \item Tras completar el asistente, abre el \textit{dashboard} web para confirmar que todo funciona:
+\begin{verbatim}
+openclaw dashboard
+\end{verbatim}
+    El comando \texttt{openclaw dashboard} arranca el gateway automáticamente si está detenido y abre la interfaz web en el navegador. Es la forma recomendada de iniciar el sistema cada vez que se enciende el servidor.
+\end{enumerate}
+
+\subsubsection*{Solución de Problemas tras la Instalación}
+
+Si tras el asistente el bot no responde o el \textit{dashboard} no carga:
+
+\begin{itemize}
+    \item Verifica que Ollama está ejecutándose y los modelos están disponibles: \texttt{ollama list}.
+    \item Comprueba el estado del Gateway: \texttt{openclaw gateway status}.
+    \item Revisa los logs del Gateway: \texttt{openclaw logs --follow}.
+    \item Si el asistente falló en algún paso, se puede re-ejecutar: \texttt{openclaw onboard}. No borra configuraciones previas a menos que se elija explícitamente la opción Reset.
+    \item Si el dashboard no carga, verifica que el servidor responde: \texttt{ping 192.168.1.50}.
+\end{itemize}
+
+\subsection{Primer Comando}
+
+\begin{enumerate}
+    \item Abre Telegram y busca el bot de Luxe Core AI (el que creaste con @BotFather).
+    \item Envía ``Hola'' o ``Cómo está la casa''.
+    \item El bot te responderá con el estado actual de los dispositivos. Si es la primera vez, puede tardar unos segundos mientras se inicializan los modelos.
+    \item Prueba comandos sencillos: ``Enciende la luz'', ``Velocidad 3'', ``Qué temperatura hace''.
+\end{enumerate}
+
+\section{Canales de Comunicación}
+
+El sistema se controla de dos formas complementarias:
+
+\begin{itemize}
+    \item \textbf{Telegram:} es el canal principal para el uso cotidiano. Busca el bot de Luxe Core AI en Telegram y escribe cualquier mensaje en lenguaje natural. El bot entiende español coloquial, incluyendo expresiones como ``velocidad 3'', ``enciende la luz'', ``cómo está la casa'' o ``buenos días''. Responde tanto a comandos directos como a preguntas abiertas.
+    \item \textbf{Dashboard web:} interfaz de administración accesible en \texttt{http://192.168.1.50:18789}. Permite ver el estado detallado del sistema, consultar conversaciones anteriores, modificar archivos de configuración, gestionar la memoria de los agentes y acceder a ventanas de ajustes avanzados. Es el canal recomendado para tareas de configuración y diagnóstico.
+\end{itemize}
+
+\section{Comandos Disponibles}
+
+El sistema reconoce más de 460 comandos en español, procesados en tres niveles según su complejidad:
+
+\begin{itemize}
+    \item \textbf{Respuesta inmediata:} los comandos directos como ``apaga la luz'' se reconocen mediante patrones y se ejecutan en milisegundos, sin necesidad de modelos de IA.
+    \item \textbf{Clasificación inteligente:} los comandos ambiguos o con variantes se analizan con un clasificador de IA ligero (1.5B parámetros) que los categoriza y ejecuta en aproximadamente 300~ms.
+    \item \textbf{Conversación abierta:} las preguntas que requieren contexto o razonamiento se responden con el modelo de lenguaje principal (7B parámetros), que tarda entre 5 y 30~segundos en generar una respuesta.
+\end{itemize}
+
+No hace falta memorizar los comandos: basta con hablar de forma natural. Si el sistema no entiende algo, preguntará o delegará al nivel superior de procesamiento.
+
+\subsection{Iluminación}
+\begin{itemize}
+    \item ``Enciende la luz'' o ``Luz on''
+    \item ``Apaga la luz'' o ``Luz off''
+    \item ``Modo noche'' (atenúa la luz del ventilador)
+\end{itemize}
+
+\subsection{Ventilador}
+\begin{itemize}
+    \item ``Ventilador velocidad 3'' o ``Pon el ventilador a 3''
+    \item ``Ventilador off'' o ``Para el ventilador''
+    \item ``Ventilador máximo'' (velocidad 5)
+\end{itemize}
+
+\subsection{Enchufe Inteligente}
+\begin{itemize}
+    \item ``Enciende el enchufe'' o ``Activa el extractor''
+    \item ``Apaga el enchufe'' o ``Desactiva el extractor''
+\end{itemize}
+
+\subsection{Escenas Predefinidas}
+\begin{itemize}
+    \item ``Modo noche'' --- apaga todo, modo noche en ventilador
+    \item ``Modo cine'' --- apaga luces, ajusta ventilador
+    \item ``Modo lectura'' --- luz encendida, ventilador suave
+    \item ``Apagar todo'' --- todos los dispositivos off
+\end{itemize}
+
+\subsection{Consultas}
+\begin{itemize}
+    \item ``Cómo está la casa'' --- estado de todos los dispositivos
+    \item ``Qué temperatura hace'' --- lectura actual del sensor
+    \item ``Qué temperatura hay fuera'' --- condiciones exteriores
+\end{itemize}
+
+\subsection{Tabla Resumen de Comandos}
+
+\begin{table}[h]
+\centering
+\small
+\begin{tabular}{|l|l|}
+\hline
+\textbf{Categoría} & \textbf{Ejemplos} \\
+\hline
+Iluminación & ``Enciende la luz'', ``Luz on'', ``Luz off'', ``Modo noche'' \\
+Ventilador & ``Velocidad 3'', ``Pon el ventilador a 5'', ``Ventilador off'', ``Ventilador máximo'' \\
+Enchufe & ``Enciende el enchufe'', ``Activa el extractor'', ``Apaga el enchufe'' \\
+Escenas & ``Modo noche'', ``Modo cine'', ``Modo lectura'', ``Apagar todo'' \\
+Consultas & ``Cómo está la casa'', ``Qué temperatura hace'', ``Qué humedad hay'' \\
+\hline
+\end{tabular}
+\caption{Resumen de comandos disponibles por categoría.}
+\label{tab:comandos_resumen}
+\end{table}
+
+\section{Notificaciones Proactivas}
+
+El sistema puede enviar mensajes sin que se los pidas. Por ejemplo:
+
+\begin{itemize}
+    \item ``Hace calor, he subido el ventilador a velocidad 4''
+    \item ``Se acerca una tormenta, he cerrado las ventanas''
+    \item \texttt{[RECUPERADO tras 2 reintentos]} --- el sistema se ha recuperado de un fallo temporal
+\end{itemize}
+
+Si el sistema tiene dudas (por ejemplo, si la temperatura sube un nivel y no sabe si actuar), te preguntará antes de hacer nada. Las auto-acciones solo se ejecutan sin consultar cuando hay certeza de que el usuario se beneficiará, como en zonas de temperatura extrema.
+
+\section{Seguridad}
+
+El sistema está diseñado con la privacidad y la seguridad como principios fundamentales. No obstante, el usuario debe seguir unas pautas básicas para mantener la seguridad del ecosistema:
+
+\begin{itemize}
+    \item \textbf{Red aislada (air-gapped):} la principal medida de seguridad es mantener el router sin conexión a Internet. Ningún paquete de datos generado por los dispositivos IoT puede abandonar la red local, lo que elimina la mayoría de los vectores de ataque remotos.
+    \item \textbf{Acceso físico al servidor:} el servidor debe estar en un lugar seguro y de acceso controlado. Cualquier persona con acceso físico al servidor podría detener los servicios, acceder a los archivos de configuración o leer las \textit{Local Keys} de los dispositivos Tuya.
+    \item \textbf{Contraseñas:} cambia la contraseña del usuario del servidor por una contraseña segura. No uses contraseñas por defecto. Si el sistema se accede por SSH, utiliza autenticación mediante par de llaves RSA en lugar de contraseña.
+    \item \textbf{No exponer servicios a Internet:} no abras puertos del router hacia el servidor. El dashboard web y el acceso SSH deben permanecer accesibles solo dentro de la red local.
+    \item \textbf{Actualizaciones:} mantén el sistema actualizado instalando periódicamente las actualizaciones de seguridad de Ubuntu (Sección~\ref{sec:actualizaciones}).
+\end{itemize}
+
+\section{Solución de Problemas Comunes}
+
+\subsection{Indicadores LED del ESP32}
+
+El ESP32 tiene un LED integrado que proporciona información visual sobre su estado:
+
+\begin{itemize}
+    \item \textbf{LED encendido fijo:} el ESP32 está recibiendo alimentación y el firmware funciona correctamente. Es el estado normal durante la operación.
+    \item \textbf{LED apagado:} el ESP32 no recibe alimentación o el firmware no se ha iniciado. Verifica la conexión USB y que el servidor está encendido.
+    \item \textbf{LED parpadeante:} el ESP32 está en proceso de reinicio o comunicación. Si el parpadeo es continuo y no cesa, el firmware puede estar en un estado de error; prueba a desconectar y reconectar el USB.
+\end{itemize}
+
+\subsection{Casos Frecuentes}
+
+A continuación se enumeran los problemas más comunes ordenados por probabilidad de ocurrencia:
+
+\begin{itemize}
+    \item \textbf{El sistema no responde:} comprueba que el servidor está encendido (\texttt{ping 192.168.1.50}) y que los servicios están activos: \texttt{systemctl status model-router sensor-daemon}. Para OpenClaw, usa \texttt{openclaw gateway status}.
+
+    \item \textbf{El enchufe Tuya no responde:} comprueba que está encendido y que tiene IP en la red (debería ser \texttt{192.168.1.100}). Verifica la conectividad con \texttt{ping 192.168.1.100}. Si no responde, desconéctalo y vuelve a enchufarlo; se reconectará automáticamente a la red.
+
+    \item \textbf{El sensor no da lecturas:} el Sensor Daemon lee cada 60~segundos. Si lleva más de 2~minutos sin datos, reinicia el servicio: \texttt{sudo systemctl restart sensor-daemon}. Si el problema persiste, comprueba la batería del sensor (voltaje inferior a 2500~mV indica batería baja).
+
+    \item \textbf{El dashboard web no carga:} verifica que la IP del servidor es accesible desde tu dispositivo. Prueba a ejecutar \texttt{openclaw dashboard} en el servidor, que arrancará el gateway si está detenido.
+
+    \item \textbf{El ventilador no responde:} puede que el ESP32 esté desconectado o el puerto USB no se haya detectado. Verifica que aparece como dispositivo serie: \texttt{ls /dev/ttyUSB0}. Si no aparece, prueba otro cable USB o reinicia el ESP32 desconectándolo y reconectándolo.
+
+    \item \textbf{Pérdida de conexión WiFi de los dispositivos:} reinicia el router desconectándolo de la corriente durante 10~segundos. Los dispositivos Tuya se reconectarán automáticamente al restablecerse la red.
+
+    \item \textbf{El bot de Telegram no responde:} comprueba que el Gateway está activo con \texttt{openclaw gateway status}. Si lo está y el bot sigue sin responder, verifica que el token del bot es correcto (puede haberse regenerado desde @BotFather).
+
+    \item \textbf{El sistema va lento o los modelos tardan en responder:} comprueba el uso de RAM con \texttt{free -h} en el servidor. Si supera el 90\%, reinicia el servicio \texttt{model-router} para liberar memoria. Considera reducir el número de modelos cargados simultáneamente si el problema es recurrente.
+
+    \item \textbf{Los sensores dan lecturas incorrectas o erráticas:} verifica la batería del sensor. Si el voltaje es inferior a 2500~mV, sustitúyelas. También comprueba la distancia entre el sensor y el servidor (más de 10~metros con obstáculos puede causar pérdida de paquetes BLE).
+
+    \item \textbf{El ESP32 no se detecta en el sistema:} ejecuta \texttt{ls /dev/tty*} para ver los puertos serie disponibles. Si no aparece ningún \texttt{ttyUSB0} ni \texttt{ttyACM0}, prueba otro cable USB o reinicia el servidor. En algunos casos, es necesario instalar los drivers del conversor USB-serie (CP2102 o CH340, según la versión del ESP32).
+
+    \item \textbf{Los comandos de voz no funcionan:} el sistema no incorpora entrada por voz en su versión actual (Capítulo~\ref{cap:conclusiones}). Todos los comandos deben escribirse por Telegram o el dashboard web.
+\end{itemize}
+
+\section{Añadir un Dispositivo Nuevo}
+
+\subsection{Añadir un Dispositivo Tuya}
+
+Los dispositivos Tuya necesitan conectarse a Internet durante el emparejamiento inicial para validar el registro contra la nube del fabricante. Como el sistema opera sobre una red aislada, se aplica la técnica de \textit{Hotspot Spoofing}:
+
+\begin{enumerate}
+    \item Con un teléfono móvil con conexión a datos, crea un punto de acceso WiFi temporal que tenga el \textbf{mismo nombre (SSID) y contraseña} que el router aislado.
+    \item Conecta el dispositivo Tuya a la corriente. Se conectará automáticamente al hotspot del móvil.
+    \item En el servidor, ejecuta \texttt{python -m tinytuya wizard} para extraer la \textit{Local Key} del dispositivo.
+    \item Apaga el hotspot del móvil. El dispositivo Tuya, al encontrar el SSID original (el del router aislado), se conectará a la red local.
+    \item A partir de ese momento, todas las órdenes viajan directamente por la red local, sin depender de Internet.
+\end{enumerate}
+
+La \textit{Local Key} obtenida debe configurarse en el servidor mediante las variables de entorno \texttt{TUYA\_DEVICE\_ID} y \texttt{TUYA\_LOCAL\_KEY} (ver Sección~\ref{sec:checklist}).
+
+\subsection{Añadir un Sensor BLE Xiaomi}
+
+Para añadir un sensor Xiaomi, asegúrate de que el Bluetooth del servidor está activo y que el sensor está cerca (menos de 10~metros, sin obstáculos metálicos entre medias). El servidor lo detectará automáticamente. La dirección MAC del sensor debe estar registrada en la configuración del Sensor Daemon para que comience a leerlo periódicamente.
+
+\section{Mantenimiento}
+
+El sistema está diseñado para funcionar sin intervención durante largos períodos. Las tareas periódicas necesarias son:
+
+\subsection{Actualizaciones de Software}
+\label{sec:actualizaciones}
+Para actualizar el sistema, conecta el servidor a Internet temporalmente mediante la pasarela de contingencia (Capítulo~\ref{cap:restricciones_metodologia}) y ejecuta:
+\begin{verbatim}
+sudo apt update && sudo apt dist-upgrade
+\end{verbatim}
+Tras la actualización, reinicia los servicios del sistema:
+\begin{verbatim}
+sudo systemctl restart model-router sensor-daemon
+openclaw dashboard
+\end{verbatim}
+
+\subsection{Sustitución de Pilas}
+Los sensores Xiaomi funcionan con dos pilas AAA. La duración estimada es de 6~meses con uso continuo. El sistema notifica por Telegram cuando el voltaje de la batería de un sensor baja de 2500~mV, indicando que es momento de cambiarlas.
+
+\subsection{Backup de Configuración}
+Los archivos de configuración del sistema se encuentran en \texttt{/etc/luxe/}. Para hacer una copia de seguridad:
+\begin{verbatim}
+tar -czf luxe-backup-$(date +%Y%m%d).tar.gz /etc/luxe/
+\end{verbatim}
+Se recomienda realizar una copia de seguridad después de cualquier cambio en la configuración.
+
+\subsection{Restauración de Configuración}
+Para restaurar una copia de seguridad previa:
+\begin{verbatim}
+tar -xzf luxe-backup-20260601.tar.gz -C /
+sudo systemctl restart model-router sensor-daemon
+\end{verbatim}
+Asegúrate de usar el nombre exacto del archivo de backup que desees restaurar. La restauración sobreescribirá los archivos de configuración existentes.
+
+\subsection{Restauración del ESP32}
+Si el ESP32 deja de funcionar correctamente o se desea actualizar su firmware:
+\begin{enumerate}
+    \item Conecta el ESP32 al ordenador de desarrollo por USB.
+    \item Abre el proyecto en \texttt{firmware/esp32\_fanlamp/} con PlatformIO.
+    \item Compila y flashea el firmware: \texttt{pio run -t upload}.
+    \item El ESP32 se reiniciará automáticamente con el nuevo firmware.
+\end{enumerate}
+El código fuente completo del firmware está disponible en el repositorio del proyecto~\cite{repo_publico}.
+
+\subsection{Diagnóstico con OpenClaw}
+Si el sistema presenta algún comportamiento anómalo, se puede pedir al agente de OpenClaw que lo diagnostique. Envía un mensaje como ``Comprueba el estado de los servicios'' o ``El ventilador no responde'' y el agente analizará los logs del sistema en busca de errores.
+
+Para tareas de depuración más complejas que requieran un modelo de lenguaje más potente (como DeepSeek o GPT-4), se puede configurar un agente con un proveedor cloud en OpenClaw. Esto requiere conexión a Internet temporal; una vez realizado el diagnóstico, se puede volver a los modelos locales. El sistema base con modelos locales es suficiente para el funcionamiento diario y el diagnóstico de problemas comunes.
+
+\section{Preguntas Frecuentes (FAQ)}
+
+\begin{itemize}
+    \item \textbf{¿Puedo usar cualquier ordenador como servidor?} Sí, siempre que cumpla los requisitos mínimos (8~GB de RAM, Ubuntu Server). Un equipo con procesador moderno y 16~GB de RAM ofrecerá la mejor experiencia.
+
+    \item \textbf{¿Qué pasa si se va la luz?} Cuando vuelva la corriente, el servidor se reiniciará y los servicios systemd (model-router, sensor-daemon) se reanudarán automáticamente. Para que OpenClaw vuelva a estar operativo, ejecuta \texttt{openclaw dashboard} en el servidor, que arrancará el gateway y abrirá la interfaz web. Los dispositivos Tuya y el router también se reconectarán por sí solos.
+
+    \item \textbf{¿Puedo controlar el sistema desde fuera de mi casa?} El sistema está diseñado para funcionar exclusivamente en la red local. Para acceder desde fuera, sería necesario exponer el servicio a Internet, lo que contradice la filosofía de privacidad del proyecto. El canal Telegram utiliza los servidores de Telegram como intermediario, pero las decisiones de control se toman siempre en local.
+
+    \item \textbf{¿Cuánta electricidad consume el sistema?} El servidor consume aproximadamente entre 30 y 60~W en reposo, dependiendo del hardware. El ESP32 consume menos de 1~W. El router típico consume entre 5 y 10~W. En conjunto, el coste eléctrico estimado es inferior a 5~\euro{} al mes.
+
+    \item \textbf{¿Puedo añadir más sensores Xiaomi?} Sí. El sistema puede leer múltiples sensores LYWSD03MMC siempre que estén dentro del alcance Bluetooth del servidor. Cada sensor debe tener su dirección MAC registrada en la configuración del Sensor Daemon, en el archivo \texttt{/etc/luxe/sensors.conf}.
+
+    \item \textbf{¿Cómo reinicio OpenClaw tras un apagón?} Ejecuta \texttt{openclaw dashboard} en el servidor. El comando arrancará el gateway automáticamente si está detenido y abrirá la interfaz web.
+
+    \item \textbf{¿El sistema funciona sin Internet todo el tiempo?} Sí. Esa es su característica principal. Una vez instalado y configurado, el sistema no necesita acceso a Internet para ninguna de sus funciones críticas. Solo se requiere conexión a Internet para actualizaciones de software o para la configuración inicial de dispositivos Tuya mediante \textit{Hotspot Spoofing}.
+
+    \item \textbf{¿Qué pasa si quiero cambiar de router?} Solo necesitas que el nuevo router use la misma subred (\texttt{192.168.1.0/24}) y que asignes las mismas IPs estáticas a los dispositivos. Los servicios del servidor se adaptarán automáticamente.
+
+    \item \textbf{¿Puedo usar Alexa o Google Home además de Telegram?} El sistema no incluye integración con asistentes de voz comerciales, ya que ello requeriría enviar datos a servidores externos, contradiciendo el principio de privacidad del proyecto. El control se realiza exclusivamente por Telegram y el dashboard web.
+\end{itemize}
+
+\section{Checklist de Puesta en Marcha}
+
+Esta lista detalla los pasos necesarios para poner el sistema en funcionamiento por primera vez, desde que se abre la caja hasta que el primer comando funciona. Los tiempos son orientativos y pueden variar según la experiencia del usuario y la velocidad del hardware.
+
+\subsection{Fase 1: Conexión Física}
+
+\begin{enumerate}
+    \item Desembalar y colocar el servidor en su ubicación definitiva (cerca del router). \hfill (5~min)
+    \item Conectar el servidor al router mediante un cable Ethernet a un puerto LAN. \hfill (2~min)
+    \item Conectar el ESP32 al servidor mediante un cable USB-C. \hfill (1~min)
+    \item Enchufar el router, el servidor y los dispositivos Tuya a la corriente. \hfill (2~min)
+    \item Insertar las pilas en los sensores Xiaomi (dos pilas AAA cada uno). \hfill (2~min)
+    \item Asegurarse de que el ventilador FanLamp recibe corriente. \hfill (1~min)
+\end{enumerate}
+
+\subsection{Fase 2: Instalación de Software Base}
+
+\begin{enumerate}
+    \item Encender el router y esperar a que la red esté operativa. \hfill (2~min)
+    \item Encender el servidor y esperar a que arranque Ubuntu Server. \hfill (3~min)
+    \item Iniciar sesión en el servidor (físicamente o por SSH). \hfill (2~min)
+    \item Instalar Ollama con \texttt{curl -fsSL https://ollama.ai/install.sh | bash}. \hfill (3~min)
+    \item Descargar los modelos de lenguaje (\texttt{ollama pull qwen2.5-coder:1.5b}, \texttt{qwen2.5-coder:7b} y \texttt{bge-m3}). \hfill (15~min)
+    \item Verificar que los modelos están disponibles con \texttt{ollama list}. \hfill (1~min)
+\end{enumerate}
+
+\subsection{Fase 3: Configuración de OpenClaw}
+
+\begin{enumerate}
+    \item Crear el bot de Telegram con @BotFather y obtener el token de la API. \hfill (5~min)
+    \item Instalar OpenClaw con \texttt{curl -fsSL https://openclaw.ai/install.sh | bash}. \hfill (3~min)
+    \item Seguir el asistente interactivo de configuración (proveedor de IA, canales, búsqueda web). \hfill (5~min)
+    \item Verificar que el Gateway se ha iniciado correctamente. \hfill (1~min)
+\end{enumerate}
+
+\subsection{Fase 4: Verificación del Sistema}
+
+\begin{enumerate}
+    \item Abrir el \textit{dashboard} web con \texttt{openclaw dashboard}. \hfill (1~min)
+    \item Enviar un mensaje de prueba desde Telegram o el chat web. \hfill (2~min)
+    \item Comprobar que el ventilador responde a los comandos. \hfill (2~min)
+    \item Comprobar que el enchufe Tuya responde a los comandos. \hfill (2~min)
+    \item Confirmar que el sensor Xiaomi muestra lecturas de temperatura y humedad. \hfill (2~min)
+\end{enumerate}
+
+\bigskip
+\noindent\textbf{Tiempo total estimado:} entre 45~minutos y 1~hora, dependiendo de la velocidad de descarga de los modelos y la familiaridad con el proceso.
+
+% ==============================================================================
+% FIN DEL MANUAL DE USUARIO
+% Las funcionalidades no implementadas (HVAC, dashboard avanzado, aprendizaje
+% adaptativo, Zigbee, presencia por IP, comandos de voz) se documentarán en
+% versiones futuras del manual, una vez desarrolladas e integradas en el
+% ecosistema. Consúltense las líneas de trabajo futuras en el Capítulo~\ref{cap:conclusiones}.
+% ==============================================================================

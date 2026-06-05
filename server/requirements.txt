@@ -1,0 +1,2 @@
+tinytuya>=1.18.0
+bleak>=3.0.2
