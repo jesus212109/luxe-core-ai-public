@@ -1,0 +1,88 @@
+\chapter{Antecedentes}
+\label{cap:antecedentes}
+
+\section{Estado del Arte en Domótica}
+
+La domótica ha experimentado en la última década una rápida evolución, impulsada principalmente por la proliferación de dispositivos conectados de bajo coste. Plataformas como Amazon Alexa, Google Home o Apple HomeKit han democratizado el acceso a la automatización del hogar, pero lo han hecho a costa de crear ecosistemas cerrados y dependientes de la conectividad a Internet y de la voluntad comercial de sus fabricantes.
+
+Como alternativa \textit{open-source}, proyectos como \textbf{Home Assistant}~\cite{home_assistant_2019} han ganado una considerable tracción en la comunidad, demostrando que es viable gestionar múltiples protocolos IoT desde un servidor local. Home Assistant soporta más de 2000 integraciones y se ejecuta en hardware modesto como una Raspberry Pi. Sin embargo, aunque dispone de addons que permiten conectarse a APIs de inteligencia artificial (OpenAI, Google), estas funcionalidades requieren necesariamente acceso a servicios externos, reintroduciendo la dependencia de nube que este proyecto busca eliminar.
+
+\section{Plataformas de Automatización del Hogar}
+
+Junto a Home Assistant, existen otras plataformas de automatización consolidadas. \textbf{OpenHAB}~\cite{openhab} ofrece un enfoque más modular y empresarial, basado en Java, con un motor de reglas potente pero una curva de aprendizaje más pronunciada. \textbf{ESPHome}~\cite{esphome}, por su parte, está orientado a flashear firmware en microcontroladores ESP32/ESP8266 y se integra estrechamente con Home Assistant, pero su ámbito es la programación de dispositivos, no la orquestación de alto nivel.
+
+Ninguna de estas plataformas incorpora de forma nativa un modelo de lenguaje local para interpretar comandos en lenguaje natural o tomar decisiones contextuales. Las automatizaciones se definen mediante reglas YAML (Home Assistant), scripts (OpenHAB) o configuración declarativa (ESPHome). Introducir esta capacidad requeriría, en todos los casos, añadir un componente externo que se comunicase con una API cloud o con un servidor de inferencia local como Ollama, incrementando la complejidad arquitectónica.
+
+Para este proyecto, el enfoque fue el inverso: construir la orquestación inteligente como núcleo (OpenClaw + Model Router) y conectar los dispositivos mediante \textit{drivers} Python ligeros, en lugar de partir de una plataforma de automatización generalista y añadirle IA como extensión. Esto evita depender de ecosistemas diseñados para la nube y mantiene la latencia de control por debajo de los 2~s.
+
+\section{Edge AI y Modelos de Lenguaje Locales}
+
+La madurez alcanzada por herramientas como \textbf{Ollama}~\cite{ollama} ha sido el catalizador tecnológico que hace viable la fase actual del proyecto. Ollama permite ejecutar modelos de lenguaje de tamaño medio (7B--14B parámetros) en hardware de consumo con rendimiento aceptable. Esto elimina la dependencia de APIs externas de pago como OpenAI o Google Gemini para la lógica cognitiva del sistema, haciendo que el control local de los datos sea completamente realizable.
+
+El panorama de modelos pequeños ha evolucionado rápidamente. La familia \textbf{Qwen2.5}~\cite{hui_qwen25_coder_2024}, de Alibaba Cloud, demostró que modelos con 1.5B y 7B parámetros pueden competir en tareas específicas con modelos mucho mayores. En febrero de 2026, Alibaba lanzó \textbf{Qwen3.5}~\cite{qwen3_5}, una evolución con mejoras en contexto (256K tokens), multilingüismo (201 idiomas) y modo \textit{thinking} nativo. Sin embargo, como se detalla en el Capítulo~5, las pruebas en el hardware del proyecto mostraron que el \textit{thinking} forzado de Qwen3.5 lo hacía inviable en CPU para aplicaciones con requisitos de latencia, por lo que fue evaluado pero finalmente descartado.
+
+\subsection{TinyML y Procesamiento en el Edge}
+
+El campo del TinyML~\cite{kallimani_tinyml_2023} ha demostrado que es posible ejecutar modelos de \textit{machine learning} en microcontroladores con apenas kilobytes de memoria. Aunque este proyecto no llega a ese extremo (los modelos se ejecutan en un servidor x86), los principios del TinyML (minimización de dependencias, optimización para hardware limitado, procesamiento local de datos) informan el diseño del sistema.
+
+\subsection{Asistentes de Voz Locales}
+
+Actualmente es posible construir sistemas de reconocimiento y síntesis de voz que funcionen completamente desconectados de Internet. Aunque la calidad sigue siendo inferior a la de los asistentes comerciales (que pueden aprovechar modelos con cientos de miles de millones de parámetros), la brecha se reduce año tras año. La decisión de este proyecto de no incorporar entrada por voz de momento responde a esta limitación objetiva.
+
+\section{Comparativa de Modelos Locales}
+
+Para elegir los modelos que componen el enrutador de tres niveles (Tier~1 como clasificador, Tier~2 como razonador), se evaluaron varias alternativas disponibles en Ollama, teniendo en cuenta las limitaciones del hardware (Ryzen 5, 16~GB RAM, sin GPU dedicada). Los criterios fueron: consumo de RAM, capacidad de respuesta en español, consistencia en la generación de JSON estructurado y velocidad de inferencia en CPU.
+
+\begin{itemize}
+    \item \textbf{Qwen2.5 1.5B}~\cite{hui_qwen25_coder_2024}: Ocupa aproximadamente 986~MB en RAM y responde en 300--500~ms en CPU. Su generación de JSON estructurado es determinista incluso con \texttt{temperature=0.0}, cualidad esencial para el \textit{parser} del enrutador. Se seleccionó como clasificador ligero (Tier~1).
+    \item \textbf{Mistral 7B (Instruct v0.3)}~\cite{mistral_7b}: Seleccionado como razonador (Tier~2) tras evaluar alternativas. Con cuantización Q4\_K\_M ocupa 4.4~GB en RAM y ofrece respuesta directa sin \textit{thinking} forzado, con latencias de 27--60~s en CPU. Su calidad conversacional evita la sensación de estar interactuando con un sistema puramente determinista.
+    \item \textbf{Qwen3.5 (2B, 4B, 9B)}~\cite{qwen3_5}: Evaluado como posible sustituto de la familia Qwen2.5. Aunque ofrece ventajas en contexto (256K tokens) y multilingüismo (201 idiomas), su modo \textit{thinking} forzado ---no desactivable vía API--- produce latencias de 3 a 12 minutos en CPU para el modelo de 9B, y mostró inestabilidad en la generación de JSON (12--18\% de fallos). Descartado para este proyecto por incompatibilidad con los requisitos de latencia (RNF-03).
+    \item \textbf{Llama 3.2 (1B, 3B, 8B)}~\cite{llama32}: Su documentación oficial indica que está entrenado principalmente con datos en inglés. Ocupa 8~GB en RAM en su versión 8B, superando el margen disponible tras el clasificador. Las versiones 1B y 3B están optimizadas para dispositivos móviles y no mantienen la coherencia conversacional necesaria para el razonador. No se seleccionó.
+    \item \textbf{Phi-3 (Microsoft)}~\cite{phi3}: Según su documentación, está entrenado con datos sintéticos y contenido educativo principalmente en inglés. Su rendimiento en español coloquial no está contemplado en las evaluaciones publicadas. No se seleccionó.
+\end{itemize}
+
+Para la generación de \textit{embeddings} semánticos se seleccionó \texttt{bge-m3}~\cite{bge_m3} desde el inicio, por su eficiencia (apenas 500~MB en RAM), su capacidad multilingüe (español e inglés) y su madurez en el ecosistema Ollama.
+
+\section{Control Local de IoT}
+
+El ecosistema IoT actual ofrece múltiples aproximaciones para el control local de dispositivos, cada una con sus ventajas y limitaciones para un proyecto que opera sobre una red aislada.
+
+\subsection{Protocolos y Arquitecturas}
+
+El enfoque más extendido en domótica local es el uso de \textbf{MQTT} como bus de mensajería, con un \textit{broker} (Mosquitto~\cite{mosquitto}) que centraliza la comunicación entre dispositivos y la lógica de control. Sin embargo, para integrar hardware comercial cerrado como el enchufe Tuya o el ventilador FanLamp, MQTT por sí solo no es suficiente: se necesitarían puentes adicionales (ESPHome~\cite{esphome}, OpenMQTTGateway~\cite{openmqttgw}) que traduzcan entre el protocolo propietario del dispositivo y el bus MQTT, añadiendo complejidad y puntos de fallo.
+
+\subsection{Firmwares Alternativos}
+
+Proyectos como \textbf{Tasmota}~\cite{tasmota} y \textbf{ESPHome}~\cite{esphome} permiten flashear firmware libre en dispositivos basados en ESP8266/ESP32, eliminando la dependencia del software original del fabricante. En el caso del enchufe Tuya, la \textit{Local Key} ya permite el control completo mediante el protocolo 3.5, haciendo innecesario el flasheo. Para el ventilador FanLamp, no se ha podido determinar el modelo exacto de chip BLE, por lo que un flasheo de firmware no es una opción viable sin un análisis más profundo del hardware.
+
+\textbf{OpenMQTTGateway}~\cite{openmqttgw} es un firmware para ESP32 que actúa como puente entre dispositivos BLE y un \textit{broker} MQTT. Se consideró como posible intermediario para la lectura del sensor Xiaomi, pero se descartó por la sobrecarga de latencia que introduce frente a la alternativa de lectura GATT directa.
+
+\subsection{Bibliotecas de Control Directo}
+
+Para este proyecto se optó por un enfoque más simple: utilizar bibliotecas Python que se comunican directamente con cada dispositivo, sin intermediarios:
+
+\begin{itemize}
+    \item \texttt{tinytuya}~\cite{tinytuya}: Permite el control local de dispositivos Tuya mediante el protocolo 3.5 sobre la red IP local, sin pasar por la nube del fabricante. La \textit{Local Key} se extrae una única vez durante el emparejamiento inicial.
+    \item \texttt{bleak}~\cite{bleak}: Librería BLE asíncrona que permite la lectura GATT directa de sensores como el Xiaomi LYWSD03MMC, sin necesidad de \textit{broker} MQTT ni firmware intermedio.
+\end{itemize}
+
+Esta aproximación reduce la latencia (una sola conexión directa frente a una cadena de saltos), elimina puntos de fallo intermedios y simplifica el mantenimiento al tener menos componentes. La desventaja es que cada nuevo tipo de dispositivo requiere un \textit{driver} específico, pero al tratarse de un entorno con un número reducido de dispositivos, la carga de desarrollo es asumible.
+
+\section{Frameworks de Agentes}
+
+El orquestador principal del proyecto es \textbf{OpenClaw}~\cite{openclaw}, un \textit{framework} agéntico para Node.js que proporciona canales de usuario (Telegram, web), ejecución de herramientas y coordinación de modelos de lenguaje. Se eligió frente a otras opciones por su ligereza, simplicidad de configuración y modularidad.
+
+Durante la fase de investigación se analizaron varias alternativas:
+
+\begin{itemize}
+    \item \textbf{Hermes}~\cite{hermes_agent}: Plataforma emergente con un mecanismo de autoaprendizaje que permite al sistema ajustar su comportamiento basándose en la retroalimentación del usuario. Su ecosistema es menos maduro que el de OpenClaw y su integración con modelos locales requería adaptación adicional. La idea del autoaprendizaje se adoptó como línea de desarrollo propia, implementada en el Smart Advisor.
+    \item \textbf{AutoGPT}~\cite{autogpt}: Diseñado para tareas autónomas de larga duración, con generación y ejecución recursiva de subobjetivos. Su sobrecarga computacional y su orientación a tareas abiertas lo hacen inadecuado para un sistema de control domótico que necesita respuestas en milisegundos.
+    \item \textbf{LangChain}~\cite{langchain}: \textit{Framework} para encadenar llamadas a modelos de lenguaje, más orientado a desarrollo de aplicaciones de IA que a la operación de un sistema de control en tiempo real. No proporciona canales de usuario ni gestión de herramientas de forma nativa.
+    \item \textbf{n8n}~\cite{n8n}: Plataforma de automatización de flujos de trabajo basada en nodos. Potente para integraciones entre servicios, pero no está diseñada para gestionar interacciones conversacionales con modelos de lenguaje ni para ejecutar decisiones contextuales en tiempo real.
+\end{itemize}
+
+OpenClaw se mantuvo como opción principal por su madurez, su soporte nativo de canales (Telegram y \textit{dashboard} web) y su capacidad para ejecutar herramientas Python mediante \texttt{exec}, que es precisamente el mecanismo utilizado para invocar los \textit{drivers} de dispositivos.
+
+\section{Resumen del Contexto Tecnológico}
+
+En síntesis, el momento tecnológico actual ofrece las piezas necesarias para construir control local con IA en el \textit{edge}: modelos de lenguaje pequeños pero capaces (Qwen2.5~\cite{hui_qwen25_coder_2024}, Mistral~\cite{mistral_7b}), herramientas de inferencia local maduras (Ollama), \textit{frameworks} agénticos ligeros (OpenClaw), librerías de integración IoT que funcionan sin nube (\texttt{tinytuya}, \texttt{bleak}) y una comunidad activa de ingeniería inversa que permite comprender dispositivos cerrados. Este proyecto integra estas piezas en un sistema que funciona 100\% en local, sin dependencias externas.

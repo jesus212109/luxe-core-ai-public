@@ -1,0 +1,47 @@
+\documentclass[tikz, border=3mm]{standalone}
+\usepackage[spanish]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{xcolor}
+
+\begin{document}
+\footnotesize
+\shorthandoff{>}
+\begin{tikzpicture}[
+ byte/.style={rectangle, draw, minimum width=1.2cm, minimum height=0.9cm, font=\ttfamily},
+]
+
+% Main GATT payload title
+\node[draw=none] at (0,3.0) {\textbf{Payload GATT (5 bytes): cb 09 3b ef 0b}};
+
+% Byte blocks representing the payload
+\node[byte, fill=blue!20] (b0) at (-3,1.5) {cb};
+\node[byte, fill=blue!20] (b1) at (-1.5,1.5) {09};
+\node[byte, fill=green!20] (b2) at (0,1.5) {3b};
+\node[byte, fill=orange!20] (b3) at (1.5,1.5) {ef};
+\node[byte, fill=orange!20] (b4) at (3,1.5) {0b};
+
+% Arrows pointing downwards to descriptions
+\draw[->, blue] (b0.south) -- ++(0,-0.5);
+\draw[->, blue] (b1.south) -- ++(0,-0.5);
+\draw[->, green!70!black] (b2.south) -- ++(0,-0.5);
+\draw[->, orange!70!black] (b3.south) -- ++(0,-0.5);
+\draw[->, orange!70!black] (b4.south) -- ++(0,-0.5);
+
+% Descriptive colored text for each segment
+\node[text=blue!80, align=center] at (-2.25,-0.2) {Bytes 0-1\\int16 LE\\Temp. $\times$ 100};
+\node[text=green!80!black, align=center] at (0,-0.2) {Byte 2\\uint8\\Humedad (\%)};
+\node[text=orange!80, align=center] at (2.25,-0.2) {Bytes 3-4\\uint16 LE\\Batería (mV)};
+
+% Hexadecimal to decimal conversions
+\node[align=center] at (-2.25,-2.2) {0x09cb = 2507};
+\node[align=center] at (0,-2.2) {0x3b = 59};
+\node[align=center] at (2.25,-2.2) {0x0bef = 3055};
+
+% Final decoded physical values
+\node[align=center, font=\bfseries] at (-2.25,-3.2) {25.07$^{\circ}$C};
+\node[align=center, font=\bfseries] at (0,-3.2) {59\% HR};
+\node[align=center, font=\bfseries] at (2.25,-3.2) {3055 mV};
+
+\end{tikzpicture}
+\end{document}

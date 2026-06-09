@@ -1,0 +1,288 @@
+\documentclass[12pt, a4paper, twoside, openright]{report} 
+
+% --- Ajustes de Márgenes para Encuadernación ---
+\usepackage[
+    inner=3.5cm,
+    outer=2.5cm,
+    top=3cm, 
+    bottom=3cm
+]{geometry}
+
+% --- Idioma y Fuentes ---
+\usepackage[spanish, es-tabla]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{csquotes}
+\usepackage[T1]{fontenc}
+%\usepackage{lmodern}      % Fuente por defecto TeX Live (sin dependencias extras)
+\usepackage{libertine}  % Alternativa premium: sudo dnf install texlive-libertine
+\usepackage[scaled=0.85]{beramono}  % Monoespaciada proporcionada con Libertine
+\usepackage{microtype}
+\usepackage{eurosym}
+
+% --- Paquetes de Diseño ---
+\usepackage{xcolor}
+\usepackage{titlesec}
+\usepackage{fancyhdr}
+\usepackage{setspace}
+\usepackage{graphicx}
+\usepackage{subcaption}
+\usepackage{amsmath, amssymb}  % amsthm omitido (no se usan entornos de teoremas)
+\usepackage{tikz}
+\usepackage{hyperref}
+\def\UrlBreaks{\do\/\do\-\do\.\do\_\do\:}
+\usepackage{fancyvrb}
+\usepackage{longtable}
+
+% --- Colores Corporativos EPSC ---
+\definecolor{EPSCDark}{HTML}{280091}
+\definecolor{EPSCMedium}{HTML}{4C5CC5}
+\definecolor{EPSCLight}{HTML}{3FCFD5}
+\definecolor{EPSCGreen}{HTML}{00B299}
+\definecolor{DarkGray}{RGB}{80, 80, 80}
+
+% --- Configuración de Enlaces ---
+\hypersetup{
+    colorlinks=true,
+    linkcolor=EPSCDark,
+    filecolor=EPSCMedium,      
+    urlcolor=EPSCMedium,
+    citecolor=EPSCDark,
+}
+
+% --- Estética de Capítulos ---
+\titleformat{\chapter}[display]
+  {\normalfont\bfseries\color{EPSCDark}}
+  {\filleft\fontsize{50}{50}\selectfont\color{gray!30}\thechapter}
+  {1ex}
+  {\titlerule\vspace{2ex}\huge\filleft}
+  [\vspace{2ex}\titlerule]
+
+% --- Headers & Footers ---
+\setlength{\headheight}{24.65pt}
+\addtolength{\topmargin}{-12.65pt}
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand{\chaptermark}[1]{\markboth{\thechapter.\ #1}{}}
+\fancyhead[LE,RO]{\thepage}
+\fancyhead[RE]{\textcolor{DarkGray}{\leftmark}}
+\fancyhead[LO]{\textcolor{DarkGray}{\rightmark}}
+\renewcommand{\headrulewidth}{0.5pt}
+\renewcommand{\headrule}{\hbox to\headwidth{\color{EPSCMedium}\leaders\hrule height \headrulewidth\hfill}}
+
+% --- Bibliografía IEEE ---
+\usepackage[backend=biber, style=ieee]{biblatex}
+\addbibresource{references.bib}
+\setstretch{1.15}
+
+% Tolerancia más precisa que \sloppy global (evita sangrías inconsistentes en bibliografía)
+\tolerance=9999
+\emergencystretch=3em
+
+% Numerar y mostrar subsubsecciones en el índice (por defecto report solo llega a subsection)
+\setcounter{secnumdepth}{3}
+\setcounter{tocdepth}{3}
+\begin{document}
+
+% Silenciar overfull boxes menores de 10pt (no afectan al layout)
+\hfuzz=10pt
+\vfuzz=25pt
+
+% --- Portada Personalizada EPSC ---
+\begin{titlepage}
+    % TikZ para elementos absolutos en las esquinas
+    \begin{tikzpicture}[remember picture, overlay]
+        % Esquina Superior Derecha (Fondo con sangrado 'bleed' agresivo para garantizar que toca el borde)
+        \node[anchor=north east, inner sep=0pt, xshift=5mm, yshift=5mm] at (current page.north east) {
+            \IfFileExists{img/topRightCorner.pdf}{
+                \includegraphics[width=7.5cm]{img/topRightCorner.pdf}
+            }{}
+        };
+        % (El Logo EPSC se ha movido al bloque central)
+
+        % Esquina Inferior Izquierda (Fondo con sangrado 'bleed' agresivo)
+        \node[anchor=south west, inner sep=0pt, xshift=-5mm, yshift=-5mm] at (current page.south west) {
+            \IfFileExists{img/bottomLeftCorner.pdf}{
+                \includegraphics[width=7.5cm]{img/bottomLeftCorner.pdf}
+            }{}
+        };
+
+        % Esquina Inferior Derecha (Logos Informática y UCO)
+        \node[anchor=south east, xshift=-2.5cm, yshift=2.5cm] at (current page.south east) {
+            \IfFileExists{img/escudo_informatica.jpg}{
+                \includegraphics[height=2cm]{img/escudo_informatica.jpg}
+            }{}
+            \hspace{0.5cm}
+            \IfFileExists{img/logoUCO.pdf}{
+                \includegraphics[height=2cm]{img/logoUCO.pdf}
+            }{
+                \textcolor{EPSCDark}{\textbf{[LOGO UCO]}}
+            }
+        };
+    \end{tikzpicture}
+
+    \begin{center}
+        \vspace*{2cm}
+        
+        \IfFileExists{img/LogotipoEPSC.pdf}{
+            \includegraphics[width=12cm]{img/LogotipoEPSC.pdf}
+        }{
+            \textcolor{EPSCDark}{\textbf{[LOGO EPSC]}}
+        }
+        
+        \vfill
+        
+        {\Large \textbf{\textcolor{EPSCDark}{TRABAJO DE FIN DE GRADO}}}\\[1.5cm]
+        
+        \rule{0.85\textwidth}{0.8pt}\\[0.8cm]
+        {\Huge \textbf{\textcolor{EPSCDark}{Ecosistema de Domótica Local}}}\\[0.5cm]
+        {\Huge \textbf{\textcolor{EPSCDark}{Impulsado por Agentes de IA}}}\\[0.8cm]
+        \rule{0.85\textwidth}{0.8pt}
+        
+        \vspace{0.7cm}
+        {\large \textbf{\textcolor{EPSCMedium}{AI-Driven Local Home}}}\\[0.2cm]
+        {\large \textbf{\textcolor{EPSCMedium}{Automation Ecosystem}}}
+        
+        \vfill
+        
+        \begin{minipage}{0.45\textwidth}
+            \begin{flushleft}
+                {\large \textbf{Autor:}} \\
+                {\Large Jesús Fernández López}\\[0.6cm]
+                {\large \textbf{Titulación:}} \\
+                {\Large Grado en Ingeniería Informática}
+            \end{flushleft}
+        \end{minipage}
+        \hfill
+        \begin{minipage}{0.45\textwidth}
+            \begin{flushright}
+                {\large \textbf{Tutor:}} \\
+                {\Large Dr. Rafael Muñoz Salinas}
+            \end{flushright}
+        \end{minipage}
+        
+        \vfill
+        
+        \makebox[5cm]{\hrulefill}\\[0.5cm]
+        
+        {\large \textcolor{DarkGray}{Córdoba, \today}}
+        \vspace*{1.5cm}
+    \end{center}
+\end{titlepage}
+
+
+% --- Declaración de Originalidad ---
+\newpage
+\thispagestyle{empty}
+\vspace*{2cm}
+
+{\centering\LARGE\textbf{\textcolor{EPSCDark}{Declaración de Originalidad}}}\\[1.5cm]
+
+D. \textbf{Jesús Fernández López}, con DNI 31876114T, estudiante del Grado en Ingeniería Informática de la Escuela Politécnica Superior de Córdoba, en relación con el Trabajo de Fin de Grado titulado \textit{«Ecosistema de Domótica Local Impulsado por Agentes de IA»} declara que:
+
+\begin{itemize}
+    \item El trabajo presentado es original y ha sido realizado íntegramente por el autor.
+    \item No ha sido presentado anteriormente para la obtención de ningún otro título universitario.
+    \item Se han citado debidamente todas las fuentes utilizadas, tanto bibliográficas como de software y hardware, siguiendo el formato de citación académico establecido.
+    \item El uso de herramientas de inteligencia artificial durante el desarrollo se ha limitado a tareas de asistencia en la redacción y generación de fragmentos de código, siempre bajo supervisión directa del autor, tal como se detalla en el capítulo correspondiente de la memoria.
+\end{itemize}
+
+\vspace{1.5cm}
+
+\noindent Y para que así conste, firmo la presente declaración en Córdoba, a \today.\\[2cm]
+
+\noindent\makebox[6cm]{\hrulefill}\\
+\hspace*{0.5cm}{\footnotesize Fdo.: Jesús Fernández López}
+
+\vspace{1cm}
+
+\noindent\textbf{Nota:} Esta declaración se complementa con la firma electrónica del autor en los ficheros digitales entregados, de acuerdo con la normativa de la Universidad de Córdoba.
+
+\cleardoublepage
+
+% --- Agradecimientos ---
+\chapter*{Agradecimientos}
+\label{ch:agradecimientos}
+\addcontentsline{toc}{chapter}{Agradecimientos}
+
+A mi tutor, el Dr. Rafael Muñoz Salinas, por su apoyo constante, por la flexibilidad que me ha dado en todo momento para explorar caminos que no siempre estaban en el guión, y por lo rápido que siempre ha respondido cuando lo he necesitado. Estoy muy agradecido por su cercanía, su confianza y por haberme acompañado durante todo este proceso.
+
+A mi familia, por aguantar estoicamente que el dormitorio se convirtiera en un taller de electrónica durante meses, entre cables, routers y ventiladores desmontados.
+
+A los desarrolladores de OpenClaw, Ollama, Qwen, Home Assistant, tinytuya, bleak y bge-m3, cuyo trabajo \textit{open-source} ha hecho posible este proyecto. En particular, a la comunidad de ingeniería inversa que dedica su tiempo a descifrar protocolos cerrados para que otros puedan construir sobre ellos.
+
+\cleardoublepage
+
+% --- Resumen ---
+\chapter*{Resumen}
+\label{ch:resumen}
+\addcontentsline{toc}{chapter}{Resumen}
+
+Este Trabajo de Fin de Grado presenta el diseño, implementación y validación de Luxe Core AI, un sistema de monitorización y control de confort térmico para el hogar que opera de forma completamente autónoma en una red local aislada de Internet, sin depender de servicios en la nube para ninguna de sus funciones críticas. El sistema integra dispositivos heterogéneos, como sensores ambientales Xiaomi mediante BLE, un enchufe inteligente Tuya controlado localmente por protocolo 3.5 y un ventilador de techo FanLamp F8808 cuyo protocolo BLE propietario fue descubierto mediante ingeniería inversa, bajo una arquitectura de tres capas orquestada por inteligencia artificial en el \textit{edge}.
+
+El núcleo del sistema es un enrutador inteligente de tres niveles (Model Router v2) que clasifica y procesa comandos en lenguaje natural sin enviar datos a servidores externos. El primer nivel, un sistema de \textit{pattern matching} con 462 patrones, captura aproximadamente el 92\% de los comandos diarios con latencia inferior a 1 milisegundo. Los niveles superiores emplean modelos de lenguaje locales (\texttt{qwen2.5-coder:1.5b} y \texttt{mistral:7b}) para comandos ambiguos o conversacionales. Se ha implementado un sistema de auto-recuperación basado en \textit{circuit breakers}, reintentos con \textit{backoff} exponencial y un \textit{SelfHealManager} autónomo.
+
+Los resultados demuestran que es posible construir un sistema de control ambiental 100\% local con hardware de consumo (servidor Ryzen 5, 16~GB RAM) y un presupuesto de 0~\euro{} en licencias y servicios cloud, manteniendo la privacidad de los datos del hogar como principio de diseño fundamental.
+
+\vspace{0.5cm}
+\noindent\textbf{Palabras clave:} Edge AI, control térmico local, IoT, modelos de lenguaje, privacidad, BLE, Tuya, enrutamiento inteligente, OpenClaw.
+
+\cleardoublepage
+
+% --- Abstract ---
+\chapter*{Abstract}
+\label{ch:abstract}
+\addcontentsline{toc}{chapter}{Abstract}
+
+This Bachelor's Thesis presents the design, implementation and validation of Luxe Core AI, a local thermal comfort monitoring and control system that operates completely autonomously on an Internet-isolated local network, with no dependency on cloud services for any of its critical functions. The system integrates heterogeneous devices, such as Xiaomi environmental sensors via BLE, a Tuya smart plug controlled locally through protocol 3.5 and a FanLamp F8808 ceiling fan whose proprietary BLE protocol was uncovered through reverse engineering, under a three-layer architecture orchestrated by edge artificial intelligence.
+
+The system's core is a three-tier intelligent router (Model Router v2) that classifies and processes natural language commands without sending data to external servers. The first tier, a pattern-matching engine with 462 patterns, captures approximately 92\% of daily commands with sub-millisecond latency. Upper tiers employ local language models (\texttt{qwen2.5-coder:1.5b} and \texttt{mistral:7b}) for ambiguous or conversational commands. A self-healing system based on circuit breakers, exponential backoff retries and an autonomous SelfHealManager has been implemented.
+
+The results show that it is feasible to build a 100\% local environmental control system using consumer-grade hardware (Ryzen 5 server, 16~GB RAM) with an integration budget of 0~\euro{} in software licences, keeping household data privacy as a fundamental design principle.
+
+\vspace{0.5cm}
+\noindent\textbf{Keywords:} Edge AI, local thermal control, IoT, language models, privacy, BLE, Tuya, intelligent routing, OpenClaw.
+
+\cleardoublepage
+
+% --- Tabla de contenidos ---
+\pagenumbering{roman}
+\tableofcontents
+\cleardoublepage
+\addcontentsline{toc}{chapter}{Índice de figuras}
+\listoffigures
+\cleardoublepage
+\addcontentsline{toc}{chapter}{Índice de tablas}
+\listoftables
+
+\cleardoublepage
+\pagenumbering{arabic}
+
+% --- Capítulos ---
+\include{sections/01_introduccion}
+\include{sections/02_problema}
+\include{sections/03_objetivos}
+\include{sections/04_antecedentes}
+\include{sections/05_restricciones_metodologia}
+\include{sections/07_requisitos}
+\include{sections/06_recursos}
+\include{sections/08_especificacion_sistema}
+\include{sections/09_pruebas}
+\include{sections/10_conclusiones}
+
+% --- Capítulo 10: Bibliografía ---
+\cleardoublepage
+\chapter{Bibliografía}
+\label{cap:bibliografia}
+\printbibliography[heading=none]
+
+% --- Inicio de los Anexos ---
+\appendix
+\cleardoublepage
+\addcontentsline{toc}{part}{Anexos}
+\part*{Anexos}
+
+\include{appendices/anejo_a_usuario}
+\include{appendices/anejo_b_codigo}
+\include{appendices/anejo_c_glosario}
+
+\end{document}
