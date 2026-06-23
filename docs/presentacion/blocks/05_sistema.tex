@@ -1,0 +1,192 @@
+% ============================================================================
+%  BLOQUE IV — DIAPOSITIVAS 11–16: ESPECIFICACIÓN DEL SISTEMA
+% ============================================================================
+\section{Especificación del Sistema}
+
+% ----------------------------------------------------------------------------
+%  DIAPOSITIVA 12 — ARQUITECTURA DE 3 CAPAS
+% ----------------------------------------------------------------------------
+\begin{frame}{Arquitectura de 3 Capas}
+  \begin{columns}[T]
+    \column{0.55\textwidth}
+    \footnotesize
+    \textbf{Componentes desacoplados:}
+    \vspace{0.15cm}
+    \begin{enumerate}
+      \item \textbf{Servidor de orquestación}\\
+      {\scriptsize Torre Ryzen 5, 16 GB RAM, Ubuntu Server 24.04 headless}
+      \begin{itemize}
+        \item OpenClaw Gateway (Node.js 24, puerto 18789)
+        \item Ollama (puerto 11434): qwen2.5 1.5B + mistral 7B + bge-m3
+        \item Drivers Python (Tuya, BLE, FanLamp)
+        \item Sensor Daemon + Model Router
+      \end{itemize}
+      \item \textbf{Portátil de desarrollo}\\
+      {\scriptsize SSH + Git + Arduino CLI + \LaTeX}
+      \item \textbf{Nodo firmware ESP32}\\
+      {\scriptsize Puente BLE para FanLamp \smallgray{(futuro: LIN HVAC)}}
+    \end{enumerate}
+
+    \column{0.45\textwidth}
+    \IfFileExists{\memoriaimg/fig_8_1.pdf}{%
+      \includegraphics[width=\textwidth]{\memoriaimg/fig_8_1.pdf}%
+    }{%
+      \fbox{\parbox{0.9\textwidth}{\centering\footnotesize [Diagrama de arquitectura de 3 capas]}}%
+    }
+  \end{columns}
+
+  \centering
+  \footnotesize
+  Comunicación exclusiva sobre \texttt{192.168.1.0/24}. Ningún dato abandona el perímetro local.
+\end{frame}
+
+% ----------------------------------------------------------------------------
+%  DIAPOSITIVA 13 — MODEL ROUTER V2
+% ----------------------------------------------------------------------------
+\begin{frame}{Model Router v2: Enrutamiento en 3 Niveles}
+  \sloppy
+  \begin{columns}[T, total=\textwidth]
+    \column{0.03\textwidth}
+    \column{0.63\textwidth}
+    \centering
+    \IfFileExists{figures/13_router.pdf}{%
+      \includegraphics[width=\textwidth, height=5.8cm, keepaspectratio]{figures/13_router.pdf}%
+    }{
+      \textcolor{darkgray}{[Figura: flujo del Model Router v2]}
+    }
+
+    \column{0.31\textwidth}
+    \centering
+    \footnotesize
+    \textbf{Ejemplos}\\[0.15cm]
+    \renewcommand{\arraystretch}{1.1}
+    \begin{tabular}{p{0.9cm}p{0.7cm}p{0.7cm}}
+      \toprule
+      \textbf{Com.} & \textbf{Niv.} & \textbf{Lat.} \\
+      \midrule
+      «vel.3» & T0 & 1,5 s \\
+      «casa» & T0 & $<$1 ms \\
+      «enciende» & T1 & 300 ms \\
+      «buenos días» & T2 & 27--60 s \\
+      \bottomrule
+    \end{tabular}
+
+    \vspace{0.3cm}
+    \begin{alertblock}{Circuit Breaker}
+      \footnotesize
+      Si el 1.5B falla, deriva al Tier~2.
+    \end{alertblock}
+    \column{0.03\textwidth}
+  \end{columns}
+\end{frame}
+
+% ----------------------------------------------------------------------------
+%  DIAPOSITIVA 12 — COMPARATIVA DE MODELOS
+% ----------------------------------------------------------------------------
+\begin{frame}{Comparativa de Modelos Evaluados}
+  \begin{block}{Proceso iterativo de selección}
+    \small
+    Tres fases de evaluación empírica sobre Ryzen 5 (16 GB RAM, sin GPU).
+    Corpus de 500 comandos reales.
+  \end{block}
+
+  \centering
+  \scriptsize
+  \begin{tabular}{p{2.4cm}p{2.0cm}p{2.0cm}p{1.3cm}p{2.2cm}}
+    \toprule
+    \textbf{Modelo} & \textbf{Tarea} & \textbf{Latencia} & \textbf{Fallos} & \textbf{RAM} \\
+    \midrule
+    \rowcolor{secondarylight}
+    Qwen2.5 1.5B & Clasificación & 0,3--0,5 s & \textbf{0\%} & 0,99 GB \\
+    Qwen2.5 7B & Razonamiento & 5--30 s & 0\% & 6,0 GB \\
+    \rowcolor{secondarylight}
+    Qwen3.5 4B & Razonamiento & 45--180 s & \alert{12\%} & 3,8 GB \\
+    Qwen3.5 9B & Razonamiento & 180--720 s & \alert{18\%} & 7,1 GB \\
+    \rowcolor{secondarylight}
+    \textbf{Mistral 7B Q4} & \textbf{Razonamiento} & \textbf{27--60 s} & \textbf{0\%} & \textbf{4,4 GB} \\
+    \bottomrule
+  \end{tabular}
+
+  \begin{columns}[T]
+    \column{0.5\textwidth}
+    \begin{alertblock}{Qwen3.5: descartado}
+      \footnotesize
+      Modo \textit{thinking} forzado $\rightarrow$ 0,6--1,2 tok/s en CPU.
+      3--12 min por consulta. Diseñado para GPU.
+    \end{alertblock}
+    \column{0.5\textwidth}
+    \begin{exampleblock}{Arquitectura mixta final}
+      \footnotesize
+      Tier~1: Qwen2.5 1.5B (determinista)\\
+      Tier~2: Mistral 7B Q4 (conversacional)\\
+      Cada modelo especializado en su nivel.
+    \end{exampleblock}
+  \end{columns}
+\end{frame}
+
+% ----------------------------------------------------------------------------
+%  DIAPOSITIVA 16 — COMFORT ADVISORS
+% ----------------------------------------------------------------------------
+\begin{frame}{Asesores de Confort Térmico}
+  \begin{columns}[T]
+    \column{0.5\textwidth}
+    \footnotesize
+    \textbf{Comfort Advisor (ASHRAE 55)}
+    \begin{itemize}
+      \item Índice de calor NOAA (Rothfusz)
+      \item 6 zonas de confort adaptadas al clima andaluz
+      \item Evaluación de humedad (seco / óptimo / húmedo)
+      \item Detección de tendencia ($^\circ$C/hora)
+    \end{itemize}
+
+    \bigskip
+    \textbf{Zonas térmicas:}
+    \begin{enumerate}
+      \scriptsize
+      \item Fresco ($<$ 23$^\circ$C) — sin acción
+      \item Confortable (23--26$^\circ$C)
+      \item Cálido (26--28$^\circ$C) — ventilador 1
+      \item Caluroso (28--31$^\circ$C) — ventilador 3
+      \item Muy caluroso (31--34$^\circ$C) — ventilador 4
+      \item Extremo ($>$ 34$^\circ$C) — ventilador 5, AC urgente
+    \end{enumerate}
+
+    \column{0.5\textwidth}
+    \footnotesize
+    \textbf{Smart Advisor (contexto exterior)}
+    \begin{itemize}
+      \item Comparación interior vs.\ exterior (\texttt{wttr.in})
+      \item Lógica ventana/persiana (dif. térmica, UV, lluvia)
+      \item Detección de presencia (manual/BLE/IP Wi-Fi)
+      \item \textbf{\textit{Human in the Loop}:} preguntar antes de actuar
+    \end{itemize}
+
+    \bigskip
+    \textbf{Auto-acciones condicionales:}
+    \begin{itemize}
+      \scriptsize
+      \item Misma zona $\rightarrow$ no actuar
+      \item +1 zona $\rightarrow$ preguntar
+      \item +2 zonas $\rightarrow$ actuar automático
+      \item Zona extrema $\rightarrow$ actuar siempre
+      \item Sin presencia $\rightarrow$ nunca actuar
+    \end{itemize}
+  \end{columns}
+\end{frame}
+
+% ----------------------------------------------------------------------------
+%  DIAPOSITIVA 17 — AUTO-RECUPERACIÓN
+% ----------------------------------------------------------------------------
+\begin{frame}{Auto-Recuperación y Tolerancia a Fallos}
+  \centering
+  \IfFileExists{figures/17_recuperacion.pdf}{%
+    \includegraphics[width=0.92\textwidth, height=5.5cm, keepaspectratio]{figures/17_recuperacion.pdf}%
+  }{
+    \textcolor{darkgray}{[Figura: ciclo de auto-recuperación]}
+  }
+
+  \vspace{0.2cm}
+  \footnotesize
+  \textbf{Circuit Breaker} (3 estados) · \textbf{Reintentos} (backoff + jitter) ·
+  \textbf{SelfHealManager} (30 s) · \textbf{ESP32 USB reset}
+\end{frame}

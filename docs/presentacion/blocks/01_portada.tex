@@ -1,0 +1,101 @@
+% ============================================================================
+%  BLOQUE I — DIAPOSITIVA 1: PORTADA
+% ============================================================================
+{
+\setbeamertemplate{footline}{}
+\setbeamertemplate{frametitle}{}
+\setbeamertemplate{headline}{}
+
+\begin{frame}[plain]
+
+  \begin{tikzpicture}[remember picture, overlay]
+
+    % --- Esquina superior derecha (decoración institucional) ---
+    \node[anchor=north east, inner sep=0pt] at (current page.north east) {%
+      \IfFileExists{\memoriaimg/topRightCorner.pdf}{%
+        \includegraphics[width=2.5cm]{\memoriaimg/topRightCorner.pdf}%
+      }{}%
+    };
+
+    % --- Esquina inferior izquierda (decoración institucional) ---
+    \node[anchor=south west, inner sep=0pt] at (current page.south west) {%
+      \IfFileExists{\memoriaimg/bottomLeftCorner.pdf}{%
+        \includegraphics[width=2.5cm]{\memoriaimg/bottomLeftCorner.pdf}%
+      }{}%
+    };
+
+    % --- Escudo Informática + Logo UCO (esquina inferior derecha) ---
+    \node[anchor=south east, xshift=-0.8cm, yshift=0.8cm] at (current page.south east) {%
+      \IfFileExists{\memoriaimg/escudo_informatica.jpg}{%
+        \includegraphics[height=1.0cm]{\memoriaimg/escudo_informatica.jpg}%
+      }{}%
+      \hspace{0.2cm}%
+      \IfFileExists{\memoriaimg/logoUCO.pdf}{%
+        \includegraphics[height=1.0cm]{\memoriaimg/logoUCO.pdf}%
+      }{}%
+    };
+
+    % --- Línea decorativa en accent (borde superior sutil) ---
+    \draw[accent, line width=3pt]
+      (current page.north west) -- (current page.north east);
+
+  \end{tikzpicture}
+
+  % --- Contenido textual ---
+  \vspace*{0.5cm}
+
+  {\parskip=0pt
+  \begin{center}
+
+    \IfFileExists{\memoriaimg/LogotipoEPSC.pdf}{%
+      \includegraphics[width=5cm]{\memoriaimg/LogotipoEPSC.pdf}%
+    }{%
+      \textcolor{primary}{\Huge\bfseries EPSC — UCO}%
+    }
+
+    \vspace{0.3cm}
+
+    {\normalsize\bfseries\color{primary}TRABAJO DE FIN DE GRADO}
+
+    \vspace{0.15cm}
+    \rule{0.45\textwidth}{0.5pt}
+
+    \vspace{0.15cm}
+    {\LARGE\bfseries\color{primary}
+     Ecosistema de Domótica Local\\[0.06cm]
+     Impulsado por Agentes de IA}
+
+    \vspace{0.15cm}
+    \rule{0.45\textwidth}{0.5pt}
+
+    \vspace{0.15cm}
+    {\large\color{secondary}\bfseries Luxe Core AI}
+
+    \vfill
+
+    \begin{minipage}{0.45\textwidth}
+      \begin{flushleft}
+        {\footnotesize\bfseries Autor:} {\normalsize Jesús Fernández López}\\[0.15cm]
+        {\footnotesize\bfseries Titulación:} {\footnotesize Grado en Ing. Informática}
+      \end{flushleft}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.45\textwidth}
+      \begin{flushright}
+        {\footnotesize\bfseries Tutor:} {\normalsize Dr. Rafael Muñoz Salinas}
+      \end{flushright}
+    \end{minipage}
+
+    \vfill
+
+    \makebox[3cm]{\hrulefill}
+
+    \vspace{0.15cm}
+    {\footnotesize\color{darkgray}Universidad de Córdoba — EPSC}\\[0.06cm]
+    {\footnotesize\color{darkgray}Córdoba, junio de 2026}
+
+    \vspace*{0.22cm}
+  \end{center}}
+
+\end{frame}
+}

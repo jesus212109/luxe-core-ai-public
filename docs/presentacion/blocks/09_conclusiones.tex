@@ -1,0 +1,239 @@
+% ============================================================================
+%  BLOQUE VIII — DIAPOSITIVAS 27–31: CONCLUSIONES
+% ============================================================================
+\section{Conclusiones}
+
+% ----------------------------------------------------------------------------
+%  DIAPOSITIVA 27 — LOGROS VS RÚBRICA
+% ----------------------------------------------------------------------------
+\begin{frame}{Logros Alcanzados vs Rúbrica}
+  \sloppy
+  \footnotesize
+  \begin{columns}[T]
+    \column{0.52\textwidth}
+    \begin{exampleblock}{Verificados sobre hardware real}
+      \begin{itemize}
+        \item \textbf{Arquitectura 3 capas escalable}
+    \vspace{0.15cm}
+        \item \textbf{Control local Tuya} (RF-03) — ON/OFF $<$2 s
+        \item \textbf{Lectura BLE Xiaomi} (RF-02) — GATT sin nube
+        \item \textbf{FanLamp F8808} (RF-04) — 11 comandos
+        \item \textbf{Model Router v2} — 462 patrones, 92\% cobertura
+        \item \textbf{SelfHealManager} — 24 h sin caídas
+        \item \textbf{Canales Telegram + Dashboard} operativos
+      \end{itemize}
+    \end{exampleblock}
+
+    \column{0.48\textwidth}
+    \begin{block}{Estado de los módulos}
+      \resizebox{\columnwidth}{!}{%
+      \begin{tabular}{lcc}
+        \toprule
+        \textbf{Módulo} & \textbf{Estado} & \textbf{Obs.} \\
+        \midrule
+        Tuya Plug & \checkmark & Air-gapped \\
+        BLE Xiaomi & \checkmark & GATT directo \\
+        FanLamp & \checkmark & 11 comandos \\
+        OpenClaw & \checkmark & Puerto 18789 \\
+        Model Router & \checkmark & 3 niveles \\
+        ESP32 HVAC & Pendiente & Firmware C++20 \\
+        \bottomrule
+      \end{tabular}}%
+
+      \vspace{0.15cm}
+      \centering
+      \textbf{5/6 módulos. 0 € en licencias.}
+    \vspace{0.15cm}
+    \end{block}
+  \end{columns}
+\end{frame}
+
+% ----------------------------------------------------------------------------
+%  DIAPOSITIVA 28 — TRABAJO FUTURO CORTO PLAZO
+% ----------------------------------------------------------------------------
+\begin{frame}{Trabajo Futuro: Corto Plazo}
+  \sloppy
+  \begin{columns}[T]
+    \column{0.5\textwidth}
+    \begin{alertblock}{Firmware HVAC (ESP32 + LIN)}
+      \footnotesize
+      \textbf{Prioridad inmediata} — Hardware adquirido.\\
+      \texttt{esphome-fujitsu-halcyon} como base. \textbf{2--3 semanas}
+    \end{alertblock}
+
+    \begin{alertblock}{Eliminar puente ESP32}
+      \footnotesize
+      Control BLE directo con \texttt{bleak}.
+      Elimina punto único de fallo. \textbf{1--2 semanas}
+    \end{alertblock}
+
+    \begin{exampleblock}{\textit{Streaming} SSE Tier~2}
+      \footnotesize
+      Mostrar palabras conforme se generan. \textbf{1--2 semanas}
+    \end{exampleblock}
+
+    \column{0.5\textwidth}
+    \begin{exampleblock}{Bucle de control con OpenClaw}
+      \footnotesize
+      Conectar sensores BLE, Tuya y FanLamp al orquestador.
+      \textbf{1--2 semanas}
+    \end{exampleblock}
+
+    \begin{exampleblock}{Containerización Docker}
+      \footnotesize
+      \texttt{docker-compose} para replicabilidad total.
+      \textbf{1--2 semanas}
+    \end{exampleblock}
+
+    \begin{block}{Total corto plazo}
+      \footnotesize
+      5 líneas. Estimación: \textbf{5--10 semanas}.
+    \end{block}
+  \end{columns}
+\end{frame}
+
+% ----------------------------------------------------------------------------
+%  DIAPOSITIVA 29 — TRABAJO FUTURO LARGO PLAZO
+% ----------------------------------------------------------------------------
+\begin{frame}{Trabajo Futuro: Medio y Largo Plazo}
+  \begin{columns}[T]
+    \column{0.5\textwidth}
+    \footnotesize
+    \textbf{Medio plazo (meses)}
+    \vspace{0.15cm}
+    \begin{itemize}
+      \item \textbf{Expansión \textit{dashboard}:}\\
+      {\scriptsize Analíticas energéticas, histórico ASHRAE 55 — 1--2 meses}
+      \item \textbf{Expansión sensorial:}\\
+      {\scriptsize Sensor presencia LD2410, micrófono/altavoz — 1--2 meses}
+      \item \textbf{Base de datos vectorial:}\\
+      {\scriptsize Qdrant o ChromaDB para recuperación semántica — 2--3 meses}
+      \item \textbf{Memoria conversacional:}\\
+      {\scriptsize \textit{Embeddings} con \texttt{bge-m3}, referencias implícitas — 2--3 meses}
+    \end{itemize}
+
+    \column{0.5\textwidth}
+    \footnotesize
+    \textbf{Largo plazo (investigación)}
+    \vspace{0.15cm}
+    \begin{itemize}
+      \item \textbf{Aprendizaje adaptativo:}\\
+      {\scriptsize \textit{Reinforcement learning} para hábitos del usuario — varios meses}
+      \item \textbf{Nuevos protocolos:}\\
+      {\scriptsize Zigbee, Z-Wave $\rightarrow$ más dispositivos — varios meses}
+      \item \textbf{Re-evaluación de modelos:}\\
+      {\scriptsize Qwen3.5 (sin \textit{thinking}), Llama 4, DeepSeek — continuo}
+      \item \textbf{\textit{Fine-tuning} clasificador:}\\
+      {\scriptsize Ajuste con datos reales de uso doméstico — varios meses}
+    \end{itemize}
+  \end{columns}
+\end{frame}
+
+% ----------------------------------------------------------------------------
+%  DIAPOSITIVA 30 — REFLEXIÓN PRIVACIDAD
+% ----------------------------------------------------------------------------
+\begin{frame}{Privacidad por Diseño: Reflexión}
+  \footnotesize
+  \begin{columns}[T]
+    \column{0.55\textwidth}
+    \begin{block}{El principio fundamental}
+      \centering
+      \normalsize\textbf{La tecnología del hogar no debería\\[0.05cm]
+      exigir ceder la privacidad a cambio de comodidad.}
+    \end{block}
+
+    \textbf{Lo que hemos comprobado:}
+    \vspace{0.15cm}
+    \begin{itemize}
+      \item Es posible tener \textbf{ambas cosas} con hardware de consumo
+      \item La arquitectura \textit{air-gapped} es viable y verificable
+      \item Los modelos pequeños en local \textbf{funcionan}
+    \vspace{0.15cm}
+      \item La interoperabilidad no depende de la nube: depende del software
+    \end{itemize}
+
+    \column{0.45\textwidth}
+    \begin{exampleblock}{Más allá de lo técnico}
+      La decisión de mantener todo en local fue una cuestión de principios.
+    \end{exampleblock}
+
+    \begin{alertblock}{Y en pocos años...}
+      Modelos ligeros con capacidad cercana a los grandes cloud:\\
+      \centering
+      \textit{«¿se puede en local?»} $\rightarrow$
+      \textbf{«¿por qué en la nube?»}
+    \vspace{0.15cm}
+    \end{alertblock}
+  \end{columns}
+\end{frame}
+
+% ----------------------------------------------------------------------------
+%  DIAPOSITIVA 31 — CIERRE FORMAL
+% ----------------------------------------------------------------------------
+{
+\setbeamertemplate{footline}{}
+\setbeamertemplate{frametitle}{}
+
+\begin{frame}[plain]
+
+  \begin{tikzpicture}[remember picture, overlay]
+
+    % --- Esquina superior derecha (decoración institucional) ---
+    \node[anchor=north east, inner sep=0pt] at (current page.north east) {%
+      \IfFileExists{\memoriaimg/topRightCorner.pdf}{%
+        \includegraphics[width=2.5cm]{\memoriaimg/topRightCorner.pdf}%
+      }{}%
+    };
+
+    % --- Esquina inferior izquierda (decoración institucional) ---
+    \node[anchor=south west, inner sep=0pt] at (current page.south west) {%
+      \IfFileExists{\memoriaimg/bottomLeftCorner.pdf}{%
+        \includegraphics[width=2.5cm]{\memoriaimg/bottomLeftCorner.pdf}%
+      }{}%
+    };
+
+    % --- Escudo Informática + Logo UCO ---
+    \node[anchor=south east, xshift=-0.8cm, yshift=0.8cm] at (current page.south east) {%
+      \IfFileExists{\memoriaimg/escudo_informatica.jpg}{%
+        \includegraphics[height=1.0cm]{\memoriaimg/escudo_informatica.jpg}%
+      }{}%
+      \hspace{0.2cm}%
+      \IfFileExists{\memoriaimg/logoUCO.pdf}{%
+        \includegraphics[height=1.0cm]{\memoriaimg/logoUCO.pdf}%
+      }{}%
+    };
+
+    % --- Línea accent superior ---
+    \draw[accent, line width=3pt]
+      (current page.north west) -- (current page.north east);
+
+  \end{tikzpicture}
+
+  \vspace*{2.5cm}
+
+  {\parskip=0pt
+  \begin{center}
+    {\Large\bfseries\color{primary}Luxe Core AI}
+
+    \vspace{1.0cm}
+
+    {\Huge\bfseries\color{primary}Muchas gracias por su atención.}
+
+    \vspace{0.6cm}
+
+    {\normalsize\color{darkgray}
+     Quedo a disposición del ilustre tribunal\\
+     para resolver las cuestiones que consideren oportunas.}
+
+    \vfill
+
+    \makebox[4cm]{\hrulefill}
+
+    \vspace{0.2cm}
+    {\normalsize\color{darkgray}Jesús Fernández López}\\[0.08cm]
+    {\normalsize\color{darkgray}Grado en Ing. Informática — UCO}\\[0.06cm]
+    {\normalsize\color{darkgray}Junio 2026}
+  \end{center}}
+
+\end{frame}
+}

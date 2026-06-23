@@ -1,0 +1,89 @@
+% ============================================================================
+%  BLOQUE II — DIAPOSITIVAS 4–6: PROBLEMA Y OBJETIVOS
+% ============================================================================
+\section{Problema y Objetivos}
+
+% ----------------------------------------------------------------------------
+%  DIAPOSITIVA 4 — PROBLEMA CLOUD + FRAGMENTACIÓN
+% ----------------------------------------------------------------------------
+\begin{frame}{El Problema de la Dependencia Cloud}
+  \begin{columns}[T]
+    \column{0.48\textwidth}
+    \begin{alertblock}{Dependencia de conectividad}
+      \scriptsize
+      Sin Internet, el hogar inteligente se vuelve «inerte».
+      Afecta a calefacción, ventilación y funciones esenciales.
+    \end{alertblock}
+
+    \begin{alertblock}{Exposición de datos sensibles}
+      \scriptsize
+      Patrones de comportamiento viajan a servidores de terceros.
+      Caso real: empleados escuchaban grabaciones de Alexa (Bloomberg, 2019).
+    \end{alertblock}
+
+    \begin{alertblock}{Latencia y fragmentación}
+      \scriptsize
+      «Apaga la luz» tarda segundos. Tuya, Zigbee, BLE, LIN: protocolos
+      incompatibles por diseño. Ecosistemas cerrados = barreras de salida.
+    \end{alertblock}
+
+    \column{0.52\textwidth}
+    \begin{block}{Raíz común}
+      \scriptsize\centering
+      \textbf{La delegación de la inteligencia del hogar a infraestructuras externas.}
+    \end{block}
+
+    \begin{exampleblock}{La respuesta de Luxe Core AI}
+      \scriptsize
+      Capa de software que \textbf{entiende y coordina} hardware heterogéneo.\\
+      Dispositivos que no interoperan... interoperan.\\
+      Interoperabilidad = capa de orquestación inteligente, no estándares cerrados.\\[0.1cm]
+      \textit{Ejemplo real:} Enchufe Tuya $\rightarrow$ humidificador 24V + sensor Xiaomi + FanLamp
+      $\rightarrow$ un solo sistema de confort, sin modificar hardware.
+    \end{exampleblock}
+  \end{columns}
+\end{frame}
+
+% ----------------------------------------------------------------------------
+%  DIAPOSITIVA 5 — OBJETIVO GENERAL
+% ----------------------------------------------------------------------------
+\begin{frame}{Objetivo General del Proyecto}
+  \begin{block}{Objetivo general}
+    \centering
+    \textbf{Diseñar, implementar y validar un sistema\\[0.2cm]
+    de monitorización y control de confort térmico\\[0.2cm]
+    que opere de forma autónoma en una red local privada,\\[0.2cm]
+    eliminando cualquier dependencia de servicios en la nube.}
+  \end{block}
+
+  \textbf{Principios de diseño transversales:}
+
+  \begin{columns}[T]
+    \column{0.33\textwidth}
+    \centering
+    \textcolor{primary}{\textbf{Coste cero}}\\[0.1cm]
+    {\footnotesize 0 € en licencias,\\ APIs externas\\ o suscripciones}
+
+    \column{0.33\textwidth}
+    \centering
+    \textcolor{primary}{\textbf{Reproducibilidad}}\\[0.1cm]
+    {\footnotesize Mismo hardware\\ $\rightarrow$ replicar\\ con la documentación}
+
+    \column{0.33\textwidth}
+    \centering
+    \textcolor{primary}{\textbf{Hardware real}}\\[0.1cm]
+    {\footnotesize Pruebas solo sobre\\ dispositivos físicos,\\ no simulación}
+  \end{columns}
+\end{frame}
+
+% ----------------------------------------------------------------------------
+%  DIAPOSITIVA 6 — OBJETIVOS ESPECÍFICOS E INDICADORES
+% ----------------------------------------------------------------------------
+\begin{frame}{Objetivos Específicos e Indicadores}
+  \centering
+  \IfFileExists{figures/08_objetivos.pdf}{%
+    \includegraphics[width=0.92\textwidth, height=5.5cm, keepaspectratio]{figures/08_objetivos.pdf}%
+  }{
+    \textcolor{darkgray}{[Figura: dashboard de objetivos]}
+  }
+\end{frame}

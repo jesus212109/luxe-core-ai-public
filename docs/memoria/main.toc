@@ -1,0 +1,160 @@
+\babel@toc {spanish}{}\relax 
+\contentsline {chapter}{Agradecimientos}{3}{chapter*.1}%
+\contentsline {chapter}{Resumen}{5}{chapter*.2}%
+\contentsline {chapter}{Abstract}{7}{chapter*.3}%
+\contentsline {chapter}{Índice de figuras}{\es@scroman {vii}}{chapter*.4}%
+\contentsline {chapter}{Índice de tablas}{\es@scroman {ix}}{chapter*.5}%
+\contentsline {chapter}{\numberline {1}Introducción}{1}{chapter.1}%
+\contentsline {section}{\numberline {1.1}Motivación Personal}{2}{section.1.1}%
+\contentsline {chapter}{\numberline {2}Definición del Problema}{5}{chapter.2}%
+\contentsline {section}{\numberline {2.1}Dependencia de Conectividad}{5}{section.2.1}%
+\contentsline {section}{\numberline {2.2}Exposición de Datos Sensibles}{6}{section.2.2}%
+\contentsline {section}{\numberline {2.3}Latencia y Capacidad de Respuesta}{6}{section.2.3}%
+\contentsline {section}{\numberline {2.4}Heterogeneidad de Protocolos}{6}{section.2.4}%
+\contentsline {section}{\numberline {2.5}Restricción Económica como Factor de Diseño}{7}{section.2.5}%
+\contentsline {section}{\numberline {2.6}Síntesis del Problema}{7}{section.2.6}%
+\contentsline {chapter}{\numberline {3}Objetivos}{9}{chapter.3}%
+\contentsline {section}{\numberline {3.1}Objetivos Específicos}{9}{section.3.1}%
+\contentsline {section}{\numberline {3.2}Objetivos de Evaluación}{10}{section.3.2}%
+\contentsline {section}{\numberline {3.3}Restricciones Asumidas}{11}{section.3.3}%
+\contentsline {chapter}{\numberline {4}Antecedentes}{13}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Estado del Arte en Domótica}{13}{section.4.1}%
+\contentsline {section}{\numberline {4.2}Plataformas de Automatización del Hogar}{13}{section.4.2}%
+\contentsline {section}{\numberline {4.3}Edge AI y Modelos de Lenguaje Locales}{14}{section.4.3}%
+\contentsline {subsection}{\numberline {4.3.1}TinyML y Procesamiento en el Edge}{14}{subsection.4.3.1}%
+\contentsline {subsection}{\numberline {4.3.2}Asistentes de Voz Locales}{14}{subsection.4.3.2}%
+\contentsline {section}{\numberline {4.4}Comparativa de Modelos Locales}{15}{section.4.4}%
+\contentsline {section}{\numberline {4.5}Control Local de IoT}{16}{section.4.5}%
+\contentsline {subsection}{\numberline {4.5.1}Protocolos y Arquitecturas}{16}{subsection.4.5.1}%
+\contentsline {subsection}{\numberline {4.5.2}Firmwares Alternativos}{16}{subsection.4.5.2}%
+\contentsline {subsection}{\numberline {4.5.3}Bibliotecas de Control Directo}{16}{subsection.4.5.3}%
+\contentsline {section}{\numberline {4.6}Frameworks de Agentes}{17}{section.4.6}%
+\contentsline {section}{\numberline {4.7}Resumen del Contexto Tecnológico}{18}{section.4.7}%
+\contentsline {chapter}{\numberline {5}Restricciones y Metodología}{19}{chapter.5}%
+\contentsline {section}{\numberline {5.1}Restricciones del Proyecto}{19}{section.5.1}%
+\contentsline {subsection}{\numberline {5.1.1}Restricción Temporal}{19}{subsection.5.1.1}%
+\contentsline {subsection}{\numberline {5.1.2}Restricción Económica}{19}{subsection.5.1.2}%
+\contentsline {section}{\numberline {5.2}Decisiones Arquitectónicas}{20}{section.5.2}%
+\contentsline {subsection}{\numberline {5.2.1}Evolución de la Infraestructura}{20}{subsection.5.2.1}%
+\contentsline {subsection}{\numberline {5.2.2}Paradigma Políglota}{20}{subsection.5.2.2}%
+\contentsline {subsection}{\numberline {5.2.3}Evolución de la Selección de Modelos}{21}{subsection.5.2.3}%
+\contentsline {subsection}{\numberline {5.2.4}Aislamiento de Red: La Arquitectura Air-Gapped}{22}{subsection.5.2.4}%
+\contentsline {subsubsection}{\numberline {5.2.4.1}Hotspot Spoofing para Dispositivos Tuya}{23}{subsubsection.5.2.4.1}%
+\contentsline {subsubsection}{\numberline {5.2.4.2}Lectura de Sensores Xiaomi LYWSD03MMC}{23}{subsubsection.5.2.4.2}%
+\contentsline {subsection}{\numberline {5.2.5}Selección del Sistema Operativo y el Servidor}{24}{subsection.5.2.5}%
+\contentsline {subsubsection}{\numberline {5.2.5.1}Por qué Ubuntu Server 24.04 LTS}{24}{subsubsection.5.2.5.1}%
+\contentsline {subsubsection}{\numberline {5.2.5.2}Herramientas de Gestión}{25}{subsubsection.5.2.5.2}%
+\contentsline {section}{\numberline {5.3}Metodología de Trabajo}{25}{section.5.3}%
+\contentsline {subsection}{\numberline {5.3.1}Control de Versiones y Propiedad Intelectual}{25}{subsection.5.3.1}%
+\contentsline {subsection}{\numberline {5.3.2}Despliegue Inicial: Incidencias y Soluciones}{25}{subsection.5.3.2}%
+\contentsline {subsubsection}{\numberline {5.3.2.1}El Puerto LAN/WAN Híbrido}{26}{subsubsection.5.3.2.1}%
+\contentsline {subsubsection}{\numberline {5.3.2.2}Pasarela de Red de Contingencia}{26}{subsubsection.5.3.2.2}%
+\contentsline {subsection}{\numberline {5.3.3}Rigor Documental}{27}{subsection.5.3.3}%
+\contentsline {subsection}{\numberline {5.3.4}Uso de la Inteligencia Artificial en el Desarrollo}{27}{subsection.5.3.4}%
+\contentsline {chapter}{\numberline {6}Especificación de Requisitos}{29}{chapter.6}%
+\contentsline {section}{\numberline {6.1}Requisitos Funcionales}{29}{section.6.1}%
+\contentsline {section}{\numberline {6.2}Requisitos No Funcionales}{30}{section.6.2}%
+\contentsline {chapter}{\numberline {7}Recursos}{33}{chapter.7}%
+\contentsline {section}{\numberline {7.1}Hardware}{33}{section.7.1}%
+\contentsline {subsection}{\numberline {7.1.1}Presupuesto de Hardware}{34}{subsection.7.1.1}%
+\contentsline {section}{\numberline {7.2}Tabla Comparativa de Alternativas Consideradas}{34}{section.7.2}%
+\contentsline {section}{\numberline {7.3}Software y Librerías}{35}{section.7.3}%
+\contentsline {section}{\numberline {7.4}Dependencias de Red}{36}{section.7.4}%
+\contentsline {chapter}{\numberline {8}Especificación del Sistema}{37}{chapter.8}%
+\contentsline {section}{\numberline {8.1}Visión General de la Arquitectura}{37}{section.8.1}%
+\contentsline {section}{\numberline {8.2}Topología de Red Local}{39}{section.8.2}%
+\contentsline {subsection}{\numberline {8.2.1}Asignación de Direcciones IP}{39}{subsection.8.2.1}%
+\contentsline {subsection}{\numberline {8.2.2}Ventana de Conectividad de Contingencia}{40}{subsection.8.2.2}%
+\contentsline {subsection}{\numberline {8.2.3}Topología Física}{40}{subsection.8.2.3}%
+\contentsline {section}{\numberline {8.3}Decisiones de Diseño}{40}{section.8.3}%
+\contentsline {subsection}{\numberline {8.3.1}Modelos Evaluados para el Razonador (Tier~2)}{40}{subsection.8.3.1}%
+\contentsline {section}{\numberline {8.4}Módulos del Servidor}{42}{section.8.4}%
+\contentsline {subsection}{\numberline {8.4.1}Orquestador OpenClaw (Node.js)}{42}{subsection.8.4.1}%
+\contentsline {subsection}{\numberline {8.4.2}Arquitectura de Enrutamiento Inteligente (Model Router v2)}{42}{subsection.8.4.2}%
+\contentsline {subsection}{\numberline {8.4.3}Auto-Recuperación y Tolerancia a Fallos}{44}{subsection.8.4.3}%
+\contentsline {subsection}{\numberline {8.4.4}Daemon de Sensorización Continua}{45}{subsection.8.4.4}%
+\contentsline {subsection}{\numberline {8.4.5}Asesor de Confort Térmico (Comfort Advisor)}{46}{subsection.8.4.5}%
+\contentsline {subsection}{\numberline {8.4.6}Asesor Inteligente con Contexto Exterior (Smart Advisor)}{46}{subsection.8.4.6}%
+\contentsline {subsection}{\numberline {8.4.7}Comunicación y Notificaciones}{48}{subsection.8.4.7}%
+\contentsline {subsection}{\numberline {8.4.8}Infraestructura de Despliegue}{48}{subsection.8.4.8}%
+\contentsline {subsection}{\numberline {8.4.9}Métricas de Rendimiento}{48}{subsection.8.4.9}%
+\contentsline {subsection}{\numberline {8.4.10}Canales de Usuario}{49}{subsection.8.4.10}%
+\contentsline {subsection}{\numberline {8.4.11}Módulo de Integración Tuya}{49}{subsection.8.4.11}%
+\contentsline {subsection}{\numberline {8.4.12}Módulo de Sensores BLE}{50}{subsection.8.4.12}%
+\contentsline {subsection}{\numberline {8.4.13}Criterios de Integración y Restricciones}{50}{subsection.8.4.13}%
+\contentsline {subsection}{\numberline {8.4.14}Impacto de la Restricción Económica en las Decisiones de Implementación}{50}{subsection.8.4.14}%
+\contentsline {section}{\numberline {8.5}Firmware del Nodo ESP32 (\texttt {firmware/})}{51}{section.8.5}%
+\contentsline {section}{\numberline {8.6}Integraciones de Hardware}{52}{section.8.6}%
+\contentsline {subsection}{\numberline {8.6.1}Dispositivos Tuya}{52}{subsection.8.6.1}%
+\contentsline {subsection}{\numberline {8.6.2}Sensores Xiaomi LYWSD03MMC}{52}{subsection.8.6.2}%
+\contentsline {subsection}{\numberline {8.6.3}Ventilador de Techo FanLamp Pro F8808}{52}{subsection.8.6.3}%
+\contentsline {subsubsection}{\numberline {8.6.3.1}Problema de Integración}{52}{subsubsection.8.6.3.1}%
+\contentsline {subsubsection}{\numberline {8.6.3.2}Descubrimiento del Protocolo}{52}{subsubsection.8.6.3.2}%
+\contentsline {subsubsection}{\numberline {8.6.3.3}Control desde el Ordenador}{53}{subsubsection.8.6.3.3}%
+\contentsline {subsubsection}{\numberline {8.6.3.4}Evolución del Controlador: de BLE directo a Puente ESP32}{53}{subsubsection.8.6.3.4}%
+\contentsline {section}{\numberline {8.7}Estructura del Repositorio}{54}{section.8.7}%
+\contentsline {chapter}{\numberline {9}Validación y Pruebas}{61}{chapter.9}%
+\contentsline {section}{\numberline {9.1}Integración Tuya}{61}{section.9.1}%
+\contentsline {section}{\numberline {9.2}Sensores BLE Xiaomi}{61}{section.9.2}%
+\contentsline {section}{\numberline {9.3}Ventilador FanLamp F8808}{62}{section.9.3}%
+\contentsline {section}{\numberline {9.4}Sensor Daemon}{62}{section.9.4}%
+\contentsline {section}{\numberline {9.5}Model Router v2}{63}{section.9.5}%
+\contentsline {section}{\numberline {9.6}Prueba de Cobertura del Tier~0}{63}{section.9.6}%
+\contentsline {section}{\numberline {9.7}Tabla de Latencia Comparativa}{63}{section.9.7}%
+\contentsline {section}{\numberline {9.8}Circuit Breaker y Tolerancia a Fallos}{64}{section.9.8}%
+\contentsline {section}{\numberline {9.9}Suite de Integración Automatizada}{64}{section.9.9}%
+\contentsline {chapter}{\numberline {10}Conclusiones}{67}{chapter.10}%
+\contentsline {section}{\numberline {10.1}Logros Alcanzados}{67}{section.10.1}%
+\contentsline {section}{\numberline {10.2}Estado Actual del Desarrollo}{69}{section.10.2}%
+\contentsline {section}{\numberline {10.3}Líneas de Trabajo Futuras}{69}{section.10.3}%
+\contentsline {section}{\numberline {10.4}Reflexión Personal}{71}{section.10.4}%
+\contentsline {chapter}{\numberline {11}Bibliografía}{73}{chapter.11}%
+\contentsline {part}{Anexos}{77}{chapter.11}%
+\contentsline {chapter}{\numberline {A}Manual de Usuario}{79}{appendix.Alph1}%
+\contentsline {section}{\numberline {A.1}Introducción}{79}{section.Alph1.1}%
+\contentsline {section}{\numberline {A.2}Requisitos del Sistema}{79}{section.Alph1.2}%
+\contentsline {subsection}{\numberline {A.2.1}Hardware Necesario}{79}{subsection.Alph1.2.1}%
+\contentsline {subsection}{\numberline {A.2.2}Red Necesaria}{80}{subsection.Alph1.2.2}%
+\contentsline {section}{\numberline {A.3}Instalación Paso a Paso}{80}{section.Alph1.3}%
+\contentsline {subsection}{\numberline {A.3.1}Conexión Física}{80}{subsection.Alph1.3.1}%
+\contentsline {subsection}{\numberline {A.3.2}Instalación de Software y Primer Arranque}{81}{subsection.Alph1.3.2}%
+\contentsline {subsection}{\numberline {A.3.3}Primer Comando}{83}{subsection.Alph1.3.3}%
+\contentsline {section}{\numberline {A.4}Canales de Comunicación}{83}{section.Alph1.4}%
+\contentsline {section}{\numberline {A.5}Comandos Disponibles}{84}{section.Alph1.5}%
+\contentsline {subsection}{\numberline {A.5.1}Iluminación}{84}{subsection.Alph1.5.1}%
+\contentsline {subsection}{\numberline {A.5.2}Ventilador}{84}{subsection.Alph1.5.2}%
+\contentsline {subsection}{\numberline {A.5.3}Enchufe Inteligente}{84}{subsection.Alph1.5.3}%
+\contentsline {subsection}{\numberline {A.5.4}Escenas Predefinidas}{85}{subsection.Alph1.5.4}%
+\contentsline {subsection}{\numberline {A.5.5}Consultas}{85}{subsection.Alph1.5.5}%
+\contentsline {subsection}{\numberline {A.5.6}Tabla Resumen de Comandos}{85}{subsection.Alph1.5.6}%
+\contentsline {section}{\numberline {A.6}Notificaciones Proactivas}{85}{section.Alph1.6}%
+\contentsline {section}{\numberline {A.7}Seguridad}{86}{section.Alph1.7}%
+\contentsline {section}{\numberline {A.8}Solución de Problemas Comunes}{86}{section.Alph1.8}%
+\contentsline {subsection}{\numberline {A.8.1}Indicadores LED del ESP32}{86}{subsection.Alph1.8.1}%
+\contentsline {subsection}{\numberline {A.8.2}Casos Frecuentes}{87}{subsection.Alph1.8.2}%
+\contentsline {section}{\numberline {A.9}Añadir un Dispositivo Nuevo}{88}{section.Alph1.9}%
+\contentsline {subsection}{\numberline {A.9.1}Añadir un Dispositivo Tuya}{88}{subsection.Alph1.9.1}%
+\contentsline {subsection}{\numberline {A.9.2}Añadir un Sensor BLE Xiaomi}{88}{subsection.Alph1.9.2}%
+\contentsline {section}{\numberline {A.10}Mantenimiento}{89}{section.Alph1.10}%
+\contentsline {subsection}{\numberline {A.10.1}Actualizaciones de Software}{89}{subsection.Alph1.10.1}%
+\contentsline {subsection}{\numberline {A.10.2}Sustitución de Pilas}{89}{subsection.Alph1.10.2}%
+\contentsline {subsection}{\numberline {A.10.3}Backup de Configuración}{89}{subsection.Alph1.10.3}%
+\contentsline {subsection}{\numberline {A.10.4}Restauración de Configuración}{89}{subsection.Alph1.10.4}%
+\contentsline {subsection}{\numberline {A.10.5}Restauración del ESP32}{90}{subsection.Alph1.10.5}%
+\contentsline {subsection}{\numberline {A.10.6}Diagnóstico con OpenClaw}{90}{subsection.Alph1.10.6}%
+\contentsline {section}{\numberline {A.11}Preguntas Frecuentes (FAQ)}{90}{section.Alph1.11}%
+\contentsline {section}{\numberline {A.12}Checklist de Puesta en Marcha}{91}{section.Alph1.12}%
+\contentsline {subsection}{\numberline {A.12.1}Fase 1: Conexión Física}{91}{subsection.Alph1.12.1}%
+\contentsline {subsection}{\numberline {A.12.2}Fase 2: Instalación de Software Base}{92}{subsection.Alph1.12.2}%
+\contentsline {subsection}{\numberline {A.12.3}Fase 3: Configuración de OpenClaw}{92}{subsection.Alph1.12.3}%
+\contentsline {subsection}{\numberline {A.12.4}Fase 4: Verificación del Sistema}{92}{subsection.Alph1.12.4}%
+\contentsline {chapter}{\numberline {B}Manual de Código}{95}{appendix.Alph2}%
+\contentsline {section}{\numberline {B.1}Enrutador de Tres Niveles (Model Router v2)}{95}{section.Alph2.1}%
+\contentsline {section}{\numberline {B.2}Sistema de Zero-Inference (Tier~0)}{96}{section.Alph2.2}%
+\contentsline {section}{\numberline {B.3}Daemon de Sensorización Continua}{96}{section.Alph2.3}%
+\contentsline {section}{\numberline {B.4}Asesor de Confort Térmico (Comfort Advisor)}{97}{section.Alph2.4}%
+\contentsline {section}{\numberline {B.5}Control del Ventilador FanLamp (Anuncios BLE)}{97}{section.Alph2.5}%
+\contentsline {section}{\numberline {B.6}Integración Tuya (Protocolo Local 3.5)}{98}{section.Alph2.6}%
+\contentsline {section}{\numberline {B.7}Lectura GATT de Sensores Xiaomi}{98}{section.Alph2.7}%
+\contentsline {section}{\numberline {B.8}Auto-Recuperación (Circuit Breaker)}{99}{section.Alph2.8}%
+\contentsline {chapter}{\numberline {C}Glosario de Acrónimos}{101}{appendix.Alph3}%

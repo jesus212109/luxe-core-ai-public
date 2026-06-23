@@ -1,0 +1,88 @@
+% ============================================================================
+%  BLOQUE VI — DIAPOSITIVAS 23–24: VALIDACIÓN Y PRUEBAS
+% ============================================================================
+\section{Validación y Pruebas}
+
+% ----------------------------------------------------------------------------
+%  DIAPOSITIVA 23 — SUITE DE PRUEBAS
+% ----------------------------------------------------------------------------
+\begin{frame}[fragile]{Suite de Pruebas: 500 Comandos}
+  \begin{columns}[T]
+    \column{0.55\textwidth}
+    \footnotesize
+    \textbf{Pruebas realizadas (hardware real):}
+    \vspace{0.15cm}
+    \begin{enumerate}
+      \item \textbf{Tuya:} conectividad IP, ON/OFF, alternancia $\rightarrow$ \checkmark
+      \item \textbf{BLE Xiaomi:} descubrimiento, GATT, decodificación $\rightarrow$ \checkmark
+      \item \textbf{FanLamp:} 11 comandos verificados físicamente $\rightarrow$ \checkmark
+      \item \textbf{Sensor Daemon:} lectura cada 60 s, JSON atómico $\rightarrow$ \checkmark
+      \item \textbf{Model Router:} 3 niveles validados $\rightarrow$ \checkmark
+      \item \textbf{Circuit Breaker:} fallo simulado + recuperación $\rightarrow$ \checkmark
+    \end{enumerate}
+
+    \column{0.45\textwidth}
+    \footnotesize
+    \textbf{Cobertura Tier~0 (500 comandos):}
+    \vspace{0.15cm}
+    \begin{itemize}
+      \item Iluminación (35 variantes): 100\%
+      \item Ventilador (50 variantes): 100\%
+      \item Escenas (40 variantes): 100\%
+      \item Consultas estado (15 variantes): 100\%
+      \item Conversacionales $\rightarrow$ Tier~2: esperado
+    \end{itemize}
+
+    \begin{exampleblock}{Suite automatizada}
+      \footnotesize
+      \texttt{tests/test\_integration.py}\\
+      5 subsistemas verificados de forma coordinada.
+      No destructiva: solo comandos de lectura.
+    \end{exampleblock}
+  \end{columns}
+\end{frame}
+
+% ----------------------------------------------------------------------------
+%  DIAPOSITIVA 24 — RESULTADOS LATENCIA
+% ----------------------------------------------------------------------------
+\begin{frame}{Resultados: Latencia y Cobertura}
+  \sloppy
+  \begin{columns}[T]
+    \column{0.48\textwidth}
+    \centering
+    \footnotesize\setlength{\tabcolsep}{3pt}
+    \resizebox{\columnwidth}{!}{%
+    \begin{tabular}{lccc}
+      \toprule
+      \textbf{Escenario} & \textbf{Antes} & \textbf{Ahora} & \textbf{Modelo} \\
+      \midrule
+      «velocidad 3» & $\sim$2 s & $\sim$1,5 s & Tier~0 \\
+      «cómo está la casa» & $\sim$2 s & 0--1 ms & Tier~0 \\
+      «me enciendes la luz» & $\sim$3 s & $\sim$300 ms & 1.5B \\
+      «buenos días» & $\sim$12 s & 27--60 s & Mistral 7B \\
+      «temperatura» & 18 s & 0--1 ms & Daemon \\
+      \bottomrule
+    \end{tabular}%
+    }
+
+    \vspace{0.3cm}
+    \IfFileExists{\memoriaimg/fig_9_2.pdf}{%
+      \includegraphics[height=2.5cm, keepaspectratio]{\memoriaimg/fig_9_2.pdf}%
+    }{%
+      \fbox{\parbox{0.9\textwidth}{\centering\footnotesize [Cobertura Tier 0]}}%
+    }
+
+    \column{0.52\textwidth}
+    \IfFileExists{\memoriaimg/fig_9_1.pdf}{%
+      \includegraphics[height=3.2cm, keepaspectratio]{\memoriaimg/fig_9_1.pdf}%
+    }{%
+      \fbox{\parbox{0.9\textwidth}{\centering\footnotesize [Gráfico latencia]}}%
+    }
+
+    \begin{block}{Disponibilidad}
+      \footnotesize\centering
+      \texttt{model-router} \quad \texttt{sensor-daemon} \quad \texttt{openclaw-gateway}\\[0.1cm]
+      \textbf{Operativos 24 h sin caídas.}
+    \end{block}
+  \end{columns}
+\end{frame}

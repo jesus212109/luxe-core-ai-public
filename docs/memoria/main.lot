@@ -1,0 +1,28 @@
+\babel@toc {spanish}{}\relax 
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\contentsline {table}{\numberline {5.1}{\ignorespaces Comparativa de latencias y fiabilidad de los modelos evaluados para el Tier~2. Las pruebas se realizaron sobre el corpus de 500 comandos reales del proyecto en un Ryzen 5 con 16~GB RAM.\relax }}{22}{table.caption.7}%
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\contentsline {table}{\numberline {7.1}{\ignorespaces Desglose de costes de hardware del proyecto Luxe Core AI.\relax }}{34}{table.caption.8}%
+\contentsline {table}{\numberline {7.2}{\ignorespaces Estimación de costes anuales de un ecosistema domótico equivalente basado en servicios cloud (excluyendo hardware, común en ambos casos). Los precios son orientativos y varían según proveedor, volumen de uso y región.\relax }}{35}{table.caption.9}%
+\contentsline {table}{\numberline {7.3}{\ignorespaces Comparativa de alternativas tecnológicas consideradas para cada componente del sistema.\relax }}{36}{table.caption.11}%
+\addvspace {10\p@ }
+\contentsline {table}{\numberline {8.1}{\ignorespaces Asignación estática de direcciones IP en el segmento air-gapped.\relax }}{40}{table.caption.14}%
+\contentsline {table}{\numberline {8.2}{\ignorespaces Architecture Decision Records (ADR) del proyecto, con referencias a los capítulos donde se detalla cada decisión.\relax }}{41}{table.caption.15}%
+\contentsline {table}{\numberline {8.3}{\ignorespaces Modelos evaluados como candidatos para el Tier~2 de razonamiento. Las mediciones se realizaron sobre el corpus de 500 comandos reales del proyecto.\relax }}{41}{table.caption.16}%
+\contentsline {table}{\numberline {8.4}{\ignorespaces Mejora de latencia tras la implementación del Model Router v2 y el Sensor Daemon.\relax }}{49}{table.caption.19}%
+\contentsline {table}{\numberline {8.5}{\ignorespaces Comandos disponibles para el ventilador FanLamp F8808.\relax }}{53}{table.caption.26}%
+\contentsline {table}{\numberline {8.6}{\ignorespaces Comparativa entre las dos fases del controlador del ventilador FanLamp.\relax }}{55}{table.caption.27}%
+\addvspace {10\p@ }
+\contentsline {table}{\numberline {9.1}{\ignorespaces Mejora de latencia tras la implementación del Model Router v2 y el Sensor Daemon.\relax }}{64}{table.caption.28}%
+\addvspace {10\p@ }
+\contentsline {table}{\numberline {10.1}{\ignorespaces Estado de los módulos del proyecto a la fecha de esta memoria.\relax }}{69}{table.caption.31}%
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\contentsline {table}{\numberline {A.1}{\ignorespaces Resumen de comandos disponibles por categoría.\relax }}{85}{table.caption.33}%
+\addvspace {10\p@ }
+\addvspace {10\p@ }

@@ -1,0 +1,270 @@
+% ============================================================================
+%  Luxe Core AI — Presentación TFG (Beamer)
+%  Autor: Jesús Fernández López — Tutor: Dr. Rafael Muñoz Salinas
+%  UCO — Escuela Politécnica Superior — junio 2026
+% ============================================================================
+\PassOptionsToPackage{table}{xcolor}
+\documentclass[11pt, spanish, aspectratio=169]{beamer}
+
+% --- Encoding, Fuentes e Idioma ---
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[spanish, es-tabla]{babel}
+\usepackage{csquotes}
+\usepackage{libertine}
+\usepackage[scaled=0.85]{beramono}
+\usepackage{microtype}
+
+% --- Paquetes Esenciales ---
+\usepackage{graphicx}
+\usepackage{tikz}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{listings}
+\usepackage{hyperref}
+\usepackage{qrcode}
+\usepackage{totcount}
+\usepackage{calc}
+\usepackage[skins]{tcolorbox}
+\tcbuselibrary{breakable, skins}
+
+% --- Contador total de frames ---
+\regtotcounter{framenumber}
+
+% ============================================================================
+%  TCOLORBOX — Estilos de bloques personalizados (borde izquierdo accent)
+% ============================================================================
+\tcbset{
+  luxeblock/.style={
+    enhanced,
+    colback=secondarylight,
+    colbacktitle=primary,
+    coltitle=white,
+    fonttitle=\bfseries\footnotesize,
+    colframe=accent,
+    attach boxed title to top left={xshift=3mm, yshift=-3mm, yshifttext=-1mm},
+    boxed title style={size=small, colback=primary, sharp corners, boxrule=0pt},
+    drop fuzzy shadow,
+    boxrule=0pt,
+    leftrule=3pt,
+    arc=2pt,
+    left=4mm, right=3mm, top=3mm, bottom=2mm,
+    before skip=2pt, after skip=15pt,
+  },
+  luxealert/.style={
+    luxeblock,
+    colbacktitle=alertred,
+    colframe=alertred,
+    boxed title style={size=small, colback=alertred, sharp corners, boxrule=0pt},
+  },
+  luxeexample/.style={
+    luxeblock,
+    colbacktitle=exgreen,
+    colframe=exgreen,
+    boxed title style={size=small, colback=exgreen, sharp corners, boxrule=0pt},
+  },
+}
+
+% ============================================================================
+%  PALETA DE COLORES CORPORATIVA EPSC (coherente con la memoria)
+% ============================================================================
+\definecolor{primary}{HTML}{280091}        % EPSCDark — violeta institucional
+\definecolor{primarydark}{HTML}{1A0060}    % Más oscuro para pie
+\definecolor{secondary}{HTML}{4C5CC5}      % EPSCMedium — violeta medio
+\definecolor{secondarylight}{HTML}{EDEEF8} % Violeta muy claro (fondo bloques)
+\definecolor{bgcolor}{HTML}{FAFAFA}        % Fondo principal
+\definecolor{accent}{HTML}{3FCFD5}         % EPSCLight — verde azulado
+\definecolor{exgreen}{HTML}{00B299}        % EPSCGreen — verde corporativo
+\definecolor{alertred}{HTML}{C0392B}       % Rojo alerta
+\definecolor{darkgray}{RGB}{80,80,80}
+
+% ============================================================================
+%  COLORES BEAMER
+% ============================================================================
+\setbeamercolor{structure}{fg=primary}
+\setbeamercolor{background canvas}{bg=bgcolor}
+\setbeamercolor{normal text}{fg=darkgray}
+\setbeamercolor{frametitle}{fg=white, bg=primary}
+\setbeamercolor{frametitle accent}{fg=secondary, bg=secondary}
+\setbeamercolor{footline}{fg=secondary!70, bg=bgcolor}
+\setbeamercolor{author in head/foot}{fg=secondarylight, bg=primarydark}
+\setbeamercolor{page number in head/foot}{fg=white, bg=primarydark}
+\setbeamercolor{block title}{fg=white, bg=primary}
+\setbeamercolor{block body}{fg=black, bg=secondarylight}
+\setbeamercolor{block title alerted}{fg=white, bg=alertred}
+\setbeamercolor{block body alerted}{fg=black, bg=secondarylight}
+\setbeamercolor{block title example}{fg=white, bg=exgreen}
+\setbeamercolor{block body example}{fg=black, bg=secondarylight}
+\setbeamercolor{itemize item}{fg=primary}
+\setbeamercolor{itemize subitem}{fg=secondary}
+\setbeamercolor{enumerate item}{fg=primary}
+\setbeamercolor{enumerate subitem}{fg=secondary}
+\setbeamercolor{section in toc}{fg=primary}
+\setbeamercolor{subsection in toc}{fg=darkgray}
+
+% ============================================================================
+%  FUENTES
+% ============================================================================
+\setbeamerfont{frametitle}{size=\Large, series=\bfseries}
+\setbeamerfont{footline}{size=\footnotesize}
+\setbeamerfont{block title}{size=\normalsize, series=\bfseries}
+\setbeamerfont{author in head/foot}{size=\scriptsize}
+\setbeamerfont{page number in head/foot}{size=\footnotesize, series=\bfseries}
+
+% ============================================================================
+%  PLANTILLAS PERSONALIZADAS
+% ============================================================================
+\setbeamertemplate{navigation symbols}{}
+
+% --- Frametitle: barra navy + triángulo accent (sin número de página) ---
+\setbeamertemplate{frametitle}{%
+  \nointerlineskip%
+  \begin{beamercolorbox}[wd=\paperwidth, ht=2.8ex, dp=1.5ex, leftskip=0.6cm]{frametitle}%
+    \hyperlink{indice}{\textcolor{accent}{\textbf{$\blacktriangleright$}}}\hspace{0.25cm}%
+    \usebeamerfont{frametitle}\insertframetitle%
+  \end{beamercolorbox}%
+  \nointerlineskip%
+  \begin{beamercolorbox}[wd=\paperwidth, ht=2.5pt, dp=0pt]{frametitle accent}%
+  \end{beamercolorbox}%
+}
+
+% --- Footline: línea accent + nº página TikZ en esquina inferior derecha ---
+%     Oculto en portada (frame 1) e índice (frame 2).
+\setbeamertemplate{footline}{%
+  \ifnum\insertframenumber<3\relax
+  \else
+    \begin{tikzpicture}[remember picture, overlay]
+      % Línea accent inferior
+      \draw[accent, line width=1.5pt]
+        (current page.south west) -- (current page.south east);
+      % Nº página en esquina inferior derecha (sobre la línea)
+      \node[anchor=south east, xshift=-0.22cm, yshift=0.3cm,
+            font=\scriptsize\color{secondary!60}]
+        at (current page.south east) {\insertframenumber\ / \total{framenumber}};
+    \end{tikzpicture}%
+  \fi
+}
+
+% --- Bloques: tcolorbox personalizados con leftrule accent ---
+\setbeamertemplate{block begin}{%
+  \begin{tcolorbox}[luxeblock, title=\insertblocktitle]%
+}
+\setbeamertemplate{block end}{%
+  \end{tcolorbox}%
+}
+\setbeamertemplate{block alerted begin}{%
+  \begin{tcolorbox}[luxealert, title=\insertblocktitle]%
+}
+\setbeamertemplate{block alerted end}{%
+  \end{tcolorbox}%
+}
+\setbeamertemplate{block example begin}{%
+  \begin{tcolorbox}[luxeexample, title=\insertblocktitle]%
+}
+\setbeamertemplate{block example end}{%
+  \end{tcolorbox}%
+}
+
+% --- Ítems ---
+\setbeamertemplate{itemize items}[triangle]
+\setbeamertemplate{enumerate items}[default]
+
+% Margen extra para enumerate (evita que toque bordes)
+\setlength{\leftmargini}{1.3em}
+\setlength{\leftmarginii}{1em}
+
+% Espaciado entre párrafos para separar bloques de listas
+\setlength{\parskip}{0.2cm plus 2pt minus 1pt}
+
+% --- Sin página de sección ---
+\setbeamertemplate{section page}{}
+
+% ============================================================================
+%  LISTINGS — Estilo para código fuente
+% ============================================================================
+\lstset{
+    basicstyle=\ttfamily\scriptsize,
+    keywordstyle=\color{primary}\bfseries,
+    commentstyle=\color{darkgray!60},
+    stringstyle=\color{alertred},
+    numbers=left,
+    numberstyle=\tiny\color{darkgray!50},
+    frame=single,
+    framerule=0.6pt,
+    rulecolor=\color{secondary!60},
+    backgroundcolor=\color{gray!5},
+    breaklines=true,
+    breakatwhitespace=false,
+    showstringspaces=false,
+    tabsize=2,
+    captionpos=b,
+    aboveskip=4pt,
+    belowskip=4pt,
+}
+
+% ============================================================================
+%  MACROS ÚTILES
+% ============================================================================
+\newcommand{\memoriaimg}{../memoria/img}
+\newcommand{\smallgray}[1]{\textcolor{darkgray}{\small #1}}
+
+% ============================================================================
+%  METADATOS
+% ============================================================================
+\title[Luxe Core AI]{Ecosistema de Domótica Local Impulsado por Agentes de IA}
+\subtitle{Luxe Core AI}
+\author[J. Fernández]{\textbf{Jesús Fernández López}}
+\institute[UCO — EPSC]{%
+    Grado en Ingeniería Informática\\
+    Escuela Politécnica Superior de Córdoba\\
+    Universidad de Córdoba
+}
+\date{Junio 2026}
+
+% ============================================================================
+%  INICIO DEL DOCUMENTO
+% ============================================================================
+\begin{document}
+
+% ============================================
+%  BLOQUE I — PORTADA E INTRODUCCIÓN  (1–3)
+% ============================================
+\input{blocks/01_portada}
+\input{blocks/02_introduccion}
+
+% ============================================
+%  BLOQUE II — PROBLEMA Y OBJETIVOS  (4–6)
+% ============================================
+\input{blocks/03_problema_objetivos}
+
+% ============================================
+%  BLOQUE III — RESTRICCIONES Y METODOLOGÍA  (7–10)
+% ============================================
+\input{blocks/04_restricciones}
+
+% ============================================
+%  BLOQUE IV — ESPECIFICACIÓN DEL SISTEMA  (11–16)
+% ============================================
+\input{blocks/05_sistema}
+
+% ============================================
+%  BLOQUE V — INTEGRACIÓN DE HARDWARE  (17–20)
+% ============================================
+\input{blocks/06_hardware}
+
+% ============================================
+%  BLOQUE VI — VALIDACIÓN Y PRUEBAS  (21–22)
+% ============================================
+\input{blocks/07_validacion}
+
+% ============================================
+%  BLOQUE VII — DEMOSTRACIÓN Y VÍDEO  (23–24)
+% ============================================
+\input{blocks/08_demo}
+
+% ============================================
+%  BLOQUE VIII — CONCLUSIONES  (25–29)
+% ============================================
+\input{blocks/09_conclusiones}
+
+\end{document}

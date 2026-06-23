@@ -1,0 +1,1150 @@
+% $ biblatex auxiliary file $
+% $ biblatex bbl format version 3.3 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated by
+% biber as required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+
+\refsection{0}
+  \datalist[entry]{none/global//global/global/global}
+    \entry{uco_tfg_guide}{online}{}{}
+      \name{author}{1}{}{%
+        {{hash=d72c151c0a2282603931e694eba459d7}{%
+           family={{Escuela Politécnica Superior de Córdoba}},
+           familyi={E\bibinitperiod}}}%
+      }
+      \strng{namehash}{d72c151c0a2282603931e694eba459d7}
+      \strng{fullhash}{d72c151c0a2282603931e694eba459d7}
+      \strng{fullhashraw}{d72c151c0a2282603931e694eba459d7}
+      \strng{bibnamehash}{d72c151c0a2282603931e694eba459d7}
+      \strng{authorbibnamehash}{d72c151c0a2282603931e694eba459d7}
+      \strng{authornamehash}{d72c151c0a2282603931e694eba459d7}
+      \strng{authorfullhash}{d72c151c0a2282603931e694eba459d7}
+      \strng{authorfullhashraw}{d72c151c0a2282603931e694eba459d7}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{addendum}{(visitado 02-06-2026)}
+      \field{title}{Guía de Desarrollo del {TFG} - {GII}}
+      \field{year}{2025}
+      \verb{urlraw}
+      \verb https://www.uco.es/eps/images/documentos/tfg-tfm/GU%C3%8DAS_DE_DESARROLLO/25-26/Gu%C3%ADaDesarrolloTFG-GII_25__26.pdf
+      \endverb
+      \verb{url}
+      \verb https://www.uco.es/eps/images/documentos/tfg-tfm/GU%C3%8DAS_DE_DESARROLLO/25-26/Gu%C3%ADaDesarrolloTFG-GII_25__26.pdf
+      \endverb
+    \endentry
+    \entry{cnmc_panel_2025}{report}{}{}
+      \list{institution}{1}{%
+        {Comisión Nacional de los Mercados y la Competencia (CNMC)}%
+      }
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{labeltitlesource}{title}
+      \field{addendum}{(visitado 02-06-2026)}
+      \field{title}{Panel de Hogares: Estadísticas}
+      \field{type}{techreport}
+      \field{year}{2025}
+      \verb{urlraw}
+      \verb https://data.cnmc.es/panel-de-hogares/conjuntos-de-datos/estadisticas-panel-de-hogares
+      \endverb
+      \verb{url}
+      \verb https://data.cnmc.es/panel-de-hogares/conjuntos-de-datos/estadisticas-panel-de-hogares
+      \endverb
+    \endentry
+    \entry{bloomberg_alexa_2019}{article}{}{}
+      \name{author}{3}{}{%
+        {{hash=ab4283f64350e4cbb8687dd52ac22dc8}{%
+           family={Day},
+           familyi={D\bibinitperiod},
+           given={Matt},
+           giveni={M\bibinitperiod}}}%
+        {{hash=79998d307d5498ef13301584a926ef55}{%
+           family={Turner},
+           familyi={T\bibinitperiod},
+           given={Giles},
+           giveni={G\bibinitperiod}}}%
+        {{hash=77a6eee4c08b86b3a680be47d6fe2b74}{%
+           family={Drozdiak},
+           familyi={D\bibinitperiod},
+           given={Natalia},
+           giveni={N\bibinitperiod}}}%
+      }
+      \strng{namehash}{1b1aa26182d64545590c9e9e0e7edaa0}
+      \strng{fullhash}{1b1aa26182d64545590c9e9e0e7edaa0}
+      \strng{fullhashraw}{1b1aa26182d64545590c9e9e0e7edaa0}
+      \strng{bibnamehash}{1b1aa26182d64545590c9e9e0e7edaa0}
+      \strng{authorbibnamehash}{1b1aa26182d64545590c9e9e0e7edaa0}
+      \strng{authornamehash}{1b1aa26182d64545590c9e9e0e7edaa0}
+      \strng{authorfullhash}{1b1aa26182d64545590c9e9e0e7edaa0}
+      \strng{authorfullhashraw}{1b1aa26182d64545590c9e9e0e7edaa0}
+      \field{sortinit}{3}
+      \field{sortinithash}{ad6fe7482ffbd7b9f99c9e8b5dccd3d7}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{addendum}{(visitado 02-06-2026)}
+      \field{journaltitle}{Bloomberg}
+      \field{month}{4}
+      \field{title}{Amazon Workers Are Listening to What You Tell {Alexa}}
+      \field{year}{2019}
+      \verb{urlraw}
+      \verb https://www.bloomberg.com/news/articles/2019-04-10/is-anyone-listening-to-you-on-alexa-a-global-team-reviews-audio
+      \endverb
+      \verb{url}
+      \verb https://www.bloomberg.com/news/articles/2019-04-10/is-anyone-listening-to-you-on-alexa-a-global-team-reviews-audio
+      \endverb
+    \endentry
+    \entry{kallimani_tinyml_2023}{article}{}{}
+      \name{author}{5}{}{%
+        {{hash=0986002ca8bdc85b6f9b4d659b0c53d6}{%
+           family={Kallimani},
+           familyi={K\bibinitperiod},
+           given={Rakhee},
+           giveni={R\bibinitperiod}}}%
+        {{hash=0da6d68e60981654646c0daf2e6f859b}{%
+           family={Pai},
+           familyi={P\bibinitperiod},
+           given={Krishna},
+           giveni={K\bibinitperiod}}}%
+        {{hash=99f1e3e65dfa5048e1be75851d1866df}{%
+           family={Raghuwanshi},
+           familyi={R\bibinitperiod},
+           given={Prasoon},
+           giveni={P\bibinitperiod}}}%
+        {{hash=c1e37ae077caf3af40f75ad31aaf4d90}{%
+           family={Iyer},
+           familyi={I\bibinitperiod},
+           given={Sridhar},
+           giveni={S\bibinitperiod}}}%
+        {{hash=a4343045da95c9206141eb1769383e8c}{%
+           family={López},
+           familyi={L\bibinitperiod},
+           given={Onel\bibnamedelimb L.\bibnamedelimi A.},
+           giveni={O\bibinitperiod\bibinitdelim L\bibinitperiod\bibinitdelim A\bibinitperiod}}}%
+      }
+      \strng{namehash}{7918f99cc713df26816db710ee1aed80}
+      \strng{fullhash}{3251a98780b2d0d81efb271ffaa3cafd}
+      \strng{fullhashraw}{3251a98780b2d0d81efb271ffaa3cafd}
+      \strng{bibnamehash}{3251a98780b2d0d81efb271ffaa3cafd}
+      \strng{authorbibnamehash}{3251a98780b2d0d81efb271ffaa3cafd}
+      \strng{authornamehash}{7918f99cc713df26816db710ee1aed80}
+      \strng{authorfullhash}{3251a98780b2d0d81efb271ffaa3cafd}
+      \strng{authorfullhashraw}{3251a98780b2d0d81efb271ffaa3cafd}
+      \field{sortinit}{4}
+      \field{sortinithash}{9381316451d1b9788675a07e972a12a7}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Multimedia Tools and Applications}
+      \field{number}{10}
+      \field{title}{{TinyML}: Tools, Applications, Challenges, and Future Research Directions}
+      \field{volume}{83}
+      \field{year}{2023}
+      \field{pages}{29015\bibrangedash 29045}
+      \range{pages}{31}
+      \verb{doi}
+      \verb 10.1007/s11042-023-16740-9
+      \endverb
+    \endentry
+    \entry{iso_17987_2025}{report}{}{}
+      \name{author}{1}{}{%
+        {{hash=7058e4bd76f877c52b621c942b30613c}{%
+           family={{International Organization for Standardization}},
+           familyi={I\bibinitperiod}}}%
+      }
+      \strng{namehash}{7058e4bd76f877c52b621c942b30613c}
+      \strng{fullhash}{7058e4bd76f877c52b621c942b30613c}
+      \strng{fullhashraw}{7058e4bd76f877c52b621c942b30613c}
+      \strng{bibnamehash}{7058e4bd76f877c52b621c942b30613c}
+      \strng{authorbibnamehash}{7058e4bd76f877c52b621c942b30613c}
+      \strng{authornamehash}{7058e4bd76f877c52b621c942b30613c}
+      \strng{authorfullhash}{7058e4bd76f877c52b621c942b30613c}
+      \strng{authorfullhashraw}{7058e4bd76f877c52b621c942b30613c}
+      \field{sortinit}{5}
+      \field{sortinithash}{20e9b4b0b173788c5dace24730f47d8c}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{addendum}{(visitado 02-06-2026)}
+      \field{title}{{ISO} 17987-1:2025: Road vehicles --- {Local} {Interconnect} {Network} ({LIN}) --- Part 1: General information and use case definition}
+      \field{type}{techreport}
+      \field{year}{2025}
+      \verb{urlraw}
+      \verb https://www.iso.org/standard/85125.html
+      \endverb
+      \verb{url}
+      \verb https://www.iso.org/standard/85125.html
+      \endverb
+    \endentry
+    \entry{home_assistant_2019}{software}{}{}
+      \name{author}{1}{}{%
+        {{hash=8f162be64ed3f74ba52ddc109b4bfb11}{%
+           family={{Home Assistant Community}},
+           familyi={H\bibinitperiod}}}%
+      }
+      \strng{namehash}{8f162be64ed3f74ba52ddc109b4bfb11}
+      \strng{fullhash}{8f162be64ed3f74ba52ddc109b4bfb11}
+      \strng{fullhashraw}{8f162be64ed3f74ba52ddc109b4bfb11}
+      \strng{bibnamehash}{8f162be64ed3f74ba52ddc109b4bfb11}
+      \strng{authorbibnamehash}{8f162be64ed3f74ba52ddc109b4bfb11}
+      \strng{authornamehash}{8f162be64ed3f74ba52ddc109b4bfb11}
+      \strng{authorfullhash}{8f162be64ed3f74ba52ddc109b4bfb11}
+      \strng{authorfullhashraw}{8f162be64ed3f74ba52ddc109b4bfb11}
+      \field{sortinit}{6}
+      \field{sortinithash}{b33bc299efb3c36abec520a4c896a66d}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{addendum}{(visitado 02-06-2026)}
+      \field{title}{Home {Assistant}: Open-source home automation platform}
+      \field{year}{2019}
+      \verb{urlraw}
+      \verb https://www.home-assistant.io/integrations/
+      \endverb
+      \verb{url}
+      \verb https://www.home-assistant.io/integrations/
+      \endverb
+    \endentry
+    \entry{omniflux_esphome_fujitsu}{software}{}{}
+      \name{author}{1}{}{%
+        {{hash=e4ee2e2f6f285539a465e4243651e02d}{%
+           family={{Omniflux}},
+           familyi={O\bibinitperiod}}}%
+      }
+      \strng{namehash}{e4ee2e2f6f285539a465e4243651e02d}
+      \strng{fullhash}{e4ee2e2f6f285539a465e4243651e02d}
+      \strng{fullhashraw}{e4ee2e2f6f285539a465e4243651e02d}
+      \strng{bibnamehash}{e4ee2e2f6f285539a465e4243651e02d}
+      \strng{authorbibnamehash}{e4ee2e2f6f285539a465e4243651e02d}
+      \strng{authornamehash}{e4ee2e2f6f285539a465e4243651e02d}
+      \strng{authorfullhash}{e4ee2e2f6f285539a465e4243651e02d}
+      \strng{authorfullhashraw}{e4ee2e2f6f285539a465e4243651e02d}
+      \field{sortinit}{7}
+      \field{sortinithash}{108d0be1b1bee9773a1173443802c0a3}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{addendum}{(visitado 17-05-2026)}
+      \field{title}{{ESPHome} Fujitsu Halcyon: Control de máquinas General/{Fujitsu} vía {LIN} bus}
+      \field{year}{2023}
+      \verb{urlraw}
+      \verb https://github.com/Omniflux/esphome-fujitsu-halcyon
+      \endverb
+      \verb{url}
+      \verb https://github.com/Omniflux/esphome-fujitsu-halcyon
+      \endverb
+    \endentry
+    \entry{bleak}{software}{}{}
+      \name{author}{1}{}{%
+        {{hash=5f44359068ed5f8c5e8ab1baba6df56d}{%
+           family={Blidh},
+           familyi={B\bibinitperiod},
+           given={Henrik},
+           giveni={H\bibinitperiod}}}%
+      }
+      \strng{namehash}{5f44359068ed5f8c5e8ab1baba6df56d}
+      \strng{fullhash}{5f44359068ed5f8c5e8ab1baba6df56d}
+      \strng{fullhashraw}{5f44359068ed5f8c5e8ab1baba6df56d}
+      \strng{bibnamehash}{5f44359068ed5f8c5e8ab1baba6df56d}
+      \strng{authorbibnamehash}{5f44359068ed5f8c5e8ab1baba6df56d}
+      \strng{authornamehash}{5f44359068ed5f8c5e8ab1baba6df56d}
+      \strng{authorfullhash}{5f44359068ed5f8c5e8ab1baba6df56d}
+      \strng{authorfullhashraw}{5f44359068ed5f8c5e8ab1baba6df56d}
+      \field{sortinit}{8}
+      \field{sortinithash}{a231b008ebf0ecbe0b4d96dcc159445f}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{addendum}{(visitado 14-05-2026)}
+      \field{title}{Bleak: A cross platform {Bluetooth} {Low} {Energy} Client for {Python}}
+      \field{year}{2018}
+      \verb{urlraw}
+      \verb https://github.com/hbldh/bleak
+      \endverb
+      \verb{url}
+      \verb https://github.com/hbldh/bleak
+      \endverb
+    \endentry
+    \entry{tinytuya}{software}{}{}
+      \name{author}{1}{}{%
+        {{hash=c188d6819dc5cab1a6e820db3f5d4f58}{%
+           family={Cox},
+           familyi={C\bibinitperiod},
+           given={Jason\bibnamedelima A.},
+           giveni={J\bibinitperiod\bibinitdelim A\bibinitperiod}}}%
+      }
+      \strng{namehash}{c188d6819dc5cab1a6e820db3f5d4f58}
+      \strng{fullhash}{c188d6819dc5cab1a6e820db3f5d4f58}
+      \strng{fullhashraw}{c188d6819dc5cab1a6e820db3f5d4f58}
+      \strng{bibnamehash}{c188d6819dc5cab1a6e820db3f5d4f58}
+      \strng{authorbibnamehash}{c188d6819dc5cab1a6e820db3f5d4f58}
+      \strng{authornamehash}{c188d6819dc5cab1a6e820db3f5d4f58}
+      \strng{authorfullhash}{c188d6819dc5cab1a6e820db3f5d4f58}
+      \strng{authorfullhashraw}{c188d6819dc5cab1a6e820db3f5d4f58}
+      \field{sortinit}{9}
+      \field{sortinithash}{0a5ebc79d83c96b6579069544c73c7d4}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{addendum}{(visitado 13-05-2026)}
+      \field{title}{{TinyTuya}: {Python} module to interface with {Tuya} {WiFi} smart devices}
+      \field{year}{2020}
+      \verb{urlraw}
+      \verb https://github.com/jasonacox/tinytuya
+      \endverb
+      \verb{url}
+      \verb https://github.com/jasonacox/tinytuya
+      \endverb
+    \endentry
+    \entry{openhab}{software}{}{}
+      \name{author}{1}{}{%
+        {{hash=f7320f77ad6a33d0a4c4b2d39eff7b57}{%
+           family={{openHAB Foundation}},
+           familyi={o\bibinitperiod}}}%
+      }
+      \strng{namehash}{f7320f77ad6a33d0a4c4b2d39eff7b57}
+      \strng{fullhash}{f7320f77ad6a33d0a4c4b2d39eff7b57}
+      \strng{fullhashraw}{f7320f77ad6a33d0a4c4b2d39eff7b57}
+      \strng{bibnamehash}{f7320f77ad6a33d0a4c4b2d39eff7b57}
+      \strng{authorbibnamehash}{f7320f77ad6a33d0a4c4b2d39eff7b57}
+      \strng{authornamehash}{f7320f77ad6a33d0a4c4b2d39eff7b57}
+      \strng{authorfullhash}{f7320f77ad6a33d0a4c4b2d39eff7b57}
+      \strng{authorfullhashraw}{f7320f77ad6a33d0a4c4b2d39eff7b57}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{addendum}{(visitado 08-06-2026)}
+      \field{title}{openHAB}
+      \field{year}{2010}
+      \verb{urlraw}
+      \verb https://www.openhab.org/docs/
+      \endverb
+      \verb{url}
+      \verb https://www.openhab.org/docs/
+      \endverb
+    \endentry
+    \entry{esphome}{software}{}{}
+      \name{author}{1}{}{%
+        {{hash=a411c5c8a9a283679c4c63b38abe7fe8}{%
+           family={{ESPHome Team}},
+           familyi={E\bibinitperiod}}}%
+      }
+      \strng{namehash}{a411c5c8a9a283679c4c63b38abe7fe8}
+      \strng{fullhash}{a411c5c8a9a283679c4c63b38abe7fe8}
+      \strng{fullhashraw}{a411c5c8a9a283679c4c63b38abe7fe8}
+      \strng{bibnamehash}{a411c5c8a9a283679c4c63b38abe7fe8}
+      \strng{authorbibnamehash}{a411c5c8a9a283679c4c63b38abe7fe8}
+      \strng{authornamehash}{a411c5c8a9a283679c4c63b38abe7fe8}
+      \strng{authorfullhash}{a411c5c8a9a283679c4c63b38abe7fe8}
+      \strng{authorfullhashraw}{a411c5c8a9a283679c4c63b38abe7fe8}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{addendum}{(visitado 08-06-2026)}
+      \field{title}{ESPHome}
+      \field{year}{2019}
+      \verb{urlraw}
+      \verb https://esphome.io/
+      \endverb
+      \verb{url}
+      \verb https://esphome.io/
+      \endverb
+    \endentry
+    \entry{ollama}{software}{}{}
+      \name{author}{1}{}{%
+        {{hash=51a3368b54bdd247a4e245ead19a1b45}{%
+           family={{Ollama Inc.}},
+           familyi={O\bibinitperiod}}}%
+      }
+      \strng{namehash}{51a3368b54bdd247a4e245ead19a1b45}
+      \strng{fullhash}{51a3368b54bdd247a4e245ead19a1b45}
+      \strng{fullhashraw}{51a3368b54bdd247a4e245ead19a1b45}
+      \strng{bibnamehash}{51a3368b54bdd247a4e245ead19a1b45}
+      \strng{authorbibnamehash}{51a3368b54bdd247a4e245ead19a1b45}
+      \strng{authornamehash}{51a3368b54bdd247a4e245ead19a1b45}
+      \strng{authorfullhash}{51a3368b54bdd247a4e245ead19a1b45}
+      \strng{authorfullhashraw}{51a3368b54bdd247a4e245ead19a1b45}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{addendum}{(visitado 02-06-2026)}
+      \field{title}{Ollama}
+      \field{year}{2023}
+      \verb{urlraw}
+      \verb https://ollama.ai
+      \endverb
+      \verb{url}
+      \verb https://ollama.ai
+      \endverb
+    \endentry
+    \entry{hui_qwen25_coder_2024}{misc}{}{}
+      \name{author}{24}{}{%
+        {{hash=f34c34e7bfee1c214b840e1406f93b43}{%
+           family={Hui},
+           familyi={H\bibinitperiod},
+           given={Binyuan},
+           giveni={B\bibinitperiod}}}%
+        {{hash=5a1cb92dc789e714fb5aaf67809119a6}{%
+           family={Yang},
+           familyi={Y\bibinitperiod},
+           given={Jian},
+           giveni={J\bibinitperiod}}}%
+        {{hash=40acf49e75ba635084a4907576b0748e}{%
+           family={Cui},
+           familyi={C\bibinitperiod},
+           given={Zeyu},
+           giveni={Z\bibinitperiod}}}%
+        {{hash=d7d530edc1b8222155e749f7a0fb77d7}{%
+           family={Yang},
+           familyi={Y\bibinitperiod},
+           given={Jiaxi},
+           giveni={J\bibinitperiod}}}%
+        {{hash=5ecbe660fc9cca9c49cd48a15586d4d1}{%
+           family={Liu},
+           familyi={L\bibinitperiod},
+           given={Dayiheng},
+           giveni={D\bibinitperiod}}}%
+        {{hash=f4a4cbf770add19c206827116c68732e}{%
+           family={Zhang},
+           familyi={Z\bibinitperiod},
+           given={Lei},
+           giveni={L\bibinitperiod}}}%
+        {{hash=93d40b6dedb3119d20859f0f5a9ceced}{%
+           family={Liu},
+           familyi={L\bibinitperiod},
+           given={Tianyu},
+           giveni={T\bibinitperiod}}}%
+        {{hash=b5f64909c50a46dc78d434721990127b}{%
+           family={Zhang},
+           familyi={Z\bibinitperiod},
+           given={Jiajun},
+           giveni={J\bibinitperiod}}}%
+        {{hash=fdf3e14cd1c158076088aab21aed2346}{%
+           family={Yu},
+           familyi={Y\bibinitperiod},
+           given={Bowen},
+           giveni={B\bibinitperiod}}}%
+        {{hash=181062ef9cb2170ffc66b0eaf39901c2}{%
+           family={Lu},
+           familyi={L\bibinitperiod},
+           given={Keming},
+           giveni={K\bibinitperiod}}}%
+        {{hash=1931ac25a20d7791fabefcfa7575fc9d}{%
+           family={Dang},
+           familyi={D\bibinitperiod},
+           given={Kai},
+           giveni={K\bibinitperiod}}}%
+        {{hash=93f53e78e05c09f34d4aa7056526b6f0}{%
+           family={Fan},
+           familyi={F\bibinitperiod},
+           given={Yang},
+           giveni={Y\bibinitperiod}}}%
+        {{hash=2e9b89ed5bc1be6ba24a858b7c64c067}{%
+           family={Zhang},
+           familyi={Z\bibinitperiod},
+           given={Yichang},
+           giveni={Y\bibinitperiod}}}%
+        {{hash=4a2d07c6b724d5792733910f2dc082f4}{%
+           family={Yang},
+           familyi={Y\bibinitperiod},
+           given={An},
+           giveni={A\bibinitperiod}}}%
+        {{hash=088fd84ad562814fece6fecb90347fa0}{%
+           family={Men},
+           familyi={M\bibinitperiod},
+           given={Rui},
+           giveni={R\bibinitperiod}}}%
+        {{hash=10a0d3aa004649de7a7ab2ffecb35bce}{%
+           family={Huang},
+           familyi={H\bibinitperiod},
+           given={Fei},
+           giveni={F\bibinitperiod}}}%
+        {{hash=cd8f75ba6fb515ea6ee28d885bd92e4b}{%
+           family={Zheng},
+           familyi={Z\bibinitperiod},
+           given={Bo},
+           giveni={B\bibinitperiod}}}%
+        {{hash=59dcd8aaeb4277db58dfa7c68226f025}{%
+           family={Miao},
+           familyi={M\bibinitperiod},
+           given={Yibo},
+           giveni={Y\bibinitperiod}}}%
+        {{hash=b8b6602570aad1dee6ec180fdc187341}{%
+           family={Quan},
+           familyi={Q\bibinitperiod},
+           given={Shanghaoran},
+           giveni={S\bibinitperiod}}}%
+        {{hash=21d87ba5c70687282debba6617d40f6b}{%
+           family={Feng},
+           familyi={F\bibinitperiod},
+           given={Yunlong},
+           giveni={Y\bibinitperiod}}}%
+        {{hash=2855f16846c593dbcfca40185365b035}{%
+           family={Ren},
+           familyi={R\bibinitperiod},
+           given={Xingzhang},
+           giveni={X\bibinitperiod}}}%
+        {{hash=09413319ab747847063d74e0deb502f1}{%
+           family={Ren},
+           familyi={R\bibinitperiod},
+           given={Xuancheng},
+           giveni={X\bibinitperiod}}}%
+        {{hash=27f62ab767acbc6e1e278da7f9e3b7c1}{%
+           family={Zhou},
+           familyi={Z\bibinitperiod},
+           given={Jingren},
+           giveni={J\bibinitperiod}}}%
+        {{hash=25808280f693f61155a803aef8f7ec83}{%
+           family={Lin},
+           familyi={L\bibinitperiod},
+           given={Junyang},
+           giveni={J\bibinitperiod}}}%
+      }
+      \strng{namehash}{3a7e7c47ba40d87ff4a08beaddc8b30e}
+      \strng{fullhash}{fb188881862983ca17942f6c583b7d14}
+      \strng{fullhashraw}{fb188881862983ca17942f6c583b7d14}
+      \strng{bibnamehash}{3a7e7c47ba40d87ff4a08beaddc8b30e}
+      \strng{authorbibnamehash}{3a7e7c47ba40d87ff4a08beaddc8b30e}
+      \strng{authornamehash}{3a7e7c47ba40d87ff4a08beaddc8b30e}
+      \strng{authorfullhash}{fb188881862983ca17942f6c583b7d14}
+      \strng{authorfullhashraw}{fb188881862983ca17942f6c583b7d14}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{addendum}{(visitado 02-06-2026)}
+      \field{eprintclass}{cs.CL}
+      \field{eprinttype}{arXiv}
+      \field{title}{Qwen2.5-Coder Technical Report}
+      \field{year}{2024}
+      \verb{doi}
+      \verb 10.48550/arXiv.2409.12186
+      \endverb
+      \verb{eprint}
+      \verb 2409.12186
+      \endverb
+    \endentry
+    \entry{qwen3_5}{misc}{}{}
+      \name{author}{1}{}{%
+        {{hash=a6fe18c4979183ce2103c05daadef3b9}{%
+           family={Team},
+           familyi={T\bibinitperiod},
+           given={Qwen},
+           giveni={Q\bibinitperiod}}}%
+      }
+      \strng{namehash}{a6fe18c4979183ce2103c05daadef3b9}
+      \strng{fullhash}{a6fe18c4979183ce2103c05daadef3b9}
+      \strng{fullhashraw}{a6fe18c4979183ce2103c05daadef3b9}
+      \strng{bibnamehash}{a6fe18c4979183ce2103c05daadef3b9}
+      \strng{authorbibnamehash}{a6fe18c4979183ce2103c05daadef3b9}
+      \strng{authornamehash}{a6fe18c4979183ce2103c05daadef3b9}
+      \strng{authorfullhash}{a6fe18c4979183ce2103c05daadef3b9}
+      \strng{authorfullhashraw}{a6fe18c4979183ce2103c05daadef3b9}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{addendum}{(visitado 09-06-2026)}
+      \field{month}{2}
+      \field{title}{Qwen3.5: A Family of Open-Source Multimodal Models}
+      \field{year}{2026}
+      \verb{urlraw}
+      \verb https://ollama.com/library/qwen3.5
+      \endverb
+      \verb{url}
+      \verb https://ollama.com/library/qwen3.5
+      \endverb
+    \endentry
+    \entry{mistral_7b}{misc}{}{}
+      \name{author}{1}{}{%
+        {{hash=88c6124836971d87dfd8464b6c01eddc}{%
+           family={AI},
+           familyi={A\bibinitperiod},
+           given={Mistral},
+           giveni={M\bibinitperiod}}}%
+      }
+      \strng{namehash}{88c6124836971d87dfd8464b6c01eddc}
+      \strng{fullhash}{88c6124836971d87dfd8464b6c01eddc}
+      \strng{fullhashraw}{88c6124836971d87dfd8464b6c01eddc}
+      \strng{bibnamehash}{88c6124836971d87dfd8464b6c01eddc}
+      \strng{authorbibnamehash}{88c6124836971d87dfd8464b6c01eddc}
+      \strng{authornamehash}{88c6124836971d87dfd8464b6c01eddc}
+      \strng{authorfullhash}{88c6124836971d87dfd8464b6c01eddc}
+      \strng{authorfullhashraw}{88c6124836971d87dfd8464b6c01eddc}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{addendum}{(visitado 09-06-2026)}
+      \field{title}{Mistral 7B Instruct v0.3}
+      \field{year}{2024}
+      \verb{urlraw}
+      \verb https://ollama.com/library/mistral
+      \endverb
+      \verb{url}
+      \verb https://ollama.com/library/mistral
+      \endverb
+    \endentry
+    \entry{llama32}{online}{}{}
+      \name{author}{1}{}{%
+        {{hash=ca43b8b2bdf82aa380c9fed8712d8db8}{%
+           family={{Meta AI}},
+           familyi={M\bibinitperiod}}}%
+      }
+      \strng{namehash}{ca43b8b2bdf82aa380c9fed8712d8db8}
+      \strng{fullhash}{ca43b8b2bdf82aa380c9fed8712d8db8}
+      \strng{fullhashraw}{ca43b8b2bdf82aa380c9fed8712d8db8}
+      \strng{bibnamehash}{ca43b8b2bdf82aa380c9fed8712d8db8}
+      \strng{authorbibnamehash}{ca43b8b2bdf82aa380c9fed8712d8db8}
+      \strng{authornamehash}{ca43b8b2bdf82aa380c9fed8712d8db8}
+      \strng{authorfullhash}{ca43b8b2bdf82aa380c9fed8712d8db8}
+      \strng{authorfullhashraw}{ca43b8b2bdf82aa380c9fed8712d8db8}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{addendum}{(visitado 08-06-2026)}
+      \field{title}{Llama 3.2: Open Source AI for Everyone}
+      \field{year}{2024}
+      \verb{urlraw}
+      \verb https://ollama.com/library/llama3.2
+      \endverb
+      \verb{url}
+      \verb https://ollama.com/library/llama3.2
+      \endverb
+    \endentry
+    \entry{phi3}{online}{}{}
+      \name{author}{1}{}{%
+        {{hash=c3ab3cd17af0c6ba62a4f996e42cb981}{%
+           family={{Microsoft Research}},
+           familyi={M\bibinitperiod}}}%
+      }
+      \strng{namehash}{c3ab3cd17af0c6ba62a4f996e42cb981}
+      \strng{fullhash}{c3ab3cd17af0c6ba62a4f996e42cb981}
+      \strng{fullhashraw}{c3ab3cd17af0c6ba62a4f996e42cb981}
+      \strng{bibnamehash}{c3ab3cd17af0c6ba62a4f996e42cb981}
+      \strng{authorbibnamehash}{c3ab3cd17af0c6ba62a4f996e42cb981}
+      \strng{authornamehash}{c3ab3cd17af0c6ba62a4f996e42cb981}
+      \strng{authorfullhash}{c3ab3cd17af0c6ba62a4f996e42cb981}
+      \strng{authorfullhashraw}{c3ab3cd17af0c6ba62a4f996e42cb981}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{addendum}{(visitado 08-06-2026)}
+      \field{title}{Phi-3: Small Language Models}
+      \field{year}{2024}
+      \verb{urlraw}
+      \verb https://ollama.com/library/phi3
+      \endverb
+      \verb{url}
+      \verb https://ollama.com/library/phi3
+      \endverb
+    \endentry
+    \entry{bge_m3}{misc}{}{}
+      \name{author}{6}{}{%
+        {{hash=e24c13695b0b0d62c63b9422b5c4fa5d}{%
+           family={Chen},
+           familyi={C\bibinitperiod},
+           given={Jianlv},
+           giveni={J\bibinitperiod}}}%
+        {{hash=d71b1119f50662a9107099735aa4912f}{%
+           family={Xiao},
+           familyi={X\bibinitperiod},
+           given={Shitao},
+           giveni={S\bibinitperiod}}}%
+        {{hash=6d65862b32d88d540bffb1875cb56520}{%
+           family={Zhang},
+           familyi={Z\bibinitperiod},
+           given={Peitian},
+           giveni={P\bibinitperiod}}}%
+        {{hash=384c2cf85f0e11e983ea193103b000e8}{%
+           family={Luo},
+           familyi={L\bibinitperiod},
+           given={Kun},
+           giveni={K\bibinitperiod}}}%
+        {{hash=627b0ecff46f0730d7b063b53fecf933}{%
+           family={Lian},
+           familyi={L\bibinitperiod},
+           given={Defu},
+           giveni={D\bibinitperiod}}}%
+        {{hash=7e48bdec050a7bea1bb0d4acff3023eb}{%
+           family={Liu},
+           familyi={L\bibinitperiod},
+           given={Zheng},
+           giveni={Z\bibinitperiod}}}%
+      }
+      \strng{namehash}{64265a2a3fb6a4319855683d2b8f6f67}
+      \strng{fullhash}{8e81fd98b1eef3ab93e6cbe7e60f152a}
+      \strng{fullhashraw}{8e81fd98b1eef3ab93e6cbe7e60f152a}
+      \strng{bibnamehash}{8e81fd98b1eef3ab93e6cbe7e60f152a}
+      \strng{authorbibnamehash}{8e81fd98b1eef3ab93e6cbe7e60f152a}
+      \strng{authornamehash}{64265a2a3fb6a4319855683d2b8f6f67}
+      \strng{authorfullhash}{8e81fd98b1eef3ab93e6cbe7e60f152a}
+      \strng{authorfullhashraw}{8e81fd98b1eef3ab93e6cbe7e60f152a}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{addendum}{(visitado 02-06-2026)}
+      \field{eprintclass}{cs.CL}
+      \field{eprinttype}{arXiv}
+      \field{title}{M3-Embedding: Multi-Linguality, Multi-Functionality, Multi-Granularity Text Embeddings Through Self-Knowledge Distillation}
+      \field{year}{2024}
+      \verb{doi}
+      \verb 10.48550/arXiv.2402.03216
+      \endverb
+      \verb{eprint}
+      \verb 2402.03216
+      \endverb
+    \endentry
+    \entry{mosquitto}{software}{}{}
+      \name{author}{1}{}{%
+        {{hash=ba965a2360c8acdc8182fb5f00ea04f0}{%
+           family={{Eclipse Foundation}},
+           familyi={E\bibinitperiod}}}%
+      }
+      \strng{namehash}{ba965a2360c8acdc8182fb5f00ea04f0}
+      \strng{fullhash}{ba965a2360c8acdc8182fb5f00ea04f0}
+      \strng{fullhashraw}{ba965a2360c8acdc8182fb5f00ea04f0}
+      \strng{bibnamehash}{ba965a2360c8acdc8182fb5f00ea04f0}
+      \strng{authorbibnamehash}{ba965a2360c8acdc8182fb5f00ea04f0}
+      \strng{authornamehash}{ba965a2360c8acdc8182fb5f00ea04f0}
+      \strng{authorfullhash}{ba965a2360c8acdc8182fb5f00ea04f0}
+      \strng{authorfullhashraw}{ba965a2360c8acdc8182fb5f00ea04f0}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{addendum}{(visitado 08-06-2026)}
+      \field{title}{Eclipse Mosquitto}
+      \field{year}{2012}
+      \verb{urlraw}
+      \verb https://mosquitto.org/
+      \endverb
+      \verb{url}
+      \verb https://mosquitto.org/
+      \endverb
+    \endentry
+    \entry{openmqttgw}{software}{}{}
+      \name{author}{1}{}{%
+        {{hash=1496a1e97efe2e669cbff108da128d0f}{%
+           family={{1technophile}},
+           familyi={1\bibinitperiod}}}%
+      }
+      \strng{namehash}{1496a1e97efe2e669cbff108da128d0f}
+      \strng{fullhash}{1496a1e97efe2e669cbff108da128d0f}
+      \strng{fullhashraw}{1496a1e97efe2e669cbff108da128d0f}
+      \strng{bibnamehash}{1496a1e97efe2e669cbff108da128d0f}
+      \strng{authorbibnamehash}{1496a1e97efe2e669cbff108da128d0f}
+      \strng{authornamehash}{1496a1e97efe2e669cbff108da128d0f}
+      \strng{authorfullhash}{1496a1e97efe2e669cbff108da128d0f}
+      \strng{authorfullhashraw}{1496a1e97efe2e669cbff108da128d0f}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{addendum}{(visitado 08-06-2026)}
+      \field{title}{OpenMQTTGateway}
+      \field{year}{2018}
+      \verb{urlraw}
+      \verb https://docs.openmqttgateway.com/
+      \endverb
+      \verb{url}
+      \verb https://docs.openmqttgateway.com/
+      \endverb
+    \endentry
+    \entry{tasmota}{software}{}{}
+      \name{author}{1}{}{%
+        {{hash=cf38a73d5eba86a60ef2be8faac88fff}{%
+           family={{Tasmota Project}},
+           familyi={T\bibinitperiod}}}%
+      }
+      \strng{namehash}{cf38a73d5eba86a60ef2be8faac88fff}
+      \strng{fullhash}{cf38a73d5eba86a60ef2be8faac88fff}
+      \strng{fullhashraw}{cf38a73d5eba86a60ef2be8faac88fff}
+      \strng{bibnamehash}{cf38a73d5eba86a60ef2be8faac88fff}
+      \strng{authorbibnamehash}{cf38a73d5eba86a60ef2be8faac88fff}
+      \strng{authornamehash}{cf38a73d5eba86a60ef2be8faac88fff}
+      \strng{authorfullhash}{cf38a73d5eba86a60ef2be8faac88fff}
+      \strng{authorfullhashraw}{cf38a73d5eba86a60ef2be8faac88fff}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{addendum}{(visitado 08-06-2026)}
+      \field{title}{Tasmota}
+      \field{year}{2016}
+      \verb{urlraw}
+      \verb https://tasmota.github.io/docs/
+      \endverb
+      \verb{url}
+      \verb https://tasmota.github.io/docs/
+      \endverb
+    \endentry
+    \entry{openclaw}{software}{}{}
+      \name{author}{2}{}{%
+        {{hash=506c2287820a2c3694e4acab90494b17}{%
+           family={Steinberger},
+           familyi={S\bibinitperiod},
+           given={Peter},
+           giveni={P\bibinitperiod}}}%
+        {{hash=a8c2fa702b6e903827c63ca085327acb}{%
+           family={{OpenClaw Team}},
+           familyi={O\bibinitperiod}}}%
+      }
+      \strng{namehash}{3e9062df449f7b8ca61d967764a50b75}
+      \strng{fullhash}{3e9062df449f7b8ca61d967764a50b75}
+      \strng{fullhashraw}{3e9062df449f7b8ca61d967764a50b75}
+      \strng{bibnamehash}{3e9062df449f7b8ca61d967764a50b75}
+      \strng{authorbibnamehash}{3e9062df449f7b8ca61d967764a50b75}
+      \strng{authornamehash}{3e9062df449f7b8ca61d967764a50b75}
+      \strng{authorfullhash}{3e9062df449f7b8ca61d967764a50b75}
+      \strng{authorfullhashraw}{3e9062df449f7b8ca61d967764a50b75}
+      \field{sortinit}{3}
+      \field{sortinithash}{ad6fe7482ffbd7b9f99c9e8b5dccd3d7}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{addendum}{(visitado 27-05-2026)}
+      \field{title}{OpenClaw: Personal {AI} Assistant}
+      \field{year}{2025}
+      \verb{urlraw}
+      \verb https://docs.openclaw.ai/
+      \endverb
+      \verb{url}
+      \verb https://docs.openclaw.ai/
+      \endverb
+    \endentry
+    \entry{hermes_agent}{software}{}{}
+      \name{author}{1}{}{%
+        {{hash=b4148e5651e5b87dcec50549b90ea32d}{%
+           family={{Nous Research}},
+           familyi={N\bibinitperiod}}}%
+      }
+      \strng{namehash}{b4148e5651e5b87dcec50549b90ea32d}
+      \strng{fullhash}{b4148e5651e5b87dcec50549b90ea32d}
+      \strng{fullhashraw}{b4148e5651e5b87dcec50549b90ea32d}
+      \strng{bibnamehash}{b4148e5651e5b87dcec50549b90ea32d}
+      \strng{authorbibnamehash}{b4148e5651e5b87dcec50549b90ea32d}
+      \strng{authornamehash}{b4148e5651e5b87dcec50549b90ea32d}
+      \strng{authorfullhash}{b4148e5651e5b87dcec50549b90ea32d}
+      \strng{authorfullhashraw}{b4148e5651e5b87dcec50549b90ea32d}
+      \field{sortinit}{3}
+      \field{sortinithash}{ad6fe7482ffbd7b9f99c9e8b5dccd3d7}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{addendum}{(visitado 02-06-2026)}
+      \field{title}{Hermes Agent: The Agent That Grows With You}
+      \field{year}{2025}
+      \verb{urlraw}
+      \verb https://hermes-agent.nousresearch.com/
+      \endverb
+      \verb{url}
+      \verb https://hermes-agent.nousresearch.com/
+      \endverb
+    \endentry
+    \entry{autogpt}{software}{}{}
+      \name{author}{1}{}{%
+        {{hash=94dafdef3e4722934dd1dd361a35c500}{%
+           family={{Significant Gravitas}},
+           familyi={S\bibinitperiod}}}%
+      }
+      \strng{namehash}{94dafdef3e4722934dd1dd361a35c500}
+      \strng{fullhash}{94dafdef3e4722934dd1dd361a35c500}
+      \strng{fullhashraw}{94dafdef3e4722934dd1dd361a35c500}
+      \strng{bibnamehash}{94dafdef3e4722934dd1dd361a35c500}
+      \strng{authorbibnamehash}{94dafdef3e4722934dd1dd361a35c500}
+      \strng{authornamehash}{94dafdef3e4722934dd1dd361a35c500}
+      \strng{authorfullhash}{94dafdef3e4722934dd1dd361a35c500}
+      \strng{authorfullhashraw}{94dafdef3e4722934dd1dd361a35c500}
+      \field{sortinit}{3}
+      \field{sortinithash}{ad6fe7482ffbd7b9f99c9e8b5dccd3d7}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{addendum}{(visitado 08-06-2026)}
+      \field{title}{AutoGPT}
+      \field{year}{2023}
+      \verb{urlraw}
+      \verb https://www.agpt.co/docs
+      \endverb
+      \verb{url}
+      \verb https://www.agpt.co/docs
+      \endverb
+    \endentry
+    \entry{langchain}{software}{}{}
+      \name{author}{1}{}{%
+        {{hash=bb0155493cf46514a4b6186fc6d25e35}{%
+           family={{LangChain Inc.}},
+           familyi={L\bibinitperiod}}}%
+      }
+      \strng{namehash}{bb0155493cf46514a4b6186fc6d25e35}
+      \strng{fullhash}{bb0155493cf46514a4b6186fc6d25e35}
+      \strng{fullhashraw}{bb0155493cf46514a4b6186fc6d25e35}
+      \strng{bibnamehash}{bb0155493cf46514a4b6186fc6d25e35}
+      \strng{authorbibnamehash}{bb0155493cf46514a4b6186fc6d25e35}
+      \strng{authornamehash}{bb0155493cf46514a4b6186fc6d25e35}
+      \strng{authorfullhash}{bb0155493cf46514a4b6186fc6d25e35}
+      \strng{authorfullhashraw}{bb0155493cf46514a4b6186fc6d25e35}
+      \field{sortinit}{3}
+      \field{sortinithash}{ad6fe7482ffbd7b9f99c9e8b5dccd3d7}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{addendum}{(visitado 08-06-2026)}
+      \field{title}{LangChain}
+      \field{year}{2022}
+      \verb{urlraw}
+      \verb https://www.langchain.com/
+      \endverb
+      \verb{url}
+      \verb https://www.langchain.com/
+      \endverb
+    \endentry
+    \entry{n8n}{software}{}{}
+      \name{author}{1}{}{%
+        {{hash=acd3b2db1e89848341fdb6e92bac5377}{%
+           family={{n8n GmbH}},
+           familyi={n\bibinitperiod}}}%
+      }
+      \strng{namehash}{acd3b2db1e89848341fdb6e92bac5377}
+      \strng{fullhash}{acd3b2db1e89848341fdb6e92bac5377}
+      \strng{fullhashraw}{acd3b2db1e89848341fdb6e92bac5377}
+      \strng{bibnamehash}{acd3b2db1e89848341fdb6e92bac5377}
+      \strng{authorbibnamehash}{acd3b2db1e89848341fdb6e92bac5377}
+      \strng{authornamehash}{acd3b2db1e89848341fdb6e92bac5377}
+      \strng{authorfullhash}{acd3b2db1e89848341fdb6e92bac5377}
+      \strng{authorfullhashraw}{acd3b2db1e89848341fdb6e92bac5377}
+      \field{sortinit}{3}
+      \field{sortinithash}{ad6fe7482ffbd7b9f99c9e8b5dccd3d7}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{addendum}{(visitado 08-06-2026)}
+      \field{title}{n8n}
+      \field{year}{2019}
+      \verb{urlraw}
+      \verb https://docs.n8n.io/
+      \endverb
+      \verb{url}
+      \verb https://docs.n8n.io/
+      \endverb
+    \endentry
+    \entry{pvvx_atc_mithermometer}{software}{}{}
+      \name{author}{1}{}{%
+        {{hash=e8f3e08865edf07636d248e86d84a18e}{%
+           family={{pvvx}},
+           familyi={p\bibinitperiod}}}%
+      }
+      \strng{namehash}{e8f3e08865edf07636d248e86d84a18e}
+      \strng{fullhash}{e8f3e08865edf07636d248e86d84a18e}
+      \strng{fullhashraw}{e8f3e08865edf07636d248e86d84a18e}
+      \strng{bibnamehash}{e8f3e08865edf07636d248e86d84a18e}
+      \strng{authorbibnamehash}{e8f3e08865edf07636d248e86d84a18e}
+      \strng{authornamehash}{e8f3e08865edf07636d248e86d84a18e}
+      \strng{authorfullhash}{e8f3e08865edf07636d248e86d84a18e}
+      \strng{authorfullhashraw}{e8f3e08865edf07636d248e86d84a18e}
+      \field{sortinit}{4}
+      \field{sortinithash}{9381316451d1b9788675a07e972a12a7}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{addendum}{(visitado 14-05-2026)}
+      \field{title}{{ATC} {MiThermometer}: Custom firmware for {BLE} thermometers}
+      \field{year}{2020}
+      \verb{urlraw}
+      \verb https://github.com/pvvx/ATC_MiThermometer
+      \endverb
+      \verb{url}
+      \verb https://github.com/pvvx/ATC_MiThermometer
+      \endverb
+    \endentry
+    \entry{opencode}{software}{}{}
+      \name{author}{1}{}{%
+        {{hash=7da87aa189dbd7fce58b3a28596baddc}{%
+           family={{Anomaly}},
+           familyi={A\bibinitperiod}}}%
+      }
+      \strng{namehash}{7da87aa189dbd7fce58b3a28596baddc}
+      \strng{fullhash}{7da87aa189dbd7fce58b3a28596baddc}
+      \strng{fullhashraw}{7da87aa189dbd7fce58b3a28596baddc}
+      \strng{bibnamehash}{7da87aa189dbd7fce58b3a28596baddc}
+      \strng{authorbibnamehash}{7da87aa189dbd7fce58b3a28596baddc}
+      \strng{authornamehash}{7da87aa189dbd7fce58b3a28596baddc}
+      \strng{authorfullhash}{7da87aa189dbd7fce58b3a28596baddc}
+      \strng{authorfullhashraw}{7da87aa189dbd7fce58b3a28596baddc}
+      \field{sortinit}{4}
+      \field{sortinithash}{9381316451d1b9788675a07e972a12a7}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{addendum}{(visitado 02-06-2026)}
+      \field{title}{OpenCode: The open source {AI} coding agent}
+      \field{year}{2024}
+      \verb{urlraw}
+      \verb https://opencode.ai
+      \endverb
+      \verb{url}
+      \verb https://opencode.ai
+      \endverb
+    \endentry
+    \entry{deepseek_api}{software}{}{}
+      \name{author}{1}{}{%
+        {{hash=264d9bb481d458fdda428e70a2bfe2dd}{%
+           family={{DeepSeek}},
+           familyi={D\bibinitperiod}}}%
+      }
+      \strng{namehash}{264d9bb481d458fdda428e70a2bfe2dd}
+      \strng{fullhash}{264d9bb481d458fdda428e70a2bfe2dd}
+      \strng{fullhashraw}{264d9bb481d458fdda428e70a2bfe2dd}
+      \strng{bibnamehash}{264d9bb481d458fdda428e70a2bfe2dd}
+      \strng{authorbibnamehash}{264d9bb481d458fdda428e70a2bfe2dd}
+      \strng{authornamehash}{264d9bb481d458fdda428e70a2bfe2dd}
+      \strng{authorfullhash}{264d9bb481d458fdda428e70a2bfe2dd}
+      \strng{authorfullhashraw}{264d9bb481d458fdda428e70a2bfe2dd}
+      \field{sortinit}{4}
+      \field{sortinithash}{9381316451d1b9788675a07e972a12a7}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{addendum}{(visitado 02-06-2026)}
+      \field{title}{DeepSeek {API}}
+      \field{year}{2024}
+      \verb{urlraw}
+      \verb https://platform.deepseek.com
+      \endverb
+      \verb{url}
+      \verb https://platform.deepseek.com
+      \endverb
+    \endentry
+    \entry{espressif_esp32_trm}{report}{}{}
+      \name{author}{1}{}{%
+        {{hash=66589871a3c3f27bcbf3891133af42b1}{%
+           family={{Espressif Systems}},
+           familyi={E\bibinitperiod}}}%
+      }
+      \strng{namehash}{66589871a3c3f27bcbf3891133af42b1}
+      \strng{fullhash}{66589871a3c3f27bcbf3891133af42b1}
+      \strng{fullhashraw}{66589871a3c3f27bcbf3891133af42b1}
+      \strng{bibnamehash}{66589871a3c3f27bcbf3891133af42b1}
+      \strng{authorbibnamehash}{66589871a3c3f27bcbf3891133af42b1}
+      \strng{authornamehash}{66589871a3c3f27bcbf3891133af42b1}
+      \strng{authorfullhash}{66589871a3c3f27bcbf3891133af42b1}
+      \strng{authorfullhashraw}{66589871a3c3f27bcbf3891133af42b1}
+      \field{sortinit}{5}
+      \field{sortinithash}{20e9b4b0b173788c5dace24730f47d8c}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{addendum}{(visitado 02-06-2026)}
+      \field{title}{{ESP32} Technical Reference Manual (v5.7)}
+      \field{type}{techreport}
+      \field{year}{2025}
+      \verb{urlraw}
+      \verb https://documentation.espressif.com/esp32_technical_reference_manual_en.pdf
+      \endverb
+      \verb{url}
+      \verb https://documentation.espressif.com/esp32_technical_reference_manual_en.pdf
+      \endverb
+    \endentry
+    \entry{ashrae55_2023}{misc}{}{}
+      \name{author}{1}{}{%
+        {{hash=aff59a39c35d338716622a3794fd3101}{%
+           family={{ASHRAE}},
+           familyi={A\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {Atlanta, GA, USA}%
+      }
+      \list{publisher}{2}{%
+        {American Society of Heating, Refrigerating}%
+        {Air-Conditioning Engineers}%
+      }
+      \strng{namehash}{aff59a39c35d338716622a3794fd3101}
+      \strng{fullhash}{aff59a39c35d338716622a3794fd3101}
+      \strng{fullhashraw}{aff59a39c35d338716622a3794fd3101}
+      \strng{bibnamehash}{aff59a39c35d338716622a3794fd3101}
+      \strng{authorbibnamehash}{aff59a39c35d338716622a3794fd3101}
+      \strng{authornamehash}{aff59a39c35d338716622a3794fd3101}
+      \strng{authorfullhash}{aff59a39c35d338716622a3794fd3101}
+      \strng{authorfullhashraw}{aff59a39c35d338716622a3794fd3101}
+      \field{sortinit}{6}
+      \field{sortinithash}{b33bc299efb3c36abec520a4c896a66d}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{addendum}{(visitado 02-06-2026)}
+      \field{title}{{ANSI/ASHRAE} Standard 55-2023: Thermal Environmental Conditions for Human Occupancy}
+      \field{year}{2023}
+    \endentry
+    \entry{rothfusz_1990}{report}{}{}
+      \name{author}{1}{}{%
+        {{hash=bfa12cedd825487f120b854e38528b9f}{%
+           family={Rothfusz},
+           familyi={R\bibinitperiod},
+           given={Lans\bibnamedelima P.},
+           giveni={L\bibinitperiod\bibinitdelim P\bibinitperiod}}}%
+      }
+      \list{institution}{1}{%
+        {National Weather Service, Office of Meteorology}%
+      }
+      \strng{namehash}{bfa12cedd825487f120b854e38528b9f}
+      \strng{fullhash}{bfa12cedd825487f120b854e38528b9f}
+      \strng{fullhashraw}{bfa12cedd825487f120b854e38528b9f}
+      \strng{bibnamehash}{bfa12cedd825487f120b854e38528b9f}
+      \strng{authorbibnamehash}{bfa12cedd825487f120b854e38528b9f}
+      \strng{authornamehash}{bfa12cedd825487f120b854e38528b9f}
+      \strng{authorfullhash}{bfa12cedd825487f120b854e38528b9f}
+      \strng{authorfullhashraw}{bfa12cedd825487f120b854e38528b9f}
+      \field{sortinit}{6}
+      \field{sortinithash}{b33bc299efb3c36abec520a4c896a66d}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{addendum}{(visitado 02-06-2026)}
+      \field{note}{{NOAA} Technical Publication}
+      \field{title}{The Heat Index Equation ({SR} 90-23)}
+      \field{type}{techreport}
+      \field{year}{1990}
+      \verb{urlraw}
+      \verb https://www.weather.gov/media/ffc/ta_htindx.PDF
+      \endverb
+      \verb{url}
+      \verb https://www.weather.gov/media/ffc/ta_htindx.PDF
+      \endverb
+    \endentry
+    \entry{repo_publico}{software}{}{}
+      \name{author}{1}{}{%
+        {{hash=b31450b9e1ce9cdc42052eaf4c40665f}{%
+           family={Fernández\bibnamedelima López},
+           familyi={F\bibinitperiod\bibinitdelim L\bibinitperiod},
+           given={Jesús},
+           giveni={J\bibinitperiod}}}%
+      }
+      \strng{namehash}{b31450b9e1ce9cdc42052eaf4c40665f}
+      \strng{fullhash}{b31450b9e1ce9cdc42052eaf4c40665f}
+      \strng{fullhashraw}{b31450b9e1ce9cdc42052eaf4c40665f}
+      \strng{bibnamehash}{b31450b9e1ce9cdc42052eaf4c40665f}
+      \strng{authorbibnamehash}{b31450b9e1ce9cdc42052eaf4c40665f}
+      \strng{authornamehash}{b31450b9e1ce9cdc42052eaf4c40665f}
+      \strng{authorfullhash}{b31450b9e1ce9cdc42052eaf4c40665f}
+      \strng{authorfullhashraw}{b31450b9e1ce9cdc42052eaf4c40665f}
+      \field{sortinit}{7}
+      \field{sortinithash}{108d0be1b1bee9773a1173443802c0a3}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{addendum}{(visitado 03-06-2026)}
+      \field{title}{Luxe {Core} {AI} — {Public} {Release}}
+      \field{year}{2026}
+      \verb{urlraw}
+      \verb https://github.com/jesus212109/luxe-core-ai-public
+      \endverb
+      \verb{url}
+      \verb https://github.com/jesus212109/luxe-core-ai-public
+      \endverb
+    \endentry
+  \enddatalist
+\endrefsection
+\endinput
+

@@ -1,0 +1,34 @@
+\frametitle{Suite de Pruebas: 500 Comandos}
+\begin{columns}[T]
+    \column{0.55\textwidth}
+    \footnotesize
+    \textbf{Pruebas realizadas (hardware real):}
+    \vspace{0.15cm}
+    \begin{enumerate}
+      \item \textbf{Tuya:} conectividad IP, ON/OFF, alternancia $\rightarrow$ \checkmark
+      \item \textbf{BLE Xiaomi:} descubrimiento, GATT, decodificación $\rightarrow$ \checkmark
+      \item \textbf{FanLamp:} 11 comandos verificados físicamente $\rightarrow$ \checkmark
+      \item \textbf{Sensor Daemon:} lectura cada 60 s, JSON atómico $\rightarrow$ \checkmark
+      \item \textbf{Model Router:} 3 niveles validados $\rightarrow$ \checkmark
+      \item \textbf{Circuit Breaker:} fallo simulado + recuperación $\rightarrow$ \checkmark
+    \end{enumerate}
+
+    \column{0.45\textwidth}
+    \footnotesize
+    \textbf{Cobertura Tier~0 (500 comandos):}
+    \vspace{0.15cm}
+    \begin{itemize}
+      \item Iluminación (35 variantes): 100\%
+      \item Ventilador (50 variantes): 100\%
+      \item Escenas (40 variantes): 100\%
+      \item Consultas estado (15 variantes): 100\%
+      \item Conversacionales $\rightarrow$ Tier~2: esperado
+    \end{itemize}
+
+    \begin{exampleblock}{Suite automatizada}
+      \footnotesize
+      \texttt{tests/test\_integration.py}\\
+      5 subsistemas verificados de forma coordinada.
+      No destructiva: solo comandos de lectura.
+    \end{exampleblock}
+  \end{columns}

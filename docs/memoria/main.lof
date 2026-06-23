@@ -1,0 +1,28 @@
+\babel@toc {spanish}{}\relax 
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {7.1}{\ignorespaces Componentes hardware del subsistema HVAC: ESP32, regulador de voltaje y caja de protección.\relax }}{35}{figure.caption.10}%
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {8.1}{\ignorespaces Arquitectura de tres capas. Las flechas indican flujo de comunicación entre componentes.\relax }}{38}{figure.caption.12}%
+\contentsline {figure}{\numberline {8.2}{\ignorespaces Topología de despliegue sobre la red air-gapped. Las líneas continuas indican Ethernet, las discontinuas Wi-Fi, y las punteadas BLE. El control del ventilador y el sensor se realiza a través del ESP32 como puente BLE, mientras que el enchufe Tuya se comunica directamente por IP local.\relax }}{39}{figure.caption.13}%
+\contentsline {figure}{\numberline {8.3}{\ignorespaces Flujo de enrutamiento del Model Router v2. El mensaje pasa por tres niveles de complejidad creciente, con un circuit breaker que deriva al Tier~2 si el clasificador 1.5B no está disponible.\relax }}{43}{figure.caption.17}%
+\contentsline {figure}{\numberline {8.4}{\ignorespaces Zonas de confort térmico adaptadas al clima andaluz. Las zonas se asignan en función del índice de calor NOAA, combinando temperatura y humedad relativa.\relax }}{46}{figure.caption.18}%
+\contentsline {figure}{\numberline {8.5}{\ignorespaces Interacción por Telegram.}}{56}{figure.caption.20}%
+\contentsline {figure}{\numberline {8.6}{\ignorespaces \textit {Dashboard} web de OpenClaw.}}{57}{figure.caption.21}%
+\contentsline {figure}{\numberline {8.7}{\ignorespaces Enchufe Tuya y humidificador.}}{57}{figure.caption.22}%
+\contentsline {figure}{\numberline {8.8}{\ignorespaces Sensor Xiaomi LYWSD03MMC.}}{58}{figure.caption.23}%
+\contentsline {figure}{\numberline {8.9}{\ignorespaces Decodificación de los 5 bytes de la característica \texttt {ebe0ccc1} del sensor Xiaomi LYWSD03MMC. El payload se lee por GATT sin autenticación.\relax }}{58}{figure.caption.24}%
+\contentsline {figure}{\numberline {8.10}{\ignorespaces Ventilador FanLamp F8808 instalado.}}{59}{figure.caption.25}%
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {9.1}{\ignorespaces Comparación de latencia antes y después de la implementación del Model Router v2.\relax }}{65}{figure.caption.29}%
+\contentsline {figure}{\numberline {9.2}{\ignorespaces Cobertura del sistema de zero-inference (Tier~0) sobre corpus de 500 comandos reales.\relax }}{66}{figure.caption.30}%
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }

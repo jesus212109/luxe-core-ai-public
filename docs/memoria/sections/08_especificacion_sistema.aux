@@ -1,0 +1,234 @@
+\relax 
+\providecommand\hyper@newdestlabel[2]{}
+\@writefile{toc}{\contentsline {chapter}{\numberline {8}Especificación del Sistema}{37}{chapter.8}\protected@file@percent }
+\@writefile{lof}{\addvspace {10\p@ }}
+\@writefile{lot}{\addvspace {10\p@ }}
+\newlabel{cap:especificacion_sistema}{{8}{37}{Especificación del Sistema}{chapter.8}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {8.1}Visión General de la Arquitectura}{37}{section.8.1}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {8.1}{\ignorespaces Arquitectura de tres capas. Las flechas indican flujo de comunicación entre componentes.\relax }}{38}{figure.caption.12}\protected@file@percent }
+\newlabel{fig:arquitectura}{{8.1}{38}{Arquitectura de tres capas. Las flechas indican flujo de comunicación entre componentes.\relax }{figure.caption.12}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {8.2}{\ignorespaces Topología de despliegue sobre la red air-gapped. Las líneas continuas indican Ethernet, las discontinuas Wi-Fi, y las punteadas BLE. El control del ventilador y el sensor se realiza a través del ESP32 como puente BLE, mientras que el enchufe Tuya se comunica directamente por IP local.\relax }}{39}{figure.caption.13}\protected@file@percent }
+\newlabel{fig:despliegue}{{8.2}{39}{Topología de despliegue sobre la red air-gapped. Las líneas continuas indican Ethernet, las discontinuas Wi-Fi, y las punteadas BLE. El control del ventilador y el sensor se realiza a través del ESP32 como puente BLE, mientras que el enchufe Tuya se comunica directamente por IP local.\relax }{figure.caption.13}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {8.2}Topología de Red Local}{39}{section.8.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {8.2.1}Asignación de Direcciones IP}{39}{subsection.8.2.1}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {8.1}{\ignorespaces Asignación estática de direcciones IP en el segmento air-gapped.\relax }}{40}{table.caption.14}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {8.2.2}Ventana de Conectividad de Contingencia}{40}{subsection.8.2.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {8.2.3}Topología Física}{40}{subsection.8.2.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {8.3}Decisiones de Diseño}{40}{section.8.3}\protected@file@percent }
+\newlabel{sec:decisiones_diseno}{{8.3}{40}{Decisiones de Diseño}{section.8.3}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {8.3.1}Modelos Evaluados para el Razonador (Tier~2)}{40}{subsection.8.3.1}\protected@file@percent }
+\newlabel{sec:mejora_modelos}{{8.3.1}{40}{Modelos Evaluados para el Razonador (Tier~2)}{subsection.8.3.1}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {8.2}{\ignorespaces Architecture Decision Records (ADR) del proyecto, con referencias a los capítulos donde se detalla cada decisión.\relax }}{41}{table.caption.15}\protected@file@percent }
+\newlabel{tab:adrs}{{8.2}{41}{Architecture Decision Records (ADR) del proyecto, con referencias a los capítulos donde se detalla cada decisión.\relax }{table.caption.15}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {8.3}{\ignorespaces Modelos evaluados como candidatos para el Tier~2 de razonamiento. Las mediciones se realizaron sobre el corpus de 500 comandos reales del proyecto.\relax }}{41}{table.caption.16}\protected@file@percent }
+\newlabel{tab:modelos_evaluados_tier2}{{8.3}{41}{Modelos evaluados como candidatos para el Tier~2 de razonamiento. Las mediciones se realizaron sobre el corpus de 500 comandos reales del proyecto.\relax }{table.caption.16}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {8.4}Módulos del Servidor}{42}{section.8.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {8.4.1}Orquestador OpenClaw (Node.js)}{42}{subsection.8.4.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {8.4.2}Arquitectura de Enrutamiento Inteligente (Model Router v2)}{42}{subsection.8.4.2}\protected@file@percent }
+\newlabel{sec:model_router_v2}{{8.4.2}{42}{Arquitectura de Enrutamiento Inteligente (Model Router v2)}{subsection.8.4.2}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {8.3}{\ignorespaces Flujo de enrutamiento del Model Router v2. El mensaje pasa por tres niveles de complejidad creciente, con un circuit breaker que deriva al Tier~2 si el clasificador 1.5B no está disponible.\relax }}{43}{figure.caption.17}\protected@file@percent }
+\newlabel{fig:router_flow}{{8.3}{43}{Flujo de enrutamiento del Model Router v2. El mensaje pasa por tres niveles de complejidad creciente, con un circuit breaker que deriva al Tier~2 si el clasificador 1.5B no está disponible.\relax }{figure.caption.17}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {8.4.3}Auto-Recuperación y Tolerancia a Fallos}{44}{subsection.8.4.3}\protected@file@percent }
+\newlabel{sec:auto_recuperacion}{{8.4.3}{44}{Auto-Recuperación y Tolerancia a Fallos}{subsection.8.4.3}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {8.4.4}Daemon de Sensorización Continua}{45}{subsection.8.4.4}\protected@file@percent }
+\newlabel{sec:sensor_daemon}{{8.4.4}{45}{Daemon de Sensorización Continua}{subsection.8.4.4}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {8.4}{\ignorespaces Zonas de confort térmico adaptadas al clima andaluz. Las zonas se asignan en función del índice de calor NOAA, combinando temperatura y humedad relativa.\relax }}{46}{figure.caption.18}\protected@file@percent }
+\newlabel{fig:zonas_confort}{{8.4}{46}{Zonas de confort térmico adaptadas al clima andaluz. Las zonas se asignan en función del índice de calor NOAA, combinando temperatura y humedad relativa.\relax }{figure.caption.18}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {8.4.5}Asesor de Confort Térmico (Comfort Advisor)}{46}{subsection.8.4.5}\protected@file@percent }
+\newlabel{sec:comfort_advisor}{{8.4.5}{46}{Asesor de Confort Térmico (Comfort Advisor)}{subsection.8.4.5}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {8.4.6}Asesor Inteligente con Contexto Exterior (Smart Advisor)}{46}{subsection.8.4.6}\protected@file@percent }
+\newlabel{sec:smart_advisor}{{8.4.6}{46}{Asesor Inteligente con Contexto Exterior (Smart Advisor)}{subsection.8.4.6}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {8.4.7}Comunicación y Notificaciones}{48}{subsection.8.4.7}\protected@file@percent }
+\newlabel{sec:comunicacion_notificaciones}{{8.4.7}{48}{Comunicación y Notificaciones}{subsection.8.4.7}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {8.4.8}Infraestructura de Despliegue}{48}{subsection.8.4.8}\protected@file@percent }
+\newlabel{sec:infraestructura_despliegue}{{8.4.8}{48}{Infraestructura de Despliegue}{subsection.8.4.8}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {8.4.9}Métricas de Rendimiento}{48}{subsection.8.4.9}\protected@file@percent }
+\newlabel{sec:metricas_rendimiento}{{8.4.9}{48}{Métricas de Rendimiento}{subsection.8.4.9}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {8.4}{\ignorespaces Mejora de latencia tras la implementación del Model Router v2 y el Sensor Daemon.\relax }}{49}{table.caption.19}\protected@file@percent }
+\newlabel{tab:latencia_antes_despues}{{8.4}{49}{Mejora de latencia tras la implementación del Model Router v2 y el Sensor Daemon.\relax }{table.caption.19}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {8.4.10}Canales de Usuario}{49}{subsection.8.4.10}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {8.4.11}Módulo de Integración Tuya}{49}{subsection.8.4.11}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {8.4.12}Módulo de Sensores BLE}{50}{subsection.8.4.12}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {8.4.13}Criterios de Integración y Restricciones}{50}{subsection.8.4.13}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {8.4.14}Impacto de la Restricción Económica en las Decisiones de Implementación}{50}{subsection.8.4.14}\protected@file@percent }
+\newlabel{sec:impacto_economico}{{8.4.14}{50}{Impacto de la Restricción Económica en las Decisiones de Implementación}{subsection.8.4.14}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {8.5}Firmware del Nodo ESP32 (\texttt  {firmware/})}{51}{section.8.5}\protected@file@percent }
+\newlabel{sec:firmware_esp32}{{8.5}{51}{Firmware del Nodo ESP32 (\texttt {firmware/})}{section.8.5}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {8.6}Integraciones de Hardware}{52}{section.8.6}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {8.6.1}Dispositivos Tuya}{52}{subsection.8.6.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {8.6.2}Sensores Xiaomi LYWSD03MMC}{52}{subsection.8.6.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {8.6.3}Ventilador de Techo FanLamp Pro F8808}{52}{subsection.8.6.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {8.6.3.1}Problema de Integración}{52}{subsubsection.8.6.3.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {8.6.3.2}Descubrimiento del Protocolo}{52}{subsubsection.8.6.3.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {8.6.3.3}Control desde el Ordenador}{53}{subsubsection.8.6.3.3}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {8.5}{\ignorespaces Comandos disponibles para el ventilador FanLamp F8808.\relax }}{53}{table.caption.26}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {8.6.3.4}Evolución del Controlador: de BLE directo a Puente ESP32}{53}{subsubsection.8.6.3.4}\protected@file@percent }
+\newlabel{sec:fanlamp_evolucion}{{8.6.3.4}{53}{Evolución del Controlador: de BLE directo a Puente ESP32}{subsubsection.8.6.3.4}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {8.7}Estructura del Repositorio}{54}{section.8.7}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {8.6}{\ignorespaces Comparativa entre las dos fases del controlador del ventilador FanLamp.\relax }}{55}{table.caption.27}\protected@file@percent }
+\newlabel{tab:fanlamp_fases}{{8.6}{55}{Comparativa entre las dos fases del controlador del ventilador FanLamp.\relax }{table.caption.27}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {8.5}{\ignorespaces Interacción por Telegram.}}{56}{figure.caption.20}\protected@file@percent }
+\newlabel{fig:telegram}{{8.5}{56}{Interacción por Telegram}{figure.caption.20}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {8.6}{\ignorespaces \textit  {Dashboard} web de OpenClaw.}}{57}{figure.caption.21}\protected@file@percent }
+\newlabel{fig:dashboard}{{8.6}{57}{\textit {Dashboard} web de OpenClaw}{figure.caption.21}{}}
+\newlabel{fig:tuya_plug}{{8.7a}{57}{Enchufe inteligente Tuya con monitor de consumo.\relax }{figure.caption.22}{}}
+\newlabel{sub@fig:tuya_plug}{{a}{57}{Enchufe inteligente Tuya con monitor de consumo.\relax }{figure.caption.22}{}}
+\newlabel{fig:humidifier}{{8.7b}{57}{Humidificador ultrasónico de 24V, controlado mediante el enchufe Tuya.\relax }{figure.caption.22}{}}
+\newlabel{sub@fig:humidifier}{{b}{57}{Humidificador ultrasónico de 24V, controlado mediante el enchufe Tuya.\relax }{figure.caption.22}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {8.7}{\ignorespaces Enchufe Tuya y humidificador.}}{57}{figure.caption.22}\protected@file@percent }
+\newlabel{fig:tuya_hw}{{8.7}{57}{Enchufe Tuya y humidificador}{figure.caption.22}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {8.8}{\ignorespaces Sensor Xiaomi LYWSD03MMC.}}{58}{figure.caption.23}\protected@file@percent }
+\newlabel{fig:xiaomi_sensor}{{8.8}{58}{Sensor Xiaomi LYWSD03MMC}{figure.caption.23}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {8.9}{\ignorespaces Decodificación de los 5 bytes de la característica \texttt  {ebe0ccc1} del sensor Xiaomi LYWSD03MMC. El payload se lee por GATT sin autenticación.\relax }}{58}{figure.caption.24}\protected@file@percent }
+\newlabel{fig:ble_decode}{{8.9}{58}{Decodificación de los 5 bytes de la característica \texttt {ebe0ccc1} del sensor Xiaomi LYWSD03MMC. El payload se lee por GATT sin autenticación.\relax }{figure.caption.24}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {8.10}{\ignorespaces Ventilador FanLamp F8808 instalado.}}{59}{figure.caption.25}\protected@file@percent }
+\newlabel{fig:fanlamp}{{8.10}{59}{Ventilador FanLamp F8808 instalado}{figure.caption.25}{}}
+\@setckpt{sections/08_especificacion_sistema}{
+\setcounter{page}{60}
+\setcounter{equation}{0}
+\setcounter{enumi}{3}
+\setcounter{enumii}{0}
+\setcounter{enumiii}{0}
+\setcounter{enumiv}{0}
+\setcounter{footnote}{0}
+\setcounter{mpfootnote}{0}
+\setcounter{part}{0}
+\setcounter{chapter}{8}
+\setcounter{section}{7}
+\setcounter{subsection}{0}
+\setcounter{subsubsection}{0}
+\setcounter{paragraph}{0}
+\setcounter{subparagraph}{0}
+\setcounter{figure}{10}
+\setcounter{table}{6}
+\setcounter{caption@flags}{2}
+\setcounter{continuedfloat}{0}
+\setcounter{subfigure}{0}
+\setcounter{subtable}{0}
+\setcounter{parentequation}{0}
+\setcounter{section@level}{0}
+\setcounter{Item}{30}
+\setcounter{Hfootnote}{0}
+\setcounter{bookmark@seq@number}{94}
+\setcounter{FancyVerbLine}{0}
+\setcounter{LT@tables}{0}
+\setcounter{LT@chunks}{0}
+\setcounter{tabx@nest}{0}
+\setcounter{listtotal}{0}
+\setcounter{listcount}{0}
+\setcounter{liststart}{0}
+\setcounter{liststop}{0}
+\setcounter{citecount}{0}
+\setcounter{citetotal}{0}
+\setcounter{multicitecount}{0}
+\setcounter{multicitetotal}{0}
+\setcounter{instcount}{73}
+\setcounter{maxnames}{3}
+\setcounter{minnames}{3}
+\setcounter{maxitems}{3}
+\setcounter{minitems}{1}
+\setcounter{citecounter}{0}
+\setcounter{maxcitecounter}{0}
+\setcounter{savedcitecounter}{0}
+\setcounter{uniquelist}{0}
+\setcounter{uniquename}{0}
+\setcounter{refsection}{0}
+\setcounter{refsegment}{0}
+\setcounter{maxextratitle}{0}
+\setcounter{maxextratitleyear}{0}
+\setcounter{maxextraname}{0}
+\setcounter{maxextradate}{0}
+\setcounter{maxextraalpha}{0}
+\setcounter{abbrvpenalty}{50}
+\setcounter{highnamepenalty}{50}
+\setcounter{lownamepenalty}{25}
+\setcounter{maxparens}{3}
+\setcounter{parenlevel}{0}
+\setcounter{blx@maxsection}{0}
+\setcounter{mincomprange}{10}
+\setcounter{maxcomprange}{100000}
+\setcounter{mincompwidth}{1}
+\setcounter{afterword}{0}
+\setcounter{savedafterword}{0}
+\setcounter{annotator}{0}
+\setcounter{savedannotator}{0}
+\setcounter{author}{0}
+\setcounter{savedauthor}{0}
+\setcounter{bookauthor}{0}
+\setcounter{savedbookauthor}{0}
+\setcounter{commentator}{0}
+\setcounter{savedcommentator}{0}
+\setcounter{editor}{0}
+\setcounter{savededitor}{0}
+\setcounter{editora}{0}
+\setcounter{savededitora}{0}
+\setcounter{editorb}{0}
+\setcounter{savededitorb}{0}
+\setcounter{editorc}{0}
+\setcounter{savededitorc}{0}
+\setcounter{foreword}{0}
+\setcounter{savedforeword}{0}
+\setcounter{holder}{0}
+\setcounter{savedholder}{0}
+\setcounter{introduction}{0}
+\setcounter{savedintroduction}{0}
+\setcounter{namea}{0}
+\setcounter{savednamea}{0}
+\setcounter{nameb}{0}
+\setcounter{savednameb}{0}
+\setcounter{namec}{0}
+\setcounter{savednamec}{0}
+\setcounter{translator}{0}
+\setcounter{savedtranslator}{0}
+\setcounter{shortauthor}{0}
+\setcounter{savedshortauthor}{0}
+\setcounter{shorteditor}{0}
+\setcounter{savedshorteditor}{0}
+\setcounter{labelname}{0}
+\setcounter{savedlabelname}{0}
+\setcounter{institution}{0}
+\setcounter{savedinstitution}{0}
+\setcounter{lista}{0}
+\setcounter{savedlista}{0}
+\setcounter{listb}{0}
+\setcounter{savedlistb}{0}
+\setcounter{listc}{0}
+\setcounter{savedlistc}{0}
+\setcounter{listd}{0}
+\setcounter{savedlistd}{0}
+\setcounter{liste}{0}
+\setcounter{savedliste}{0}
+\setcounter{listf}{0}
+\setcounter{savedlistf}{0}
+\setcounter{location}{0}
+\setcounter{savedlocation}{0}
+\setcounter{organization}{0}
+\setcounter{savedorganization}{0}
+\setcounter{origlocation}{0}
+\setcounter{savedoriglocation}{0}
+\setcounter{origpublisher}{0}
+\setcounter{savedorigpublisher}{0}
+\setcounter{publisher}{0}
+\setcounter{savedpublisher}{0}
+\setcounter{language}{0}
+\setcounter{savedlanguage}{0}
+\setcounter{origlanguage}{0}
+\setcounter{savedoriglanguage}{0}
+\setcounter{pageref}{0}
+\setcounter{savedpageref}{0}
+\setcounter{textcitecount}{0}
+\setcounter{textcitetotal}{0}
+\setcounter{textcitemaxnames}{0}
+\setcounter{biburlbigbreakpenalty}{100}
+\setcounter{biburlbreakpenalty}{200}
+\setcounter{biburlnumpenalty}{0}
+\setcounter{biburlucpenalty}{0}
+\setcounter{biburllcpenalty}{0}
+\setcounter{smartand}{1}
+\setcounter{bbx:relatedcount}{0}
+\setcounter{bbx:relatedtotal}{0}
+\setcounter{cbx@tempcnta}{0}
+\setcounter{cbx@tempcntb}{32}
+\setcounter{cbx@tempcntc}{0}
+\setcounter{cbx@tempcntd}{-1}
+}

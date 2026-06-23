@@ -1,0 +1,136 @@
+% ============================================================================
+%  BLOQUE V — DIAPOSITIVAS 18–21: INTEGRACIÓN DE HARDWARE
+% ============================================================================
+\section{Integración de Hardware}
+
+% ----------------------------------------------------------------------------
+%  DIAPOSITIVA 18 — TUYA + HOTSPOT SPOOFING
+% ----------------------------------------------------------------------------
+\begin{frame}{Integración Tuya: Control Local y Hotspot Spoofing}
+
+  \IfFileExists{figures/19_tuya.pdf}{%
+    \includegraphics[width=\textwidth, height=4.2cm, keepaspectratio]{figures/19_tuya.pdf}%
+  }{
+    \textcolor{darkgray}{[Figura: 4 pasos Hotspot Spoofing]}
+  }
+
+  \vspace{0.3cm}
+  \begin{columns}[T]
+    \column{0.35\textwidth}
+    \IfFileExists{\memoriaimg/hw_tuya_plug.png}{%
+      \includegraphics[height=3cm, keepaspectratio]{\memoriaimg/hw_tuya_plug.png}%
+    }{
+      \fbox{\parbox{0.8\textwidth}{\centering\footnotesize [Enchufe Tuya]}}
+    }
+
+    \column{0.65\textwidth}
+    \footnotesize
+    \textbf{Protocolo \texttt{tinytuya} 3.5}\\
+    Local Key en servidor · IP \texttt{192.168.1.100}\\[0.2cm]
+    \texttt{status()} · \texttt{toggle()} · \texttt{set\_state()}\\
+    Respuesta $<$2 s — validado en red air-gapped
+  \end{columns}
+\end{frame}
+
+% ----------------------------------------------------------------------------
+%  DIAPOSITIVA 19 — BLE XIAOMI GATT
+% ----------------------------------------------------------------------------
+\begin{frame}{Sensores BLE Xiaomi: Lectura GATT Directa}
+  \begin{columns}[T]
+    \column{0.58\textwidth}
+    \centering
+    \IfFileExists{\memoriaimg/fig_8_5.pdf}{%
+      \includegraphics[width=\textwidth, height=5.5cm, keepaspectratio]{\memoriaimg/fig_8_5.pdf}%
+    }{%
+      \fbox{\parbox{0.9\textwidth}{\centering\footnotesize [Decodificación BLE]}}
+    }
+
+    \column{0.42\textwidth}
+    \centering
+    \IfFileExists{\memoriaimg/hw_xiaomi_sensor.png}{%
+      \includegraphics[height=3.5cm, keepaspectratio]{\memoriaimg/hw_xiaomi_sensor.png}%
+    }{
+      \fbox{\parbox{0.6\textwidth}{\centering\tiny [Sensor]}}
+    }\\[0.1cm]
+    {\footnotesize Xiaomi LYWSD03MMC}
+
+    \vspace{0.1cm}
+    \begin{exampleblock}{Lectura GATT directa}
+      \footnotesize
+      \texttt{ebe0ccc1} (servicio \texttt{ebe0ccb0})\\[0.05cm]
+      \texttt{cb093bef0b} $\rightarrow$ \textbf{25,07\,°C} \quad \textbf{59\,\% HR} \quad \textbf{3055\,mV}\\[0.05cm]
+      Sin \textit{bind key} · Sin nube Xiaomi
+    \end{exampleblock}
+  \end{columns}
+\end{frame}
+
+% ----------------------------------------------------------------------------
+%  DIAPOSITIVA 20 — FANLAMP: INGENIERÍA INVERSA
+% ----------------------------------------------------------------------------
+\begin{frame}{FanLamp F8808: Ingeniería Inversa del Protocolo}
+
+  \centering
+  \IfFileExists{figures/21_fanlamp.pdf}{%
+    \includegraphics[width=\textwidth, height=3.8cm, keepaspectratio]{figures/21_fanlamp.pdf}%
+  }{
+    \textcolor{darkgray}{[Figura: ingeniería inversa FanLamp]}
+  }
+
+  \vspace{0.2cm}
+  \begin{columns}[T]
+    \column{0.35\textwidth}
+    \IfFileExists{\memoriaimg/hw_fanlamp.png}{%
+      \includegraphics[height=2.8cm, keepaspectratio]{\memoriaimg/hw_fanlamp.png}%
+    }{
+      \fbox{\parbox{0.8\textwidth}{\centering\footnotesize [FanLamp F8808]}}
+    }\\[0.05cm]
+    {\footnotesize Mikomika F8808 — 35 € AliExpress}
+
+    \column{0.65\textwidth}
+    \footnotesize
+    \begin{exampleblock}{Descubrimiento clave}
+      APK FanLamp Pro decompilado (\texttt{jadx}, $\sim$60 MB)\\
+      \alert{No usa conexiones GATT, sino anuncios BLE}\\
+      Cada comando = 13 UUIDs de 16 bits · Emitidos desde ESP32
+    \end{exampleblock}
+  \end{columns}
+  \vspace*{-0.2pt}
+\end{frame}
+
+% ----------------------------------------------------------------------------
+%  DIAPOSITIVA 21 — EVOLUCIÓN PUENTE ESP32
+% ----------------------------------------------------------------------------
+\begin{frame}{Evolución del Controlador: Puente Serie ESP32}
+  \begin{columns}[T]
+    \column{0.48\textwidth}
+    \begin{alertblock}{Fase 1 — BLE directo (heredado)}
+      \footnotesize
+      \begin{itemize}
+        \item \texttt{fanlamp\_bt.py} $\rightarrow$ \texttt{btmgmt} (\texttt{bluez})
+        \item Requiere \texttt{sudo} (parar/reiniciar \texttt{bluetoothd})
+        \item Monopoliza el adaptador BT del servidor
+        \item $\sim$3 s por comando, inestable
+      \end{itemize}
+    \end{alertblock}
+
+    \column{0.52\textwidth}
+    \begin{exampleblock}{Fase 2 — Puente ESP32 (actual)}
+      \footnotesize
+      \begin{itemize}
+        \item \texttt{fanlamp\_control.py} $\rightarrow$ USB serie (115200 baud)
+        \item ESP32 como radio BLE externa dedicada
+        \item Sin \texttt{sudo} (grupo \texttt{dialout})
+        \item $\sim$1,5 s por comando, reset DTR automático
+        \item Adaptador BT del servidor libre para Xiaomi
+      \end{itemize}
+    \end{exampleblock}
+  \end{columns}
+
+  \begin{block}{Ventaja clave}
+    \footnotesize
+    \textbf{PC $\rightarrow$ USB serie $\rightarrow$ ESP32 $\rightarrow$ BLE $\rightarrow$ FanLamp}\\[0.1cm]
+    El ESP32 que hoy es puente BLE podrá ser puente LIN para la HVAC.
+    \textbf{Hardware reutilizado, coste 0 € adicional.}
+    \vspace{0.15cm}
+  \end{block}
+\end{frame}

@@ -1,0 +1,158 @@
+% ============================================================================
+%  BLOQUE III — DIAPOSITIVAS 8–11: RESTRICCIONES Y METODOLOGÍA
+% ============================================================================
+\section{Restricciones y Metodología}
+
+% ----------------------------------------------------------------------------
+%  DIAPOSITIVA 8 — FACTORES DE DISEÑO
+% ----------------------------------------------------------------------------
+\begin{frame}{Restricciones y Factores de Diseño}
+  \begin{columns}[T]
+    \column{0.5\textwidth}
+    \begin{alertblock}{Restricción temporal y económica}
+      \footnotesize
+      \begin{itemize}
+        \item Un curso académico $\rightarrow$ MVP con funcionalidades troncales
+        \item Autor: estudiante sin ingresos — presupuesto \textbf{56,50 €}
+        \item Ingeniería inversa como alternativa a la inversión
+      \end{itemize}
+    \end{alertblock}
+
+    \column{0.5\textwidth}
+    \begin{exampleblock}{Impacto positivo}
+      \footnotesize
+      \begin{itemize}
+        \item Obliga a desarrollar competencias transferibles
+        \item GATT Xiaomi sin autenticación: una herramienta cara lo habría ocultado
+        \item Domótica inteligente $\neq$ grandes inversiones
+      \end{itemize}
+    \end{exampleblock}
+
+    \begin{block}{Evolución de infraestructura}
+      \footnotesize
+      \textbf{Fase 1:} servidores UCO con GPU (prototipado)\\
+      \textbf{Fase 2:} torre Ryzen 5, 16 GB RAM, 100\% local
+    \end{block}
+  \end{columns}
+\end{frame}
+
+% ----------------------------------------------------------------------------
+%  DIAPOSITIVA 9 — PERÍMETRO AIR-GAPPED
+% ----------------------------------------------------------------------------
+\begin{frame}{Arquitectura de Red Air-Gapped}
+  \begin{columns}[T]
+    \column{0.5\textwidth}
+    \footnotesize
+    \textbf{Problema:} los dispositivos comerciales intentan abrir canales hacia sus nubes.
+
+    \textbf{Solución: Router sin salida WAN}
+    \vspace{0.15cm}
+    \begin{itemize}
+      \item TP-Link TL-MR6400 sin tarjeta SIM
+      \item Actúa como \textit{switch} Ethernet + AP WLAN
+      \item Segmento \texttt{192.168.1.0/24} completamente aislado
+      \item IPs estáticas — aislamiento físico verificable
+    \end{itemize}
+
+    \column{0.5\textwidth}
+    \begin{exampleblock}{Hotspot Spoofing (Tuya)}
+      \footnotesize
+      \begin{enumerate}
+        \item Punto de acceso móvil replica SSID
+        \item Emparejamiento contra nube Tuya
+        \item Extracción de \textit{Local Key}
+        \item Se apaga el \textit{hotspot}
+        \item Dispositivo migra al segmento air-gapped
+      \end{enumerate}
+      \textbf{Local Key nunca abandona el servidor.}
+    \vspace{0.15cm}
+    \end{exampleblock}
+  \end{columns}
+\end{frame}
+
+% ----------------------------------------------------------------------------
+%  DIAPOSITIVA 10 — STACK POLÍGLOTA
+% ----------------------------------------------------------------------------
+\begin{frame}{Stack Políglota y Justificación}
+  \begin{block}{Principio}
+    \small
+    La naturaleza dual de la domótica con IA (tiempo real + flexibilidad cognitiva)
+    hace inviable un sistema monolítico en un solo lenguaje.
+  \end{block}
+
+  \begin{columns}[T]
+    \column{0.33\textwidth}
+    \begin{exampleblock}{Python 3.12}
+      \footnotesize
+      \textbf{Drivers de dispositivos}\\[0.05cm]
+      \texttt{tinytuya}, \texttt{bleak}\\[0.1cm]
+      \textbf{Enrutador de modelos}\\[0.05cm]
+      HTTP server, comfort advisors\\[0.1cm]
+      $\rightarrow$ Ecosistema maduro, prototipado rápido
+    \end{exampleblock}
+
+    \column{0.33\textwidth}
+    \begin{exampleblock}{Node.js 24}
+      \footnotesize
+      \textbf{Orquestador OpenClaw}\\[0.05cm]
+      Canales Telegram y dashboard web\\[0.1cm]
+      Interfaz de agentes IA\\[0.05cm]
+      \texttt{exec} $\rightarrow$ drivers Python\\[0.1cm]
+      $\rightarrow$ Gestión nativa de canales
+    \end{exampleblock}
+
+    \column{0.33\textwidth}
+    \begin{block}{C++20}
+      \footnotesize
+      \textbf{Firmware ESP32}\\[0.05cm]
+      Control determinista de memoria\\[0.1cm]
+      Bus LIN \smallgray{(pendiente)}\\[0.1cm]
+      $\rightarrow$ \textit{Hard real-time} cuando se necesita
+    \end{block}
+  \end{columns}
+
+  \centering
+  \footnotesize
+  Cada lenguaje en su capa óptima, sin acoplar tiempos de ejecución ni forzar compromisos.
+\end{frame}
+
+% ----------------------------------------------------------------------------
+%  DIAPOSITIVA 11 — METODOLOGÍA DOCS-AS-CODE
+% ----------------------------------------------------------------------------
+\begin{frame}[fragile]{Metodología: Docs-as-Code y Git}
+  \begin{columns}[T]
+    \column{0.5\textwidth}
+    \small
+    \textbf{Control de versiones}
+    \vspace{0.15cm}
+    \begin{itemize}
+      \item Repositorio privado GitHub
+      \item Cada contribución auditada
+      \item Trazabilidad: decisión de diseño $\leftrightarrow$ código
+      \item Base para futura iniciativa empresarial
+    \end{itemize}
+
+    \textbf{Docs as Code}
+    \vspace{0.15cm}
+    \begin{itemize}
+      \item Memoria \LaTeX{} + código en mismo repo
+      \item Consistencia tipográfica profesional
+      \item 9 ADR (\textit{Architecture Decision Records})
+      \item Diagramas TikZ versionados
+    \end{itemize}
+
+    \column{0.5\textwidth}
+    \footnotesize
+    \textbf{Uso de IA en el desarrollo}
+    \vspace{0.15cm}
+    \begin{itemize}
+      \item \textbf{OpenCode:} asistente de codificación (software libre)
+      \item \textbf{DeepSeek V4:} modelo de inferencia vía API
+      \item \alert{Toda línea revisada y validada por el autor}
+    \end{itemize}
+
+    \begin{exampleblock}{Herramientas de gestión}
+      SSH con llaves RSA, Cockpit (puerto 9090), \texttt{systemd}.
+    \end{exampleblock}
+  \end{columns}
+\end{frame}
