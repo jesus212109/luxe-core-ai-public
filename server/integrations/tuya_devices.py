@@ -3,11 +3,15 @@
 This module wraps `tinytuya` (protocol 3.5) to drive the Smart Plug paired via
 the documented Hotspot Spoofing onboarding. All traffic stays inside the
 isolated 192.168.1.0/24 subnet — no cloud calls are issued at runtime.
+
+NOTE: Device credentials are read from environment variables. Set TUYA_DEVICE_ID,
+TUYA_LOCAL_KEY, and TUYA_PLUG_IP before running. See .env.example for details.
 """
 
 from __future__ import annotations
 
 import logging
+import os
 import socket
 from dataclasses import dataclass
 from typing import Any, Optional
@@ -16,9 +20,12 @@ import tinytuya
 
 LOGGER = logging.getLogger(__name__)
 
-SMART_PLUG_DEVICE_ID = "bfceed629b4d34c4a08trk"
-SMART_PLUG_LOCAL_KEY = "nj<L9i+j+cQ{^rrf"
-SMART_PLUG_IP = "192.168.1.100"
+# Device credentials — set via environment variables.
+# These were removed from the public release for security.
+# To configure, copy .env.example to .env and fill in your values.
+SMART_PLUG_DEVICE_ID = os.environ.get("TUYA_DEVICE_ID", "")
+SMART_PLUG_LOCAL_KEY = os.environ.get("TUYA_LOCAL_KEY", "")
+SMART_PLUG_IP = os.environ.get("TUYA_PLUG_IP", "192.168.1.100")
 TUYA_PROTOCOL_VERSION = 3.5
 SWITCH_DP = "1"
 DEFAULT_TIMEOUT_SECONDS = 5.0

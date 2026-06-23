@@ -21,7 +21,7 @@ MODELS = {
         "name": "qwen2.5-coder:1.5b",
         "label": "rápido (1.5B)",
         "keep_alive": -1,           # Siempre en RAM
-        "context_window": 2048,     # Solo clasifica → no necesita 32K
+        "context_window": 8192,     # Prompt del sistema (~14KB) necesita >= 8K
         "max_tokens": 256,          # Solo JSON corto o "DELEGAR"
         "num_thread": 8,
         "ram_mb": 500,
@@ -29,15 +29,15 @@ MODELS = {
         "role": "clasificador de comandos, NLU determinista",
     },
     "reasoning": {
-        "name": "qwen2.5-coder:7b-instruct",
+        "name": "mistral:7b-instruct-q4_K_M",
         "label": "razonador (7B)",
-        "keep_alive": 0,            # Se carga/descarga bajo demanda
-        "context_window": 16384,
-        "max_tokens": 4096,
-        "num_thread": 4,
-        "ram_mb": 4700,
-        "temperature": 0.3,         # Un poco de creatividad para conversación
-        "idle_unload_sec": 300,     # 5 min de inactividad → descarga
+        "keep_alive": "10m",
+        "context_window": 4096,
+        "max_tokens": 2048,
+        "num_thread": 6,
+        "ram_mb": 4500,
+        "temperature": 0.3,
+        "idle_unload_sec": 60,
         "role": "razonamiento, análisis, troubleshooting, conversación",
     },
     "encoder": {
@@ -211,7 +211,7 @@ def _build_zero_inference():
 
     light_off_variants = [
         # Directos
-        "apaga la luz", "apaga las luces", "luz off", "luces off",
+        "apaga la luz", "apaga la luz por favor", "apagar la luz", "apagar la luz por favor", "apaga las luces", "luz off", "luces off",
         "apaga luz", "apaga luces", "luz apagada", "luces apagadas",
         "apaga", "apágalo", "apagala", "apágalas",
         "oscuro", "a oscuras", "oscuridad",
@@ -262,6 +262,7 @@ def _build_zero_inference():
     fan_off_variants = [
         # Directos
         "apaga el ventilador", "ventilador off", "ventilador apagado",
+        "ponlo al 0",
         "para el ventilador", "ventilador para",
         "apaga ventilador", "desactiva el ventilador",
         "ventilador desactivado", "detén el ventilador",
@@ -294,6 +295,10 @@ def _build_zero_inference():
         "dame corriente", "activa la corriente",
         "conecta", "conecta el aparato",
         "plug on", "turn on the plug",
+        # humificador = enchufe (mismo dispositivo)
+        "enciende el humificador", "humificador", "humificador on",
+        "humificador encendido", "prende el humificador",
+        "activa el humificador", "pon el humificador",
     ]
     for v in plug_on_variants:
         commands[re.sub(r'\s+', ' ', v.strip().lower())] = ("plug_on", [], "🔌 Enchufe encendido")
@@ -308,6 +313,9 @@ def _build_zero_inference():
         "quita la corriente", "sin corriente",
         "no quiero enchufe", "basta de enchufe",
         "plug off", "turn off the plug",
+        # humificador = enchufe (mismo dispositivo)
+        "apaga el humificador", "humificador off", "humificador apagado",
+        "desconecta el humificador", "para el humificador",
     ]
     for v in plug_off_variants:
         commands[re.sub(r'\s+', ' ', v.strip().lower())] = ("plug_off", [], "🔌 Enchufe apagado")
@@ -315,6 +323,7 @@ def _build_zero_inference():
     # --- ESCENAS DIRECTAS ---
     night_variants = [
         "modo noche", "noche", "a dormir", "buenas noches",
+        "pon la luz en modo noche", "luz modo noche", "pon modo noche",
         "hora de dormir", "modo dormir", "modo nocturno",
         "me voy a la cama", "me voy a dormir", "quiero dormir",
         "a descansar", "me voy a descansar", "hora de descansar",
@@ -503,6 +512,10 @@ def _build_zero_inference():
         "clima exterior": ("query_outdoor", [], "🌍 Consultando exterior..."),
         "temperatura en la calle": ("query_outdoor", [], "🌍 Consultando exterior..."),
         "qué temperatura hay fuera": ("query_outdoor", [], "🌍 Consultando exterior..."),
+        "hace en la calle": ("query_outdoor", [], "🌍 Consultando exterior..."),
+        "en la calle": ("query_outdoor", [], "🌍 Consultando exterior..."),
+        "calle que temperatura": ("query_outdoor", [], "🌍 Consultando exterior..."),
+        "y fuera": ("query_outdoor", [], "🌍 Consultando exterior..."),
         "fuera": ("query_outdoor", [], "🌍 Consultando exterior..."),
         "tiempo": ("query_outdoor", [], "🌍 Consultando exterior..."),
         "clima": ("query_outdoor", [], "🌍 Consultando exterior..."),
@@ -527,6 +540,8 @@ ZERO_INFERENCE_COMMANDS = _build_zero_inference()
 
 # Patrones regex para comandos con parámetros variables (velocidad)
 SPEED_PATTERNS = [
+    # "velocidad 0" = apagar
+    (re.compile(r'(?:velocidad|speed)\s*0'), "fan_off"),
     # "velocidad 3", "ventilador al 5", "velocidad N"
     (re.compile(r'(?:velocidad|ventilador\s*(?:al|a\s*la)?|speed)\s*(\d)'), "fan_speed"),
     # "pon el ventilador al 3", "pon ventilador velocidad 5"
@@ -541,9 +556,12 @@ SPEED_PATTERNS = [
     (re.compile(r'(?:hace|qué)\s*(calor|frío)'), "temp_reaction"),
     # "más fuerte" / "más flojo" / "más rápido"
     (re.compile(r'(?:más|menos|ponlo|dale)\s*(?:fuerte|flojo|rápido|lento|suave|aire|caña|marcha|velocidad)'), "fan_adjust_extreme"),
+    # "al 0" → apagar
+    (re.compile(r'^al\s*0$'), "fan_off"),
     # "al 1", "al 2", etc.
     (re.compile(r'^al\s*(\d)$'), "fan_speed"),
-    # Dígito suelto: "1", "2", "3", "4", "5" → velocidad del ventilador
+    # Dígito suelto: "0" → apagar, "1"-5" → velocidad del ventilador
+    (re.compile(r'^0$'), "fan_off"),
     (re.compile(r'^([1-5])$'), "fan_speed"),
 ]
 
@@ -840,25 +858,30 @@ def _nice_output(raw: str, default_nice: str) -> str:
         return default_nice
     
     # Si es un JSON (p.ej. scan), procesarlo primero — antes del chequeo multilínea
+    # PERO: si el default NO es de sensor (no estamos escaneando), ignorar JSON de sensor
     if stripped.startswith("{"):
-        try:
-            data = json.loads(stripped)
-            if isinstance(data, dict):
-                sensors = data.get("sensors", [])
-                if sensors:
-                    s = sensors[0]
-                    temp = s.get("temperature_c", "?")
-                    hum = s.get("humidity_pct", "?")
-                    bat = s.get("battery_mv", "")
-                    msg = f"🌡️ {temp}°C | 💧 {hum}%"
-                    if bat:
-                        msg += f" | 🔋 {bat}mV"
-                    if data.get("rssi"):
-                        msg += f" | 📶 {data['rssi']}dBm"
-                    return msg
-                return f"📡 Lectura de sensor"
-        except (json.JSONDecodeError, IndexError):
-            pass
+        if "sensor" in default_nice.lower() or "escane" in default_nice.lower():
+            try:
+                data = json.loads(stripped)
+                if isinstance(data, dict):
+                    sensors = data.get("sensors", [])
+                    if sensors:
+                        s = sensors[0]
+                        temp = s.get("temperature_c", "?")
+                        hum = s.get("humidity_pct", "?")
+                        bat = s.get("battery_mv", "")
+                        msg = f"🌡️ {temp}°C | 💧 {hum}%"
+                        if bat:
+                            msg += f" | 🔋 {bat}mV"
+                        if data.get("rssi"):
+                            msg += f" | 📶 {data['rssi']}dBm"
+                        return msg
+                    return f"📡 Lectura de sensor"
+            except (json.JSONDecodeError, IndexError):
+                pass
+        else:
+            # JSON en comando NO-scan → contaminación del sensor daemon → ignorar
+            return default_nice
     
     # Respuesta directa conocida
     if stripped in NICE_RESPONSES:
@@ -982,13 +1005,21 @@ def execute_json_action(action_data: dict) -> tuple[bool, str]:
 
     def _wrap(ok: bool, nice_msg: str, raw_out: str) -> tuple[bool, str]:
         """Envuelve el mensaje con nota de recuperación si aplica."""
-        if ok and raw_out.startswith("[RECUPERADO"):
-            # Extraer la nota de recuperación
-            end = raw_out.find("] ")
-            if end > 0:
-                recovery_note = raw_out[:end + 1]
-                return True, f"🔧 {recovery_note} → {nice_msg}"
-        return ok, nice_msg
+        clean = raw_out
+        note = ""
+        # Extraer TODOS los prefijos [RECUPERADO...] y quedarnos solo con uno
+        while "[RECUPERADO" in clean:
+            s = clean.find("[RECUPERADO")
+            e = clean.find("] ", s)
+            if e > 0:
+                note = f"🔧 {clean[s:e+1]} → "
+                clean = clean[e+2:]
+            else:
+                break
+        formatted = _nice_output(clean.strip(), nice_msg)
+        if note:
+            return True, f"{note}{formatted}"
+        return ok, formatted
 
     # --- Acciones individuales (con retry automático) ---
     if action == "light_on":
@@ -1313,39 +1344,21 @@ def detect_zero_inference(message: str) -> Optional[tuple]:
     if normalized in ZERO_INFERENCE_COMMANDS:
         return ZERO_INFERENCE_COMMANDS[normalized]
 
-    # 2. Substring match (comandos con palabras extras, e.g. "por favor")
-    #    Solo para comandos que sean claramente directos
-    #    Buscamos frases clave como "enciende la luz" dentro del texto
-    
-    # Pre-filtro: si el mensaje habla de exterior, priorizar patrones outdoor
-    outdoor_keywords = ["fuera", "exterior", "calle", "externo", "externa"]
-    is_outdoor_query = any(kw in normalized for kw in outdoor_keywords)
-    
-    best_match = None
-    best_len = 0
-    for pattern, action in ZERO_INFERENCE_COMMANDS.items():
-        if len(pattern) >= 5 and pattern in normalized:
-            # Priorizar patrones más largos (más específicos)
-            if len(pattern) > best_len:
-                # Si es consulta outdoor, priorizar query_outdoor sobre query_temp
-                if is_outdoor_query and "outdoor" in str(action):
-                    best_match = action
-                    best_len = len(pattern)
-                elif not is_outdoor_query or best_match is None:
-                    best_match = action
-                    best_len = len(pattern)
-    if best_match:
-        return best_match
-
-    # 3. Patrones regex para velocidad
+    # 2. Patrones regex para velocidad (ANTES del substring match)
+    #    IMPORTANTE: los regex son más específicos y deben tener prioridad
+    #    Ej: "ventilador 3" debe ser fan_speed 3, NO fan_on por substring
     for regex, action_type in SPEED_PATTERNS:
         m = regex.search(normalized)
         if m:
             if action_type == "fan_speed":
                 speed = int(m.group(1))
+                if speed == 0:
+                    return ("fan_off", [])
                 if 1 <= speed <= 5:
                     return ("fan_speed", [str(speed)])
                 return None
+            elif action_type == "fan_off":
+                return ("fan_off", [])
             elif action_type == "fan_adjust":
                 # "sube" → speed up, "baja" → slow down
                 word = m.group(0)
@@ -1367,6 +1380,27 @@ def detect_zero_inference(message: str) -> Optional[tuple]:
                     return ("fan_speed", ["3"])
                 else:  # frío
                     return ("fan_off", [])
+
+    # 3. Substring match (comandos con palabras extras, e.g. "por favor")
+    #    Solo para comandos que sean claramente directos
+    #    Buscamos frases clave como "enciende la luz" dentro del texto
+    
+    # Pre-filtro: si el mensaje habla de exterior, solo patrones outdoor
+    outdoor_keywords = ["fuera", "exterior", "calle", "externo", "externa", "afuera"]
+    is_outdoor_query = any(kw in normalized for kw in outdoor_keywords)
+    
+    best_match = None
+    best_len = 0
+    for pattern, action in ZERO_INFERENCE_COMMANDS.items():
+        if len(pattern) >= 4 and pattern in normalized:
+            # Si es consulta outdoor, ignorar patrones indoor (temp interior, etc.)
+            if is_outdoor_query and "outdoor" not in str(action):
+                continue
+            if len(pattern) > best_len:
+                best_match = action
+                best_len = len(pattern)
+    if best_match:
+        return best_match
 
     return None
 
@@ -1591,6 +1625,7 @@ _retry_logger = logging.getLogger("model_router.retry")
 
 # Acciones que dependen del ESP32 (necesitan /dev/ttyUSB0)
 _ESP32_ACTIONS = {"fan_on", "fan_off", "fan_speed"}
+_ESP32_BOOT_KEYWORDS = ["ets Jul", "rst:0x", "configsip:", "clk_drv:", "mode:DIO", "mode:DOUT", "mode:QIO", "mode:QOUT", "load:0x3fff", "entry 0x", "SPIWP:0x", "SW_CPU_RESET", "POWERON_RESET", "SPI_FAST_FLASH_BOOT"]
 
 def _check_esp32_available() -> bool:
     """Health check proactivo: ¿está el ESP32 conectado?"""
@@ -1715,7 +1750,7 @@ def _run_home_command_with_retry(
                     by_a["retries"] += 1
             if retried:
                 _retry_logger.info(f"✅ Recuperado '{action}' en intento {attempt + 1}")
-                return True, f"[RECUPERADO tras {attempt} reintento(s)] {out}"
+                return True, out  # Ya no añadimos prefijo [RECUPERADO] aquí
             return True, out
 
         last_error = out

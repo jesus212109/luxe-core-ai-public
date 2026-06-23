@@ -32,7 +32,7 @@ class WeatherClient:
     """Obtiene condiciones meteorológicas exteriores vía wttr.in."""
 
     BASE_URL = "https://wttr.in"
-    LOCATION = "Córdoba,Spain"  # Barrio de Fátima
+    LOCATION = "14014+Córdoba,Spain"  # CP Fátima (más preciso que genérico)
     CACHE_PATH = "/tmp/outdoor_weather.json"
     CACHE_MAX_AGE = 600  # 10 min
 

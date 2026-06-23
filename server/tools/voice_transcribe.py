@@ -21,7 +21,10 @@ import requests
 from faster_whisper import WhisperModel
 
 # --- Config ---
-BOT_TOKEN = "8724852419:AAGripcUsuVXv7JXGcF92qrAwgwslW188u0"
+BOT_TOKEN = os.environ.get("TELEGRAM_BOT_TOKEN", "")
+if not BOT_TOKEN:
+    print("ERROR: TELEGRAM_BOT_TOKEN environment variable not set", file=sys.stderr)
+    sys.exit(1)
 MODEL_DIR = os.path.join(os.path.dirname(__file__), "..", "models", "whisper")
 DAEMON_SOCKET = "/tmp/whisper_daemon.sock"
 SUPPORTED_FORMATS = (".ogg", ".mp3", ".wav", ".m4a", ".flac", ".opus")

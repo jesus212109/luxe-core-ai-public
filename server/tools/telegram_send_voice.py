@@ -15,7 +15,10 @@ import sys
 import tempfile
 import requests
 
-BOT_TOKEN = "8724852419:AAGripcUsuVXv7JXGcF92qrAwgwslW188u0"
+BOT_TOKEN = os.environ.get("TELEGRAM_BOT_TOKEN", "")
+if not BOT_TOKEN:
+    print("ERROR: TELEGRAM_BOT_TOKEN environment variable not set", file=sys.stderr)
+    sys.exit(1)
 
 
 def validate_file(path: str) -> str:
