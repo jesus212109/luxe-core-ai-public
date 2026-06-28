@@ -1,9 +1,0 @@
-\babel@toc {spanish}{}\relax 
-\beamer@sectionintoc {1}{Introducción}{3}{0}{1}
-\beamer@sectionintoc {2}{Problema y Objetivos}{4}{0}{2}
-\beamer@sectionintoc {3}{Restricciones y Metodología}{7}{0}{3}
-\beamer@sectionintoc {4}{Especificación del Sistema}{11}{0}{4}
-\beamer@sectionintoc {5}{Integración de Hardware}{16}{0}{5}
-\beamer@sectionintoc {6}{Validación y Pruebas}{20}{0}{6}
-\beamer@sectionintoc {7}{Demostración}{22}{0}{7}
-\beamer@sectionintoc {8}{Conclusiones}{24}{0}{8}
