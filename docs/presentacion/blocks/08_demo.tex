@@ -8,20 +8,19 @@
 % ----------------------------------------------------------------------------
 \begin{frame}{Demostración: Test de Integración Completa}
   \begin{columns}[T]
-    \column{0.56\textwidth}
+    \column{0.55\textwidth}
     \centering
     \begin{exampleblock}{Panel multimedia}
       \centering
       \IfFileExists{captura_demo.png}{%
-        \href{run:video_demo.mp4}{%
+        \movie[width=0.95\textwidth, height=6.4cm, poster, showcontrols]{%
           \begin{tikzpicture}
-            \node[inner sep=0] (img) {\includegraphics[width=0.95\textwidth, height=4.5cm,
+            \node[inner sep=0] (img) {\includegraphics[width=0.95\textwidth, height=6.4cm,
               keepaspectratio]{captura_demo.png}};
             \fill[primary, opacity=0.7] (img.center) circle (0.7cm);
             \node[white, font=\Huge\bfseries] at (img.center) {$\blacktriangleright$};
           \end{tikzpicture}%
-        }\\[0.05cm]
-        {\footnotesize\color{accent}Clic para reproducir \texttt{video\_demo.mp4}}
+        }{video_demo.mp4}
       }{%
         \fbox{\parbox{0.85\textwidth}{\centering
           \vspace{2cm}
@@ -33,9 +32,9 @@
       }
     \end{exampleblock}
 
-    \column{0.44\textwidth}
+    \column{0.45\textwidth}
     \begin{alertblock}{Protocolo de Contingencia}
-      \footnotesize
+      \scriptsize
       \textbf{Respaldo 1 — Local}\\[0.1cm]
       \centering
       \href{run:video_demo.mp4}{\beamergotobutton{Abrir archivo local}}\\[0.15cm]
@@ -44,9 +43,9 @@
       \vspace{0.3cm}
       \textbf{Respaldo 2 — YouTube}\\[0.1cm]
       \centering
-      \href{https://youtu.be/LuxeCoreAI}{\beamergotobutton{Ver en YouTube}}\\[0.15cm]
-      {\scriptsize\texttt{youtu.be/LuxeCoreAI}}\\[0.2cm]
-      \qrcode[height=1.1cm]{https://youtu.be/LuxeCoreAI}
+      \href{https://youtu.be/\_\_rJUlpLXP4}{\beamergotobutton{Ver en YouTube}}\\[0.15cm]
+      {\scriptsize\texttt{youtu.be/\_\_rJUlpLXP4}}\\[0.2cm]
+      \qrcode[height=0.8cm]{https://youtu.be/\_\_rJUlpLXP4}
     \end{alertblock}
   \end{columns}
 \end{frame}

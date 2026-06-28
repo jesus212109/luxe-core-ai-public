@@ -46,7 +46,6 @@
     \textbf{Problema:} los dispositivos comerciales intentan abrir canales hacia sus nubes.
 
     \textbf{Solución: Router sin salida WAN}
-    \vspace{0.15cm}
     \begin{itemize}
       \item TP-Link TL-MR6400 sin tarjeta SIM
       \item Actúa como \textit{switch} Ethernet + AP WLAN
@@ -55,17 +54,15 @@
     \end{itemize}
 
     \column{0.5\textwidth}
-    \begin{exampleblock}{Hotspot Spoofing (Tuya)}
+    \begin{exampleblock}{Propiedades del segmento aislado}
       \footnotesize
-      \begin{enumerate}
-        \item Punto de acceso móvil replica SSID
-        \item Emparejamiento contra nube Tuya
-        \item Extracción de \textit{Local Key}
-        \item Se apaga el \textit{hotspot}
-        \item Dispositivo migra al segmento air-gapped
-      \end{enumerate}
-      \textbf{Local Key nunca abandona el servidor.}
-    \vspace{0.15cm}
+      \begin{itemize}
+        \item \textbf{Topología plana:} todos los dispositivos en \texttt{192.168.1.0/24}
+        \item \textbf{IPs estáticas} sin DHCP — sin dependencias externas
+        \item \textbf{Un solo router:} TL-MR6400 sin tarjeta SIM
+        \item \textbf{Sin puerta de enlace WAN:} el tráfico no puede salir
+        \item \textbf{Verificable:} retirar la SIM demuestra el diseño
+      \end{itemize}
     \end{exampleblock}
   \end{columns}
 \end{frame}
@@ -94,7 +91,7 @@
     \column{0.33\textwidth}
     \begin{exampleblock}{Node.js 24}
       \footnotesize
-      \textbf{Orquestador OpenClaw}\\[0.05cm]
+      \textbf{Orquestador OpenClaw} \smallgray{(externo)}\\[0.05cm]
       Canales Telegram y dashboard web\\[0.1cm]
       Interfaz de agentes IA\\[0.05cm]
       \texttt{exec} $\rightarrow$ drivers Python\\[0.1cm]
@@ -124,7 +121,6 @@
     \column{0.5\textwidth}
     \small
     \textbf{Control de versiones}
-    \vspace{0.15cm}
     \begin{itemize}
       \item Repositorio privado GitHub
       \item Cada contribución auditada
@@ -132,8 +128,8 @@
       \item Base para futura iniciativa empresarial
     \end{itemize}
 
+    \bigskip
     \textbf{Docs as Code}
-    \vspace{0.15cm}
     \begin{itemize}
       \item Memoria \LaTeX{} + código en mismo repo
       \item Consistencia tipográfica profesional
@@ -144,7 +140,6 @@
     \column{0.5\textwidth}
     \footnotesize
     \textbf{Uso de IA en el desarrollo}
-    \vspace{0.15cm}
     \begin{itemize}
       \item \textbf{OpenCode:} asistente de codificación (software libre)
       \item \textbf{DeepSeek V4:} modelo de inferencia vía API

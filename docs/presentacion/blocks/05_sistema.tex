@@ -45,7 +45,7 @@
 % ----------------------------------------------------------------------------
 \begin{frame}{Model Router v2: Enrutamiento en 3 Niveles}
   \sloppy
-  \begin{columns}[T, total=\textwidth]
+  \begin{columns}[T]
     \column{0.03\textwidth}
     \column{0.63\textwidth}
     \centering
@@ -179,14 +179,27 @@
 % ----------------------------------------------------------------------------
 \begin{frame}{Auto-Recuperación y Tolerancia a Fallos}
   \centering
-  \IfFileExists{figures/17_recuperacion.pdf}{%
-    \includegraphics[width=0.92\textwidth, height=5.5cm, keepaspectratio]{figures/17_recuperacion.pdf}%
-  }{
-    \textcolor{darkgray}{[Figura: ciclo de auto-recuperación]}
-  }
+  \begin{columns}[T]
+    \column{0.48\textwidth}
+    \centering
+    \IfFileExists{figures/17_recuperacion.pdf}{%
+      \includegraphics[width=\textwidth, height=4.5cm, keepaspectratio]{figures/17_recuperacion.pdf}%
+    }{
+      \textcolor{darkgray}{[Figura: ciclo de auto-recuperación]}
+    }
 
-  \vspace{0.2cm}
-  \footnotesize
-  \textbf{Circuit Breaker} (3 estados) · \textbf{Reintentos} (backoff + jitter) ·
-  \textbf{SelfHealManager} (30 s) · \textbf{ESP32 USB reset}
+    \column{0.48\textwidth}
+    \begin{exampleblock}{Flujo de recuperación}
+      \scriptsize
+      \textbf{SelfHealManager} verifica cada 30\,s la salud de
+      Ollama, Circuit Breaker y ESP32. Ante un fallo:
+      \begin{enumerate}
+        \item \textbf{Circuit Breaker} aísla el servicio
+              (\texttt{CLOSED} $\to$ \texttt{OPEN})
+        \item \textbf{Reintentos} con backoff + jitter (1\,s, 3\,s)
+        \item Si persiste: \textbf{reset USB} del ESP32
+      \end{enumerate}
+      Sin intervención humana.
+    \end{exampleblock}
+  \end{columns}
 \end{frame}
