@@ -82,36 +82,47 @@
 % ----------------------------------------------------------------------------
 %  DIAPOSITIVA XX — COMPARATIVA DE MODELOS
 % ----------------------------------------------------------------------------
-\begin{frame}{Comparativa de Modelos Evaluados}
+\begin{frame}{Selección de Modelos: Pruebas y Decisión}
   \hypertarget{s:modelos}{}
-  \centering
-  \scriptsize
-  \begin{tabular}{p{2.4cm}p{2.0cm}p{2.0cm}p{1.3cm}p{2.2cm}}
-    \toprule
-    \textbf{Modelo} & \textbf{Tarea} & \textbf{Latencia} & \textbf{Fallos} & \textbf{RAM} \\
-    \midrule
-    \rowcolor{secondarylight}
-    Qwen2.5 1.5B & Clasificación & 0,3--0,5 s & \textbf{0\%} & 0,99 GB \\
-    \textbf{Mistral 7B Q4} & \textbf{Razonamiento} & \textbf{27--60 s} & \textbf{0\%} & \textbf{4,4 GB} \\
-    \rowcolor{secondarylight}
-    Qwen3.5 4B & Razonamiento & 45--180 s & \alert{12\%} & 3,8 GB \\
-    \bottomrule
-  \end{tabular}
-
-  \vspace{0.25cm}
   \begin{columns}[T]
     \column{0.5\textwidth}
-    \begin{alertblock}{Qwen3.5: descartado}
+    \begin{block}{Proceso de evaluación}
       \footnotesize
-      Modo \textit{thinking} forzado — 0,6--1,2 tok/s en CPU.
-      3--12 min por consulta. Diseñado para GPU.
+      \textbf{Tres fases de pruebas} sobre Ryzen 5 (16 GB RAM, sin GPU)
+      \begin{itemize}
+        \item Corpus de 500 comandos reales
+        \item Modelos probados: Qwen2.5 1.5B, Mistral 7B, Qwen3.5 4B
+        \item Criterios: latencia, fiabilidad, consumo de recursos
+      \end{itemize}
+    \end{block}
+
+    \begin{alertblock}{Qwen3.5: no viable en CPU}
+      \footnotesize
+      Versión reciente con modo \textit{thinking} forzado (no opcional).
+      Resultado: 3--12 min por consulta en CPU. Diseñado para GPU.
     \end{alertblock}
+
     \column{0.5\textwidth}
-    \begin{exampleblock}{Arquitectura mixta final}
+    \begin{exampleblock}{Arquitectura seleccionada}
       \footnotesize
-      Tier~1: Qwen2.5 1.5B (determinista)\\
-      Tier~2: Mistral 7B Q4 (conversacional)
+      \textbf{Tier 1 — Qwen2.5 1.5B} (determinista)
+      \begin{itemize}
+        \item 0,3--0,5 s por consulta
+        \item Clasificación de comandos
+      \end{itemize}
+      \textbf{Tier 2 — Mistral 7B Q4} (conversacional)
+      \begin{itemize}
+        \item 27--60 s por consulta
+        \item Razonamiento complejo
+      \end{itemize}
     \end{exampleblock}
+
+    \begin{block}{Ventaja clave}
+      \footnotesize
+      \textbf{Model-agnostic:} la arquitectura permite cambiar
+      modelos sin modificaciones. Si un modelo futuro funciona
+      mejor en CPU, se integra directamente.
+    \end{block}
   \end{columns}
 \end{frame}
 
