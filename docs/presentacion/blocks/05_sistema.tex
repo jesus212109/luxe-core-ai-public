@@ -133,39 +133,33 @@
   \hypertarget{s:confort}{}
   \begin{columns}[T]
     \column{0.5\textwidth}
-    \footnotesize
-    \textbf{Comfort Advisor (ASHRAE 55)}
-    \begin{itemize}
-      \item Índice de calor NOAA (Rothfusz)
-      \item 6 zonas de confort adaptadas al clima andaluz
-      \item Desde fresco ($<$23°C) hasta extremo ($>$34°C)
-      \item Evaluación de humedad + tendencia
-    \end{itemize}
-
-    \bigskip
-    \textbf{Smart Advisor}
-    \begin{itemize}
-      \item Comparación interior vs.\ exterior (\texttt{wttr.in})
-      \item Lógica ventana/persiana (temperatura, UV, lluvia)
-      \item Detección de presencia + \textbf{\textit{Human in the Loop}}
-    \end{itemize}
+    \begin{block}{Evaluación del confort}
+      \footnotesize
+      El sistema evalúa continuamente:
+      \begin{itemize}
+        \item Condiciones interiores (temperatura, humedad)
+        \item Condiciones exteriores (clima, radiación solar)
+        \item Presencia de usuarios
+      \end{itemize}
+    \end{block}
 
     \column{0.5\textwidth}
-    \footnotesize
-    \textbf{Auto-acciones condicionales}
-    \begin{itemize}
-      \item Misma zona térmica $\rightarrow$ no actuar
-      \item +1 zona $\rightarrow$ preguntar al usuario
-      \item +2 zonas o extrema $\rightarrow$ actuar automático
-      \item Sin presencia $\rightarrow$ nunca actuar
-    \end{itemize}
-
-    \begin{exampleblock}{Principio}
-      \centering\footnotesize
-      El sistema sugiere, el usuario decide.\\
-      Umbrales claros, sin ambigüedad.
+    \begin{exampleblock}{Toma de decisiones}
+      \footnotesize
+      Basado en umbrales definidos:
+      \begin{itemize}
+        \item Sugiere acciones al usuario
+        \item Ejecuta automáticamente si el usuario acepta
+        \item Respeta siempre la decisión del usuario
+      \end{itemize}
     \end{exampleblock}
   \end{columns}
+
+  \vspace{0.5cm}
+  \begin{alertblock}{Principio clave}
+    \centering\footnotesize
+    El sistema sugiere, el usuario decide.
+  \end{alertblock}
 \end{frame}
 
 % ----------------------------------------------------------------------------
