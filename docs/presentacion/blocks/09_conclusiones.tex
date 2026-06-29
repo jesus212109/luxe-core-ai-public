@@ -14,12 +14,12 @@
     \column{0.52\textwidth}
     \begin{exampleblock}{Verificados sobre hardware real}
       \begin{itemize}
-        \item \textbf{Arquitectura 3 capas escalable}
+        \item \textbf{Arquitectura 3 capas} escalable
         \item \textbf{Control local Tuya} — ON/OFF $<$2 s
         \item \textbf{Lectura BLE Xiaomi} — GATT sin nube
         \item \textbf{FanLamp F8808} — 11 comandos
         \item \textbf{Model Router v2} — 462 patrones, 92\% cobertura
-        \item \textbf{Demos funcionando} 24 h, sin caídas
+        \item \textbf{Sistema operativo} 24 h, sin caídas
       \end{itemize}
     \end{exampleblock}
 
@@ -33,9 +33,8 @@
         Tuya Plug & \checkmark & Air-gapped \\
         BLE Xiaomi & \checkmark & GATT directo \\
         FanLamp & \checkmark & 11 comandos \\
-        OpenClaw & \checkmark & Puerto 18789 \\
         Model Router & \checkmark & 3 niveles \\
-        ESP32 HVAC & Pendiente & Firmware C++20 \\
+        ESP32 HVAC & Pendiente & C++20 \\
         \bottomrule
       \end{tabular}}%
 
@@ -54,30 +53,36 @@
   \centering
   \footnotesize
   \begin{columns}[T]
-    \column{0.5\textwidth}
-    \textbf{Corto plazo (semanas)}
+    \column{0.33\textwidth}
+    \textbf{Corto plazo}\\[0.1cm]
+    {\scriptsize (semanas)}
+    \vspace{0.15cm}
     \begin{itemize}
-      \item Firmware HVAC ESP32 + LIN (prioridad inmediata)
-      \item Bucle de control con OpenClaw sensores
-      \item \textit{Streaming} SSE para respuestas Tier~2
+      \item Firmware HVAC (ESP32 + LIN)
+      \item Bucle de control con OpenClaw
+      \item \textit{Streaming} SSE Tier~2
       \item Containerización Docker
     \end{itemize}
 
-    \bigskip
-    \textbf{Medio plazo (meses)}
+    \column{0.33\textwidth}
+    \textbf{Medio plazo}\\[0.1cm]
+    {\scriptsize (meses)}
+    \vspace{0.15cm}
     \begin{itemize}
-      \item Expansión dashboard: analíticas energéticas, ASHRAE 55
-      \item Base de datos vectorial (Qdrant/ChromaDB)
-      \item Memoria conversacional con \texttt{bge-m3}
+      \item Dashboard: analíticas, ASHRAE 55
+      \item Base de datos vectorial
+      \item Memoria conversacional
+      \item Nuevos protocolos: Zigbee, Z-Wave
     \end{itemize}
 
-    \column{0.5\textwidth}
-    \textbf{Largo plazo (investigación)}
+    \column{0.33\textwidth}
+    \textbf{Largo plazo}\\[0.1cm]
+    {\scriptsize (investigación)}
+    \vspace{0.15cm}
     \begin{itemize}
-      \item Aprendizaje adaptativo (\textit{reinforcement learning})
-      \item Nuevos protocolos: Zigbee, Z-Wave
-      \item Re-evaluación de modelos (Qwen3.5, Llama 4, DeepSeek)
-      \item \textit{Fine-tuning} con datos reales de uso doméstico
+      \item Aprendizaje adaptativo (RL)
+      \item Re-evaluación de modelos
+      \item \textit{Fine-tuning} con datos reales
     \end{itemize}
   \end{columns}
 \end{frame}
