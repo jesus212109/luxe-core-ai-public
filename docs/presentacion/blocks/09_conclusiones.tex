@@ -1,10 +1,10 @@
 % ============================================================================
-%  BLOQUE VIII — DIAPOSITIVAS 27–31: CONCLUSIONES
+%  BLOQUE VIII — DIAPOSITIVAS XX–XX: CONCLUSIONES
 % ============================================================================
 \section{Conclusiones}
 
 % ----------------------------------------------------------------------------
-%  DIAPOSITIVA 27 — LOGROS VS RÚBRICA
+%  DIAPOSITIVA XX — LOGROS VS RÚBRICA
 % ----------------------------------------------------------------------------
 \begin{frame}{Logros Alcanzados vs Rúbrica}
   \sloppy
@@ -14,13 +14,11 @@
     \begin{exampleblock}{Verificados sobre hardware real}
       \begin{itemize}
         \item \textbf{Arquitectura 3 capas escalable}
-    \vspace{0.15cm}
-        \item \textbf{Control local Tuya} (RF-03) — ON/OFF $<$2 s
-        \item \textbf{Lectura BLE Xiaomi} (RF-02) — GATT sin nube
-        \item \textbf{FanLamp F8808} (RF-04) — 11 comandos
+        \item \textbf{Control local Tuya} — ON/OFF $<$2 s
+        \item \textbf{Lectura BLE Xiaomi} — GATT sin nube
+        \item \textbf{FanLamp F8808} — 11 comandos
         \item \textbf{Model Router v2} — 462 patrones, 92\% cobertura
-        \item \textbf{SelfHealManager} — 24 h sin caídas
-        \item \textbf{Canales Telegram + Dashboard} operativos
+        \item \textbf{Demos funcionando} 24 h, sin caídas
       \end{itemize}
     \end{exampleblock}
 
@@ -43,94 +41,47 @@
       \vspace{0.15cm}
       \centering
       \textbf{5/6 módulos. 0 € en licencias.}
-    \vspace{0.15cm}
     \end{block}
   \end{columns}
 \end{frame}
 
 % ----------------------------------------------------------------------------
-%  DIAPOSITIVA 28 — TRABAJO FUTURO CORTO PLAZO
+%  DIAPOSITIVA XX — TRABAJO FUTURO (fusionada)
 % ----------------------------------------------------------------------------
-\begin{frame}{Trabajo Futuro: Corto Plazo}
-  \sloppy
+\begin{frame}{Trabajo Futuro}
+  \centering
+  \footnotesize
   \begin{columns}[T]
     \column{0.5\textwidth}
-    \begin{alertblock}{Firmware HVAC (ESP32 + LIN)}
-      \footnotesize
-      \textbf{Prioridad inmediata} — Hardware adquirido.\\
-      \texttt{esphome-fujitsu-halcyon} como base. \textbf{2--3 semanas}
-    \end{alertblock}
+    \textbf{Corto plazo (semanas)}
+    \begin{itemize}
+      \item Firmware HVAC ESP32 + LIN (prioridad inmediata)
+      \item Bucle de control con OpenClaw sensores
+      \item \textit{Streaming} SSE para respuestas Tier~2
+      \item Containerización Docker
+    \end{itemize}
 
-    \begin{alertblock}{Eliminar puente ESP32}
-      \footnotesize
-      Control BLE directo con \texttt{bleak}.
-      Elimina punto único de fallo. \textbf{1--2 semanas}
-    \end{alertblock}
-
-    \begin{exampleblock}{\textit{Streaming} SSE Tier~2}
-      \footnotesize
-      Mostrar palabras conforme se generan. \textbf{1--2 semanas}
-    \end{exampleblock}
-
-    \column{0.5\textwidth}
-    \begin{exampleblock}{Bucle de control con OpenClaw}
-      \footnotesize
-      Conectar sensores BLE, Tuya y FanLamp al orquestador.
-      \textbf{1--2 semanas}
-    \end{exampleblock}
-
-    \begin{exampleblock}{Containerización Docker}
-      \footnotesize
-      \texttt{docker-compose} para replicabilidad total.
-      \textbf{1--2 semanas}
-    \end{exampleblock}
-
-    \begin{block}{Total corto plazo}
-      \footnotesize
-      5 líneas. Estimación: \textbf{5--10 semanas}.
-    \end{block}
-  \end{columns}
-\end{frame}
-
-% ----------------------------------------------------------------------------
-%  DIAPOSITIVA 29 — TRABAJO FUTURO LARGO PLAZO
-% ----------------------------------------------------------------------------
-\begin{frame}{Trabajo Futuro: Medio y Largo Plazo}
-  \begin{columns}[T]
-    \column{0.5\textwidth}
-    \footnotesize
+    \bigskip
     \textbf{Medio plazo (meses)}
-    \vspace{0.15cm}
     \begin{itemize}
-      \item \textbf{Expansión \textit{dashboard}:}\\
-      {\scriptsize Analíticas energéticas, histórico ASHRAE 55 — 1--2 meses}
-      \item \textbf{Expansión sensorial:}\\
-      {\scriptsize Sensor presencia LD2410, micrófono/altavoz — 1--2 meses}
-      \item \textbf{Base de datos vectorial:}\\
-      {\scriptsize Qdrant o ChromaDB para recuperación semántica — 2--3 meses}
-      \item \textbf{Memoria conversacional:}\\
-      {\scriptsize \textit{Embeddings} con \texttt{bge-m3}, referencias implícitas — 2--3 meses}
+      \item Expansión dashboard: analíticas energéticas, ASHRAE 55
+      \item Base de datos vectorial (Qdrant/ChromaDB)
+      \item Memoria conversacional con \texttt{bge-m3}
     \end{itemize}
 
     \column{0.5\textwidth}
-    \footnotesize
     \textbf{Largo plazo (investigación)}
-    \vspace{0.15cm}
     \begin{itemize}
-      \item \textbf{Aprendizaje adaptativo:}\\
-      {\scriptsize \textit{Reinforcement learning} para hábitos del usuario — varios meses}
-      \item \textbf{Nuevos protocolos:}\\
-      {\scriptsize Zigbee, Z-Wave $\rightarrow$ más dispositivos — varios meses}
-      \item \textbf{Re-evaluación de modelos:}\\
-      {\scriptsize Qwen3.5 (sin \textit{thinking}), Llama 4, DeepSeek — continuo}
-      \item \textbf{\textit{Fine-tuning} clasificador:}\\
-      {\scriptsize Ajuste con datos reales de uso doméstico — varios meses}
+      \item Aprendizaje adaptativo (\textit{reinforcement learning})
+      \item Nuevos protocolos: Zigbee, Z-Wave
+      \item Re-evaluación de modelos (Qwen3.5, Llama 4, DeepSeek)
+      \item \textit{Fine-tuning} con datos reales de uso doméstico
     \end{itemize}
   \end{columns}
 \end{frame}
 
 % ----------------------------------------------------------------------------
-%  DIAPOSITIVA 30 — REFLEXIÓN PRIVACIDAD
+%  DIAPOSITIVA XX — REFLEXIÓN PRIVACIDAD
 % ----------------------------------------------------------------------------
 \begin{frame}{Privacidad por Diseño: Reflexión}
   \footnotesize
@@ -143,12 +94,10 @@
     \end{block}
 
     \textbf{Lo que hemos comprobado:}
-    \vspace{0.15cm}
     \begin{itemize}
       \item Es posible tener \textbf{ambas cosas} con hardware de consumo
       \item La arquitectura \textit{air-gapped} es viable y verificable
       \item Los modelos pequeños en local \textbf{funcionan}
-    \vspace{0.15cm}
       \item La interoperabilidad no depende de la nube: depende del software
     \end{itemize}
 
@@ -158,17 +107,16 @@
     \end{exampleblock}
 
     \begin{alertblock}{Y en pocos años...}
-      Modelos ligeros con capacidad cercana a los grandes cloud:\\
+      Modelos ligeros con capacidad cercana a los grandes cloud:\\[0.1cm]
       \centering
       \textit{«¿se puede en local?»} $\rightarrow$
       \textbf{«¿por qué en la nube?»}
-    \vspace{0.15cm}
     \end{alertblock}
   \end{columns}
 \end{frame}
 
 % ----------------------------------------------------------------------------
-%  DIAPOSITIVA 31 — CIERRE FORMAL
+%  DIAPOSITIVA XX — CIERRE FORMAL
 % ----------------------------------------------------------------------------
 {
 \setbeamertemplate{footline}{}

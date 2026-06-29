@@ -1,37 +1,34 @@
 % ============================================================================
-%  BLOQUE IV — DIAPOSITIVAS 11–16: ESPECIFICACIÓN DEL SISTEMA
+%  BLOQUE IV — DIAPOSITIVAS XX–XX: ESPECIFICACIÓN DEL SISTEMA
 % ============================================================================
 \section{Especificación del Sistema}
 
 % ----------------------------------------------------------------------------
-%  DIAPOSITIVA 12 — ARQUITECTURA DE 3 CAPAS
+%  DIAPOSITIVA XX — ARQUITECTURA DE 3 CAPAS
 % ----------------------------------------------------------------------------
 \begin{frame}{Arquitectura de 3 Capas}
   \begin{columns}[T]
-    \column{0.55\textwidth}
+    \column{0.48\textwidth}
     \footnotesize
-    \textbf{Componentes desacoplados:}
-    \vspace{0.15cm}
-    \begin{enumerate}
-      \item \textbf{Servidor de orquestación}\\
-      {\scriptsize Torre Ryzen 5, 16 GB RAM, Ubuntu Server 24.04 headless}
-      \begin{itemize}
-        \item OpenClaw Gateway (Node.js 24, puerto 18789)
-        \item Ollama (puerto 11434): qwen2.5 1.5B + mistral 7B + bge-m3
-        \item Drivers Python (Tuya, BLE, FanLamp)
-        \item Sensor Daemon + Model Router
-      \end{itemize}
-      \item \textbf{Portátil de desarrollo}\\
-      {\scriptsize SSH + Git + Arduino CLI + \LaTeX}
-      \item \textbf{Nodo firmware ESP32}\\
-      {\scriptsize Puente BLE para FanLamp \smallgray{(futuro: LIN HVAC)}}
-    \end{enumerate}
+    \textbf{Servidor de orquestación}
+    \begin{itemize}
+      \item Torre Ryzen 5, 16 GB RAM, Ubuntu Server headless
+      \item OpenClaw Gateway (Node.js 24, puerto 18789)
+      \item Ollama: qwen2.5 1.5B + mistral 7B + bge-m3
+      \item Drivers Python (Tuya, BLE, FanLamp)
+    \end{itemize}
 
-    \column{0.45\textwidth}
+    \textbf{Nodo firmware}
+    \begin{itemize}
+      \item ESP32 — puente BLE FanLamp
+      \item \smallgray{Futuro: LIN HVAC con el mismo hardware}
+    \end{itemize}
+
+    \column{0.52\textwidth}
     \IfFileExists{\memoriaimg/fig_8_1.pdf}{%
-      \includegraphics[width=\textwidth]{\memoriaimg/fig_8_1.pdf}%
+      \includegraphics[width=\textwidth, height=5.8cm, keepaspectratio]{\memoriaimg/fig_8_1.pdf}%
     }{%
-      \fbox{\parbox{0.9\textwidth}{\centering\footnotesize [Diagrama de arquitectura de 3 capas]}}%
+      \fbox{\parbox{0.9\textwidth}{\centering\footnotesize [Diagrama de arquitectura]}}%
     }
   \end{columns}
 
@@ -41,7 +38,7 @@
 \end{frame}
 
 % ----------------------------------------------------------------------------
-%  DIAPOSITIVA 13 — MODEL ROUTER V2
+%  DIAPOSITIVA XX — MODEL ROUTER V2
 % ----------------------------------------------------------------------------
 \begin{frame}{Model Router v2: Enrutamiento en 3 Niveles}
   \sloppy
@@ -81,15 +78,9 @@
 \end{frame}
 
 % ----------------------------------------------------------------------------
-%  DIAPOSITIVA 12 — COMPARATIVA DE MODELOS
+%  DIAPOSITIVA XX — COMPARATIVA DE MODELOS
 % ----------------------------------------------------------------------------
 \begin{frame}{Comparativa de Modelos Evaluados}
-  \begin{block}{Proceso iterativo de selección}
-    \small
-    Tres fases de evaluación empírica sobre Ryzen 5 (16 GB RAM, sin GPU).
-    Corpus de 500 comandos reales.
-  \end{block}
-
   \centering
   \scriptsize
   \begin{tabular}{p{2.4cm}p{2.0cm}p{2.0cm}p{1.3cm}p{2.2cm}}
@@ -98,34 +89,31 @@
     \midrule
     \rowcolor{secondarylight}
     Qwen2.5 1.5B & Clasificación & 0,3--0,5 s & \textbf{0\%} & 0,99 GB \\
-    Qwen2.5 7B & Razonamiento & 5--30 s & 0\% & 6,0 GB \\
+    \textbf{Mistral 7B Q4} & \textbf{Razonamiento} & \textbf{27--60 s} & \textbf{0\%} & \textbf{4,4 GB} \\
     \rowcolor{secondarylight}
     Qwen3.5 4B & Razonamiento & 45--180 s & \alert{12\%} & 3,8 GB \\
-    Qwen3.5 9B & Razonamiento & 180--720 s & \alert{18\%} & 7,1 GB \\
-    \rowcolor{secondarylight}
-    \textbf{Mistral 7B Q4} & \textbf{Razonamiento} & \textbf{27--60 s} & \textbf{0\%} & \textbf{4,4 GB} \\
     \bottomrule
   \end{tabular}
 
+  \vspace{0.25cm}
   \begin{columns}[T]
     \column{0.5\textwidth}
     \begin{alertblock}{Qwen3.5: descartado}
       \footnotesize
-      Modo \textit{thinking} forzado $\rightarrow$ 0,6--1,2 tok/s en CPU.
+      Modo \textit{thinking} forzado — 0,6--1,2 tok/s en CPU.
       3--12 min por consulta. Diseñado para GPU.
     \end{alertblock}
     \column{0.5\textwidth}
     \begin{exampleblock}{Arquitectura mixta final}
       \footnotesize
       Tier~1: Qwen2.5 1.5B (determinista)\\
-      Tier~2: Mistral 7B Q4 (conversacional)\\
-      Cada modelo especializado en su nivel.
+      Tier~2: Mistral 7B Q4 (conversacional)
     \end{exampleblock}
   \end{columns}
 \end{frame}
 
 % ----------------------------------------------------------------------------
-%  DIAPOSITIVA 16 — COMFORT ADVISORS
+%  DIAPOSITIVA XX — COMFORT ADVISORS
 % ----------------------------------------------------------------------------
 \begin{frame}{Asesores de Confort Térmico}
   \begin{columns}[T]
@@ -135,47 +123,38 @@
     \begin{itemize}
       \item Índice de calor NOAA (Rothfusz)
       \item 6 zonas de confort adaptadas al clima andaluz
-      \item Evaluación de humedad (seco / óptimo / húmedo)
-      \item Detección de tendencia ($^\circ$C/hora)
+      \item Desde fresco ($<$23°C) hasta extremo ($>$34°C)
+      \item Evaluación de humedad + tendencia
     \end{itemize}
 
     \bigskip
-    \textbf{Zonas térmicas:}
-    \begin{enumerate}
-      \scriptsize
-      \item Fresco ($<$ 23$^\circ$C) — sin acción
-      \item Confortable (23--26$^\circ$C)
-      \item Cálido (26--28$^\circ$C) — ventilador 1
-      \item Caluroso (28--31$^\circ$C) — ventilador 3
-      \item Muy caluroso (31--34$^\circ$C) — ventilador 4
-      \item Extremo ($>$ 34$^\circ$C) — ventilador 5, AC urgente
-    \end{enumerate}
+    \textbf{Smart Advisor}
+    \begin{itemize}
+      \item Comparación interior vs.\ exterior (\texttt{wttr.in})
+      \item Lógica ventana/persiana (temperatura, UV, lluvia)
+      \item Detección de presencia + \textbf{\textit{Human in the Loop}}
+    \end{itemize}
 
     \column{0.5\textwidth}
     \footnotesize
-    \textbf{Smart Advisor (contexto exterior)}
+    \textbf{Auto-acciones condicionales}
     \begin{itemize}
-      \item Comparación interior vs.\ exterior (\texttt{wttr.in})
-      \item Lógica ventana/persiana (dif. térmica, UV, lluvia)
-      \item Detección de presencia (manual/BLE/IP Wi-Fi)
-      \item \textbf{\textit{Human in the Loop}:} preguntar antes de actuar
-    \end{itemize}
-
-    \bigskip
-    \textbf{Auto-acciones condicionales:}
-    \begin{itemize}
-      \scriptsize
-      \item Misma zona $\rightarrow$ no actuar
-      \item +1 zona $\rightarrow$ preguntar
-      \item +2 zonas $\rightarrow$ actuar automático
-      \item Zona extrema $\rightarrow$ actuar siempre
+      \item Misma zona térmica $\rightarrow$ no actuar
+      \item +1 zona $\rightarrow$ preguntar al usuario
+      \item +2 zonas o extrema $\rightarrow$ actuar automático
       \item Sin presencia $\rightarrow$ nunca actuar
     \end{itemize}
+
+    \begin{exampleblock}{Principio}
+      \centering\footnotesize
+      El sistema sugiere, el usuario decide.\\
+      Umbrales claros, sin ambigüedad.
+    \end{exampleblock}
   \end{columns}
 \end{frame}
 
 % ----------------------------------------------------------------------------
-%  DIAPOSITIVA 17 — AUTO-RECUPERACIÓN
+%  DIAPOSITIVA XX — AUTO-RECUPERACIÓN
 % ----------------------------------------------------------------------------
 \begin{frame}{Auto-Recuperación y Tolerancia a Fallos}
   \centering

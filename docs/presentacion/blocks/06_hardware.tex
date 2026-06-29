@@ -26,9 +26,8 @@
     \column{0.65\textwidth}
     \footnotesize
     \textbf{Protocolo \texttt{tinytuya} 3.5}\\
-    Local Key en servidor · IP \texttt{192.168.1.100}\\[0.2cm]
-    \texttt{status()} · \texttt{toggle()} · \texttt{set\_state()}\\
-    Respuesta $<$2 s — validado en red air-gapped
+    Local Key en servidor · Respuesta $<$2 s\\
+    Control ON/OFF validado en red air-gapped
   \end{columns}
 \end{frame}
 
@@ -57,9 +56,8 @@
     \vspace{0.1cm}
     \begin{exampleblock}{Lectura GATT directa}
       \footnotesize
-      \texttt{ebe0ccc1} (servicio \texttt{ebe0ccb0})\\[0.05cm]
-      \texttt{cb093bef0b} $\rightarrow$ \textbf{25,07\,°C} \quad \textbf{59\,\% HR} \quad \textbf{3055\,mV}\\[0.05cm]
-      Sin \textit{bind key} · Sin nube Xiaomi
+      Decodificación de temperatura, humedad y batería\\
+      directamente del sensor, sin \textit{bind key} · Sin nube Xiaomi
     \end{exampleblock}
   \end{columns}
 \end{frame}
@@ -89,48 +87,10 @@
     \column{0.65\textwidth}
     \footnotesize
     \begin{exampleblock}{Descubrimiento clave}
-      APK FanLamp Pro decompilado (\texttt{jadx}, $\sim$60 MB)\\
-      \alert{No usa conexiones GATT, sino anuncios BLE}\\
-      Cada comando = 13 UUIDs de 16 bits · Emitidos desde ESP32
+      APK FanLamp Pro decompilado (\texttt{jadx})\\
+      \alert{No usa GATT, sino anuncios BLE}\\
+      11 comandos mapeados — emitidos desde ESP32 vía USB
     \end{exampleblock}
   \end{columns}
   \vspace*{-0.2pt}
-\end{frame}
-
-% ----------------------------------------------------------------------------
-%  DIAPOSITIVA 21 — EVOLUCIÓN PUENTE ESP32
-% ----------------------------------------------------------------------------
-\begin{frame}{Evolución del Controlador: Puente Serie ESP32}
-  \begin{columns}[T]
-    \column{0.48\textwidth}
-    \begin{alertblock}{Fase 1 — BLE directo (heredado)}
-      \footnotesize
-      \begin{itemize}
-        \item \texttt{fanlamp\_bt.py} $\rightarrow$ \texttt{btmgmt} (\texttt{bluez})
-        \item Requiere \texttt{sudo} (parar/reiniciar \texttt{bluetoothd})
-        \item Monopoliza el adaptador BT del servidor
-        \item $\sim$3 s por comando, inestable
-      \end{itemize}
-    \end{alertblock}
-
-    \column{0.52\textwidth}
-    \begin{exampleblock}{Fase 2 — Puente ESP32 (actual)}
-      \footnotesize
-      \begin{itemize}
-        \item \texttt{fanlamp\_control.py} $\rightarrow$ USB serie (115200 baud)
-        \item ESP32 como radio BLE externa dedicada
-        \item Sin \texttt{sudo} (grupo \texttt{dialout})
-        \item $\sim$1,5 s por comando, reset DTR automático
-        \item Adaptador BT del servidor libre para Xiaomi
-      \end{itemize}
-    \end{exampleblock}
-  \end{columns}
-
-  \begin{block}{Ventaja clave}
-    \footnotesize
-    \textbf{PC $\rightarrow$ USB serie $\rightarrow$ ESP32 $\rightarrow$ BLE $\rightarrow$ FanLamp}\\[0.1cm]
-    El ESP32 que hoy es puente BLE podrá ser puente LIN para la HVAC.
-    \textbf{Hardware reutilizado, coste 0 € adicional.}
-    \vspace{0.15cm}
-  \end{block}
 \end{frame}

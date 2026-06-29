@@ -4,75 +4,48 @@
 \section{Problema y Objetivos}
 
 % ----------------------------------------------------------------------------
-%  DIAPOSITIVA 4 — PROBLEMA CLOUD + FRAGMENTACIÓN
+%  DIAPOSITIVA 4 — PROBLEMA + OBJETIVO GENERAL (fusionada)
 % ----------------------------------------------------------------------------
-\begin{frame}{El Problema de la Dependencia Cloud}
+\begin{frame}{Problema y Objetivo General}
   \begin{columns}[T]
-    \column{0.48\textwidth}
-    \begin{alertblock}{Dependencia de conectividad}
-      \scriptsize
-      Sin Internet, el hogar inteligente se vuelve «inerte».
-      Afecta a calefacción, ventilación y funciones esenciales.
+    \column{0.5\textwidth}
+    \begin{alertblock}{El problema}
+      \footnotesize
+      La domótica actual depende de servicios cloud: sin Internet,
+      el hogar inteligente se vuelve inerte. Los datos de comportamiento
+      viajan a servidores de terceros.
     \end{alertblock}
 
-    \begin{alertblock}{Exposición de datos sensibles}
-      \scriptsize
-      Patrones de comportamiento viajan a servidores de terceros.
-      Caso real: empleados escuchaban grabaciones de Alexa (Bloomberg, 2019).
-    \end{alertblock}
-
-    \begin{alertblock}{Latencia y fragmentación}
-      \scriptsize
-      «Apaga la luz» tarda segundos. Tuya, Zigbee, BLE, LIN: protocolos
-      incompatibles por diseño. Ecosistemas cerrados = barreras de salida.
-    \end{alertblock}
-
-    \column{0.52\textwidth}
-    \begin{block}{Raíz común}
-      \scriptsize\centering
-      \textbf{La delegación de la inteligencia del hogar a infraestructuras externas.}
-    \end{block}
-
-    \begin{exampleblock}{La respuesta de Luxe Core AI}
-      \scriptsize
-      Capa de software que \textbf{entiende y coordina} hardware heterogéneo.\\
-      Dispositivos que no interoperan... interoperan.\\
-      Interoperabilidad = capa de orquestación inteligente, no estándares cerrados.\\[0.1cm]
-      \textit{Ejemplo real:} Enchufe Tuya $\rightarrow$ humidificador 24V + sensor Xiaomi + FanLamp
-      $\rightarrow$ un solo sistema de confort, sin modificar hardware.
+    \begin{exampleblock}{La respuesta}
+      \footnotesize
+      Sistema 100\% local de control de confort térmico orquestado
+      por IA en el \textit{edge}. Interoperabilidad real sin modificar hardware.
     \end{exampleblock}
+
+    \column{0.5\textwidth}
+    \begin{block}{Objetivo general}
+      \centering
+      Diseñar, implementar y validar un sistema de monitorización
+      y control de confort térmico que opere de forma autónoma
+      en una red local privada, eliminando cualquier dependencia
+      de servicios en la nube.
+    \end{block}
   \end{columns}
-\end{frame}
 
-% ----------------------------------------------------------------------------
-%  DIAPOSITIVA 5 — OBJETIVO GENERAL
-% ----------------------------------------------------------------------------
-\begin{frame}{Objetivo General del Proyecto}
-  \begin{block}{Objetivo general}
-    \centering
-    \textbf{Diseñar, implementar y validar un sistema\\[0.2cm]
-    de monitorización y control de confort térmico\\[0.2cm]
-    que opere de forma autónoma en una red local privada,\\[0.2cm]
-    eliminando cualquier dependencia de servicios en la nube.}
-  \end{block}
-
-  \textbf{Principios de diseño transversales:}
-
+  \vspace{0.4cm}
   \begin{columns}[T]
     \column{0.33\textwidth}
     \centering
     \textcolor{primary}{\textbf{Coste cero}}\\[0.1cm]
-    {\footnotesize 0 € en licencias,\\ APIs externas\\ o suscripciones}
-
+    {\footnotesize 0 € en licencias, APIs externas o suscripciones}
     \column{0.33\textwidth}
     \centering
     \textcolor{primary}{\textbf{Reproducibilidad}}\\[0.1cm]
-    {\footnotesize Mismo hardware\\ $\rightarrow$ replicar\\ con la documentación}
-
+    {\footnotesize Mismo hardware $\rightarrow$ replicar con la documentación}
     \column{0.33\textwidth}
     \centering
     \textcolor{primary}{\textbf{Hardware real}}\\[0.1cm]
-    {\footnotesize Pruebas solo sobre\\ dispositivos físicos,\\ no simulación}
+    {\footnotesize Pruebas sobre dispositivos físicos, no simulación}
   \end{columns}
 \end{frame}
 

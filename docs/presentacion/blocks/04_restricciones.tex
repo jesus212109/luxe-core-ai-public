@@ -4,137 +4,57 @@
 \section{Restricciones y Metodología}
 
 % ----------------------------------------------------------------------------
-%  DIAPOSITIVA 8 — FACTORES DE DISEÑO
+%  DIAPOSITIVA 7 — RESTRICCIONES + RED AIR-GAPPED (fusionada)
 % ----------------------------------------------------------------------------
-\begin{frame}{Restricciones y Factores de Diseño}
-  \begin{columns}[T]
-    \column{0.5\textwidth}
-    \begin{alertblock}{Restricción temporal y económica}
-      \footnotesize
-      \begin{itemize}
-        \item Un curso académico $\rightarrow$ MVP con funcionalidades troncales
-        \item Autor: estudiante sin ingresos — presupuesto \textbf{56,50 €}
-        \item Ingeniería inversa como alternativa a la inversión
-      \end{itemize}
-    \end{alertblock}
-
-    \column{0.5\textwidth}
-    \begin{exampleblock}{Impacto positivo}
-      \footnotesize
-      \begin{itemize}
-        \item Obliga a desarrollar competencias transferibles
-        \item GATT Xiaomi sin autenticación: una herramienta cara lo habría ocultado
-        \item Domótica inteligente $\neq$ grandes inversiones
-      \end{itemize}
-    \end{exampleblock}
-
-    \begin{block}{Evolución de infraestructura}
-      \footnotesize
-      \textbf{Fase 1:} servidores UCO con GPU (prototipado)\\
-      \textbf{Fase 2:} torre Ryzen 5, 16 GB RAM, 100\% local
-    \end{block}
-  \end{columns}
-\end{frame}
-
-% ----------------------------------------------------------------------------
-%  DIAPOSITIVA 9 — PERÍMETRO AIR-GAPPED
-% ----------------------------------------------------------------------------
-\begin{frame}{Arquitectura de Red Air-Gapped}
+\begin{frame}{Restricciones y Arquitectura Local}
   \begin{columns}[T]
     \column{0.5\textwidth}
     \footnotesize
-    \textbf{Problema:} los dispositivos comerciales intentan abrir canales hacia sus nubes.
-
-    \textbf{Solución: Router sin salida WAN}
+    \textbf{Restricciones de partida}
     \begin{itemize}
-      \item TP-Link TL-MR6400 sin tarjeta SIM
-      \item Actúa como \textit{switch} Ethernet + AP WLAN
-      \item Segmento \texttt{192.168.1.0/24} completamente aislado
-      \item IPs estáticas — aislamiento físico verificable
+      \item Un curso académico $\rightarrow$ MVP funcional
+      \item Presupuesto: \textbf{56,50 €} — hardware de consumo
+      \item Ingeniería inversa como alternativa a la inversión
+    \end{itemize}
+
+    \bigskip
+    \textbf{Infraestructura}
+    \begin{itemize}
+      \item Fase 1: servidores UCO con GPU (prototipado)
+      \item Fase 2: torre Ryzen 5, 16 GB RAM, 100\% local
     \end{itemize}
 
     \column{0.5\textwidth}
-    \begin{exampleblock}{Propiedades del segmento aislado}
-      \footnotesize
-      \begin{itemize}
-        \item \textbf{Topología plana:} todos los dispositivos en \texttt{192.168.1.0/24}
-        \item \textbf{IPs estáticas} sin DHCP — sin dependencias externas
-        \item \textbf{Un solo router:} TL-MR6400 sin tarjeta SIM
-        \item \textbf{Sin puerta de enlace WAN:} el tráfico no puede salir
-        \item \textbf{Verificable:} retirar la SIM demuestra el diseño
-      \end{itemize}
-    \end{exampleblock}
+    \footnotesize
+    \textbf{Arquitectura de red air-gapped}
+    \begin{itemize}
+      \item Router TL-MR6400 sin tarjeta SIM — sin salida WAN
+      \item Segmento \texttt{192.168.1.0/24} aislado, IPs estáticas
+      \item Tráfico no puede abandonar la subred
+      \item Verificable: retirar la SIM demuestra el diseño
+    \end{itemize}
+
+    \begin{alertblock}{Principio clave}
+      \centering\footnotesize
+      Domótica inteligente $\neq$ grandes inversiones.
+      La interoperabilidad no depende de la nube: depende del software.
+    \end{alertblock}
   \end{columns}
 \end{frame}
 
 % ----------------------------------------------------------------------------
-%  DIAPOSITIVA 10 — STACK POLÍGLOTA
-% ----------------------------------------------------------------------------
-\begin{frame}{Stack Políglota y Justificación}
-  \begin{block}{Principio}
-    \small
-    La naturaleza dual de la domótica con IA (tiempo real + flexibilidad cognitiva)
-    hace inviable un sistema monolítico en un solo lenguaje.
-  \end{block}
-
-  \begin{columns}[T]
-    \column{0.33\textwidth}
-    \begin{exampleblock}{Python 3.12}
-      \footnotesize
-      \textbf{Drivers de dispositivos}\\[0.05cm]
-      \texttt{tinytuya}, \texttt{bleak}\\[0.1cm]
-      \textbf{Enrutador de modelos}\\[0.05cm]
-      HTTP server, comfort advisors\\[0.1cm]
-      $\rightarrow$ Ecosistema maduro, prototipado rápido
-    \end{exampleblock}
-
-    \column{0.33\textwidth}
-    \begin{exampleblock}{Node.js 24}
-      \footnotesize
-      \textbf{Orquestador OpenClaw} \smallgray{(externo)}\\[0.05cm]
-      Canales Telegram y dashboard web\\[0.1cm]
-      Interfaz de agentes IA\\[0.05cm]
-      \texttt{exec} $\rightarrow$ drivers Python\\[0.1cm]
-      $\rightarrow$ Gestión nativa de canales
-    \end{exampleblock}
-
-    \column{0.33\textwidth}
-    \begin{block}{C++20}
-      \footnotesize
-      \textbf{Firmware ESP32}\\[0.05cm]
-      Control determinista de memoria\\[0.1cm]
-      Bus LIN \smallgray{(pendiente)}\\[0.1cm]
-      $\rightarrow$ \textit{Hard real-time} cuando se necesita
-    \end{block}
-  \end{columns}
-
-  \centering
-  \footnotesize
-  Cada lenguaje en su capa óptima, sin acoplar tiempos de ejecución ni forzar compromisos.
-\end{frame}
-
-% ----------------------------------------------------------------------------
-%  DIAPOSITIVA 11 — METODOLOGÍA DOCS-AS-CODE
+%  DIAPOSITIVA 8 — METODOLOGÍA DOCS-AS-CODE
 % ----------------------------------------------------------------------------
 \begin{frame}[fragile]{Metodología: Docs-as-Code y Git}
   \begin{columns}[T]
     \column{0.5\textwidth}
     \small
-    \textbf{Control de versiones}
-    \begin{itemize}
-      \item Repositorio privado GitHub
-      \item Cada contribución auditada
-      \item Trazabilidad: decisión de diseño $\leftrightarrow$ código
-      \item Base para futura iniciativa empresarial
-    \end{itemize}
-
-    \bigskip
     \textbf{Docs as Code}
     \begin{itemize}
-      \item Memoria \LaTeX{} + código en mismo repo
-      \item Consistencia tipográfica profesional
+      \item Memoria \LaTeX{} + código en mismo repositorio
       \item 9 ADR (\textit{Architecture Decision Records})
       \item Diagramas TikZ versionados
+      \item Trazabilidad: diseño $\leftrightarrow$ código
     \end{itemize}
 
     \column{0.5\textwidth}
@@ -146,8 +66,8 @@
       \item \alert{Toda línea revisada y validada por el autor}
     \end{itemize}
 
-    \begin{exampleblock}{Herramientas de gestión}
-      SSH con llaves RSA, Cockpit (puerto 9090), \texttt{systemd}.
+    \begin{exampleblock}{Gestión}
+      SSH con llaves RSA, Cockpit, \texttt{systemd}.
     \end{exampleblock}
   \end{columns}
 \end{frame}
