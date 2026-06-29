@@ -168,27 +168,21 @@
 \begin{frame}{Auto-Recuperación y Tolerancia a Fallos}
   \hypertarget{s:recuperacion}{}
   \centering
-  \begin{columns}[T]
-    \column{0.48\textwidth}
-    \centering
-    \IfFileExists{figures/17_recuperacion.pdf}{%
-      \includegraphics[width=\textwidth, height=4.5cm, keepaspectratio]{figures/17_recuperacion.pdf}%
-    }{
-      \textcolor{darkgray}{[Figura: ciclo de auto-recuperación]}
-    }
+  \IfFileExists{figures/17_recuperacion.pdf}{%
+    \includegraphics[width=0.92\textwidth, height=4.3cm, keepaspectratio]{figures/17_recuperacion.pdf}%
+  }{
+    \textcolor{darkgray}{[Figura: ciclo de auto-recuperación]}
+  }
 
-    \column{0.48\textwidth}
-    \begin{exampleblock}{Flujo de recuperación}
-      \scriptsize
-      \textbf{SelfHealManager} verifica cada 30\,s la salud de
-      Ollama, Circuit Breaker y ESP32. Ante un fallo:
-      \begin{enumerate}
-        \item \textbf{Circuit Breaker} aísla el servicio
-              (\texttt{CLOSED} $\to$ \texttt{OPEN})
-        \item \textbf{Reintentos} con backoff + jitter (1\,s, 3\,s)
-        \item Si persiste: \textbf{reset USB} del ESP32
-      \end{enumerate}
-      Sin intervención humana.
-    \end{exampleblock}
-  \end{columns}
+  \begin{exampleblock}{Flujo de recuperación}
+    \scriptsize
+    \textbf{SelfHealManager} verifica cada 30\,s la salud de Ollama,
+    Circuit Breaker y ESP32. Ante un fallo:
+    \begin{enumerate}
+      \item \textbf{Circuit Breaker} aísla el servicio (\texttt{CLOSED} $\to$ \texttt{OPEN})
+      \item \textbf{Reintentos} con backoff + jitter (1\,s, 3\,s)
+      \item Si persiste: \textbf{reset USB} del ESP32
+    \end{enumerate}
+    Sin intervención humana.
+  \end{exampleblock}
 \end{frame}
