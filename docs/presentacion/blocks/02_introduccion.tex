@@ -8,8 +8,47 @@
 {
 \setbeamertemplate{footline}{}
 \begin{frame}{Índice}
-  \hypertarget{indice}{}%
-  \tableofcontents
+  \hypertarget{indice}{}
+  \footnotesize
+  \begin{columns}[T]
+    \column{0.5\textwidth}
+    \hyperlink{s:intro}{\textbf{1. Introducción}}\\
+    \hspace{0.45cm}\small\color{darkgray}\hyperlink{s:intro}{Resumen Ejecutivo}\\[0.25cm]
+
+    \hyperlink{s:problema}{\textbf{2. Problema y Objetivos}}\\
+    \hspace{0.45cm}\small\color{darkgray}\hyperlink{s:problema}{Problema y Objetivo General}\\
+    \hspace{0.45cm}\small\color{darkgray}\hyperlink{s:objetivos}{Objetivos Específicos}\\[0.25cm]
+
+    \hyperlink{s:restricciones}{\textbf{3. Restricciones y Metodología}}\\
+    \hspace{0.45cm}\small\color{darkgray}\hyperlink{s:restricciones}{Restricciones y Arq. Local}\\
+    \hspace{0.45cm}\small\color{darkgray}\hyperlink{s:metodologia}{Metodología}\\[0.25cm]
+
+    \hyperlink{s:arquitectura}{\textbf{4. Especificación del Sistema}}\\
+    \hspace{0.45cm}\small\color{darkgray}\hyperlink{s:arquitectura}{Arquitectura de 3 Capas}\\
+    \hspace{0.45cm}\small\color{darkgray}\hyperlink{s:router}{Model Router v2}\\
+    \hspace{0.45cm}\small\color{darkgray}\hyperlink{s:modelos}{Comparativa de Modelos}\\
+    \hspace{0.45cm}\small\color{darkgray}\hyperlink{s:confort}{Asesores de Confort}\\
+    \hspace{0.45cm}\small\color{darkgray}\hyperlink{s:recuperacion}{Auto-Recuperación}
+
+    \column{0.5\textwidth}
+    \hyperlink{s:tuya}{\textbf{5. Integración de Hardware}}\\
+    \hspace{0.45cm}\small\color{darkgray}\hyperlink{s:tuya}{Tuya: Control Local}\\
+    \hspace{0.45cm}\small\color{darkgray}\hyperlink{s:xiaomi}{Sensores BLE Xiaomi}\\
+    \hspace{0.45cm}\small\color{darkgray}\hyperlink{s:fanlamp}{FanLamp: Ing. Inversa}\\[0.25cm]
+
+    \hyperlink{s:validacion}{\textbf{6. Validación y Pruebas}}\\
+    \hspace{0.45cm}\small\color{darkgray}\hyperlink{s:validacion}{Pruebas y Resultados}\\[0.25cm]
+
+    \hyperlink{s:democontenido}{\textbf{7. Demostración}}\\
+    \hspace{0.45cm}\small\color{darkgray}\hyperlink{s:democontenido}{Vídeo de Demostración}\\
+    \hspace{0.45cm}\small\color{darkgray}\hyperlink{s:telegram}{Telegram + Dashboard}\\[0.25cm]
+
+    \hyperlink{s:logros}{\textbf{8. Conclusiones}}\\
+    \hspace{0.45cm}\small\color{darkgray}\hyperlink{s:logros}{Logros Alcanzados}\\
+    \hspace{0.45cm}\small\color{darkgray}\hyperlink{s:futuro}{Trabajo Futuro}\\
+    \hspace{0.45cm}\small\color{darkgray}\hyperlink{s:privacidad}{Privacidad por Diseño}\\
+    \hspace{0.45cm}\small\color{darkgray}\hyperlink{s:cierre}{Cierre}
+  \end{columns}
 \end{frame}
 }
 
@@ -19,6 +58,7 @@
 %  DIAPOSITIVA 3 — RESUMEN EJECUTIVO + MOTIVACIÓN
 % ----------------------------------------------------------------------------
 \begin{frame}{Resumen Ejecutivo y Motivación}
+  \hypertarget{s:intro}{}
   \begin{columns}[T]
     \column{0.48\textwidth}
     \IfFileExists{figures/03_arquitectura.pdf}{%
