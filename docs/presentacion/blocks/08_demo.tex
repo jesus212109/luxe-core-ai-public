@@ -13,11 +13,11 @@
     \centering
     \begin{exampleblock}{Panel multimedia}
       \centering
-      \IfFileExists{captura_demo.png}{%
+      \IfFileExists{captura_demo.jpg}{%
         \movie[width=0.95\textwidth, height=6.4cm, poster, showcontrols]{%
           \begin{tikzpicture}
             \node[inner sep=0] (img) {\includegraphics[width=0.95\textwidth, height=6.4cm,
-              keepaspectratio]{captura_demo.png}};
+              keepaspectratio]{captura_demo.jpg}};
             \fill[primary, opacity=0.7] (img.center) circle (0.7cm);
             \node[white, font=\Huge\bfseries] at (img.center) {$\blacktriangleright$};
           \end{tikzpicture}%
