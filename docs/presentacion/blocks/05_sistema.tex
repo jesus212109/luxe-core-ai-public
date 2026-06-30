@@ -6,7 +6,7 @@
 % ----------------------------------------------------------------------------
 %  DIAPOSITIVA XX — ARQUITECTURA DE 3 CAPAS
 % ----------------------------------------------------------------------------
-\begin{frame}{Arquitectura de 3 Capas}
+\begin{frame}{4 — Arquitectura de 3 Capas}
   \hypertarget{s:arquitectura}{}
   \begin{columns}[T]
     \column{0.48\textwidth}
@@ -41,7 +41,7 @@
 % ----------------------------------------------------------------------------
 %  DIAPOSITIVA XX — MODEL ROUTER V2
 % ----------------------------------------------------------------------------
-\begin{frame}{Model Router v2: Enrutamiento en 3 Niveles}
+\begin{frame}{4 — Model Router v2: Enrutamiento en 3 Niveles}
   \hypertarget{s:router}{}
   \sloppy
   \begin{columns}[T]
@@ -80,7 +80,7 @@
 % ----------------------------------------------------------------------------
 %  DIAPOSITIVA XX — COMPARATIVA DE MODELOS
 % ----------------------------------------------------------------------------
-\begin{frame}{Selección de Modelos: Pruebas y Decisión}
+\begin{frame}{4 — Selección de Modelos: Pruebas y Decisión}
   \hypertarget{s:modelos}{}
   \begin{columns}[T]
     \column{0.5\textwidth}
@@ -127,7 +127,7 @@
 % ----------------------------------------------------------------------------
 %  DIAPOSITIVA XX — COMFORT ADVISORS
 % ----------------------------------------------------------------------------
-\begin{frame}{Asesores de Confort Térmico}
+\begin{frame}{4 — Asesores de Confort Térmico}
   \hypertarget{s:confort}{}
   \begin{columns}[T]
     \column{0.5\textwidth}
@@ -161,26 +161,8 @@
 \end{frame}
 
 % ----------------------------------------------------------------------------
-%  DIAPOSITIVA XX — AUTO-RECUPERACIÓN
+%  DIAPOSITIVA AUTO-RECUPERACIÓN — ELIMINADA
 % ----------------------------------------------------------------------------
-\begin{frame}{Auto-Recuperación y Tolerancia a Fallos}
-  \hypertarget{s:recuperacion}{}
-  \centering
-  \IfFileExists{figures/17_recuperacion.pdf}{%
-    \includegraphics[width=0.92\textwidth, height=4.3cm, keepaspectratio]{figures/17_recuperacion.pdf}%
-  }{
-    \textcolor{darkgray}{[Figura: ciclo de auto-recuperación]}
-  }
+% (Esta slide fue eliminada para reducir redundancia.
+%  El concepto de Circuit Breaker se cubre en la slide 16 — Validación.)
 
-  \begin{exampleblock}{Flujo de recuperación}
-    \scriptsize
-    \textbf{SelfHealManager} verifica cada 30\,s la salud de Ollama,
-    Circuit Breaker y ESP32. Ante un fallo:
-    \begin{enumerate}
-      \item \textbf{Circuit Breaker} aísla el servicio (\texttt{CLOSED} $\to$ \texttt{OPEN})
-      \item \textbf{Reintentos} con backoff + jitter (1\,s, 3\,s)
-      \item Si persiste: \textbf{reset USB} del ESP32
-    \end{enumerate}
-    Sin intervención humana.
-  \end{exampleblock}
-\end{frame}
